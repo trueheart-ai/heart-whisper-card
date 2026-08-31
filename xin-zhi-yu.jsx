@@ -2089,7 +2089,7 @@ function PrimaryButton({ children, onClick, disabled, style, ...rest }) {
       type="button" onClick={onClick} disabled={disabled} className="press primary-glow"
       {...rest}
       style={{
-        fontFamily: FONT_BODY, fontSize: 14, letterSpacing: "0.08em", fontWeight: 500,
+        fontFamily: FONT_BODY, fontSize: 15.5, letterSpacing: "0.08em", fontWeight: 500,
         border: "1px solid rgba(255,255,255,0.7)", cursor: disabled ? "default" : "pointer", opacity: disabled ? 0.42 : 1,
         padding: "14px 28px", borderRadius: 999,
         background: `linear-gradient(135deg, ${C.goldDeep}, #E6C77C)`, color: "#FFFDF8",
@@ -2105,7 +2105,7 @@ function PrimaryButton({ children, onClick, disabled, style, ...rest }) {
 function GhostButton({ children, onClick, style, night, ...rest }) {
   return (
     <button type="button" onClick={onClick} className="press" {...rest} style={{
-      fontFamily: FONT_BODY, fontSize: 13, letterSpacing: "0.06em",
+      fontFamily: FONT_BODY, fontSize: 14.5, letterSpacing: "0.06em",
       border: `1px solid ${night ? "rgba(255,245,232,0.2)" : "rgba(185,139,67,0.22)"}`,
       background: night ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.62)",
       color: night ? NIGHT_TEXT : C.inkSoft,
@@ -2123,7 +2123,7 @@ function QuietAction({ icon, children, onClick, active, activeColor = C.milkDeep
     <button type="button" onClick={onClick} className="press" {...rest} style={{
       border: "none", background: active ? "rgba(243,217,212,0.32)" : "transparent", cursor: "pointer",
       display: "flex", alignItems: "center", gap: 7, padding: "7px 10px", borderRadius: 999,
-      fontFamily: FONT_BODY, fontSize: 12.5, letterSpacing: "0.04em",
+      fontFamily: FONT_BODY, fontSize: 14, letterSpacing: "0.04em",
       color: active ? activeColor : (night ? NIGHT_SOFT : C.inkSoft),
     }}>
       {icon}
@@ -2315,7 +2315,7 @@ function RitualStage({ mode, deckKey, onComplete, recentIds = [] }) {
       {stageText && (
         <div style={{
           textAlign: "center", marginTop: 30, fontFamily: FONT_DISPLAY,
-          color: C.inkSoft, fontSize: 15, letterSpacing: "0.4em", paddingLeft: "0.4em",
+          color: C.inkSoft, fontSize: 16.5, letterSpacing: "0.4em", paddingLeft: "0.4em",
           animation: "fadeIn 0.9s ease",
         }}>
           {stageText}
@@ -2450,7 +2450,7 @@ function TodayScreen({ mood, setMood, onGoDraw, favorites, toggleFavorite, onSha
           <div className="recommend-ornament" aria-hidden="true"><DreamStar size={9} opacity={0.55} /></div>
           <div className="recommend-kicker">For this moment</div>
           <div className="recommend-copy">{rec.text}</div>
-          <PrimaryButton onClick={() => onGoDraw(rec.mode, rec.deck)} style={{ padding: "12px 22px", fontSize: 13 }}>
+          <PrimaryButton onClick={() => onGoDraw(rec.mode, rec.deck)} style={{ padding: "12px 22px", fontSize: 14.5 }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 7 }}>
               去抽一張 <ChevronRight size={15} strokeWidth={1.5} />
             </span>
@@ -2683,7 +2683,7 @@ function JournalScreen({ entries, addEntry, removeEntry, latestCard, clearLatest
           />
         </div>
         <div className="journal-save-row">
-          <PrimaryButton onClick={save} disabled={!canSave} style={{ padding: "12px 25px", fontSize: 13 }}>
+          <PrimaryButton onClick={save} disabled={!canSave} style={{ padding: "12px 25px", fontSize: 14.5 }}>
             存下今天
           </PrimaryButton>
         </div>
@@ -3004,7 +3004,6 @@ function BedtimeScreen() {
           </div>
           <div className="night-crescent"><CrescentMark size={66} night /></div>
           <div className="night-intro-title">今天辛苦了。</div>
-          <div className="night-intro-copy">從 37 張完整晚安療癒卡裡，<br />直接抽出一張成品卡。</div>
           <PrimaryButton onClick={drawNightCard} style={{ background: "linear-gradient(135deg, #C59A4D, #E8CB7D)", boxShadow: "0 14px 34px -14px rgba(224,184,94,0.48)" }}>
             抽今日晚安卡
           </PrimaryButton>
@@ -3018,7 +3017,6 @@ function BedtimeScreen() {
               <img src={card.image} alt="抽到的晚安療癒卡" className="night-image-card" />
             </div>
           </div>
-          <div className="night-card-deck-note">這是完整成品卡圖，先把它留在今晚，慢慢讀就好。</div>
           <div className="night-action-row night-card-actions">
             <GhostButton night onClick={drawNightCard}>換一張</GhostButton>
             <PrimaryButton onClick={() => setStep(2)} style={{ background: "linear-gradient(135deg, #C59A4D, #E8CB7D)", boxShadow: "0 12px 30px -16px rgba(224,184,94,0.46)" }}>
@@ -3293,17 +3291,17 @@ export default function App() {
         }
         .brand-mark { grid-row: 1 / 3; align-self: center; opacity: .86; }
         .brand-words { display: flex; align-items: baseline; gap: 8px; white-space: nowrap; }
-        .brand-cn { font-family: ${FONT_DISPLAY}; font-size: 18px; font-weight: 500; letter-spacing: .16em; line-height: 1.45; }
-        .brand-en { font-family: ${FONT_EN}; font-size: 10px; font-style: italic; font-weight: 500; color: ${C.inkFaint}; letter-spacing: .10em; }
-        .brand-tagline { font-family: ${FONT_BODY}; font-size: 9px; color: ${C.inkFaint}; letter-spacing: .16em; margin-top: 1px; }
+        .brand-cn { font-family: ${FONT_DISPLAY}; font-size: 20px; font-weight: 500; letter-spacing: .16em; line-height: 1.45; }
+        .brand-en { font-family: ${FONT_EN}; font-size: 11.5px; font-style: italic; font-weight: 500; color: ${C.inkFaint}; letter-spacing: .10em; }
+        .brand-tagline { font-family: ${FONT_BODY}; font-size: 10.5px; color: ${C.inkFaint}; letter-spacing: .16em; margin-top: 1px; }
         .brand-lockup-night { color: ${NIGHT_TEXT}; }
         .brand-lockup-night .brand-en, .brand-lockup-night .brand-tagline { color: rgba(255,245,232,.44); }
 
         .section-title { margin-bottom: 22px; position: relative; }
-        .section-title-kicker { display: flex; align-items: center; gap: 6px; font-family: ${FONT_EN}; font-size: 11px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: ${C.goldDeep}; margin-bottom: 7px; }
+        .section-title-kicker { display: flex; align-items: center; gap: 6px; font-family: ${FONT_EN}; font-size: 12.5px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: ${C.goldDeep}; margin-bottom: 7px; }
         .section-title-star { display: inline-flex; }
-        .section-title-main { font-family: ${FONT_DISPLAY}; font-size: 25px; font-weight: 500; letter-spacing: .055em; line-height: 1.55; color: ${C.ink}; }
-        .section-title-note { margin-top: 8px; max-width: 92%; font-family: ${FONT_BODY}; font-size: 12px; line-height: 1.85; color: ${C.inkSoft}; }
+        .section-title-main { font-family: ${FONT_DISPLAY}; font-size: 27px; font-weight: 500; letter-spacing: .055em; line-height: 1.55; color: ${C.ink}; }
+        .section-title-note { margin-top: 8px; max-width: 92%; font-family: ${FONT_BODY}; font-size: 13.5px; line-height: 1.85; color: ${C.inkSoft}; }
         .section-title-rule { display: flex; align-items: center; margin-top: 11px; width: 62px; }
         .section-title-rule::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: ${C.gold}; box-shadow: 0 0 0 4px rgba(215,177,100,.08); }
         .section-title-rule span { height: 1px; flex: 1; margin-left: 7px; background: linear-gradient(90deg, rgba(199,153,80,.45), transparent); }
@@ -3329,37 +3327,37 @@ export default function App() {
         .hero-stars { position: absolute; display: flex; gap: 8px; align-items: center; }
         .hero-stars-left { left: 23px; top: 22px; }
         .hero-moon-mark { position: absolute; right: 19px; top: 14px; opacity: .62; }
-        .hero-date { position: relative; z-index: 2; font-family: ${FONT_EN}; font-size: 11.5px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: ${C.goldDeep}; margin-bottom: 9px; }
-        .hero-heading { position: relative; z-index: 2; margin: 0; font-family: ${FONT_DISPLAY}; font-size: 30px; line-height: 1.52; font-weight: 500; letter-spacing: .06em; color: ${C.ink}; }
+        .hero-date { position: relative; z-index: 2; font-family: ${FONT_EN}; font-size: 13px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: ${C.goldDeep}; margin-bottom: 9px; }
+        .hero-heading { position: relative; z-index: 2; margin: 0; font-family: ${FONT_DISPLAY}; font-size: 32px; line-height: 1.52; font-weight: 500; letter-spacing: .06em; color: ${C.ink}; }
         .hero-rule { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; gap: 8px; margin: 9px 0 5px; }
         .hero-rule span { width: 35px; height: 1px; background: rgba(191,144,71,.28); }
         .hero-art-wrap { position: relative; width: 286px; max-width: 90%; margin: 6px auto 0; min-height: 238px; display: flex; align-items: flex-end; justify-content: center; }
         .hero-art-wrap img { width: 100%; height: auto; position: relative; z-index: 1; opacity: .82; filter: drop-shadow(0 12px 17px rgba(89,67,94,.12)); }
         .hero-art-glow { position: absolute; inset: 12% 7% 2%; z-index: 0; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.68), transparent 73%); filter: blur(8px); pointer-events: none; }
         .hero-copy-wrap { position: absolute; z-index: 5; left: 50%; top: 47%; transform: translate(-50%, -50%); display: inline-flex; width: max-content; max-width: calc(100% - 34px); padding: 13px 22px; border-radius: 22px; background: linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,250,245,.62)); border: 1px solid rgba(255,255,255,.72); box-shadow: 0 18px 36px -22px rgba(109,87,97,.26), inset 0 1px 0 rgba(255,255,255,.34); backdrop-filter: blur(12px) saturate(108%); -webkit-backdrop-filter: blur(12px) saturate(108%); }
-        .hero-copy { margin: 0; font-family: ${FONT_DISPLAY}; font-size: 15px; line-height: 1.92; color: ${C.ink}; font-weight: 500; letter-spacing: .035em; text-shadow: 0 1px 0 rgba(255,255,255,.82), 0 0 10px rgba(255,255,255,.28); white-space: nowrap; }
+        .hero-copy { margin: 0; font-family: ${FONT_DISPLAY}; font-size: 16.5px; line-height: 1.92; color: ${C.ink}; font-weight: 500; letter-spacing: .035em; text-shadow: 0 1px 0 rgba(255,255,255,.82), 0 0 10px rgba(255,255,255,.28); white-space: nowrap; }
 
         .panel-heading-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 13px; }
-        .panel-eyebrow, .compose-kicker, .list-kicker, .deck-label, .recommend-kicker, .guidance-kicker, .for-you-kicker, .recurring-kicker { font-family: ${FONT_EN}; font-size: 10.5px; font-weight: 500; letter-spacing: .17em; text-transform: uppercase; color: ${C.goldDeep}; }
-        .panel-heading { margin-top: 4px; font-family: ${FONT_DISPLAY}; font-size: 15.5px; font-weight: 500; letter-spacing: .045em; color: ${C.ink}; }
-        .panel-helper { max-width: 122px; text-align: right; font-family: ${FONT_BODY}; font-size: 10px; line-height: 1.55; color: ${C.inkFaint}; }
+        .panel-eyebrow, .compose-kicker, .list-kicker, .deck-label, .recommend-kicker, .guidance-kicker, .for-you-kicker, .recurring-kicker { font-family: ${FONT_EN}; font-size: 12px; font-weight: 500; letter-spacing: .17em; text-transform: uppercase; color: ${C.goldDeep}; }
+        .panel-heading { margin-top: 4px; font-family: ${FONT_DISPLAY}; font-size: 17px; font-weight: 500; letter-spacing: .045em; color: ${C.ink}; }
+        .panel-helper { max-width: 122px; text-align: right; font-family: ${FONT_BODY}; font-size: 11.5px; line-height: 1.55; color: ${C.inkFaint}; }
         .mood-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
         .mood-card { border: 1px solid rgba(255,255,255,.88); border-radius: 19px; min-height: 84px; padding: 10px 4px 9px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; background: linear-gradient(160deg, rgba(255,255,255,.84), rgba(255,250,246,.66)); box-shadow: 0 10px 24px -20px rgba(92,68,80,.44); color: ${C.inkSoft}; }
         .mood-card-on { border-color: rgba(210,165,94,.50); background: linear-gradient(160deg, rgba(255,255,255,.98), rgba(252,241,233,.94)); box-shadow: 0 16px 28px -16px rgba(201,145,95,.50); transform: translateY(-3px); }
         .mood-art-shell { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle, rgba(255,255,255,.74), rgba(255,255,255,.10) 68%, transparent 70%); }
-        .mood-label { font-family: ${FONT_BODY}; font-size: 11.5px; white-space: nowrap; letter-spacing: .02em; color: ${C.inkSoft}; }
+        .mood-label { font-family: ${FONT_BODY}; font-size: 13px; white-space: nowrap; letter-spacing: .02em; color: ${C.inkSoft}; }
         .mood-card-on .mood-label { color: ${C.ink}; }
 
         .recommend-card { background: linear-gradient(145deg, rgba(255,250,239,.94), rgba(244,233,249,.77)) !important; }
         .recommend-ornament { position: absolute; right: 18px; top: 16px; opacity: .66; }
-        .recommend-copy { margin: 9px 0 16px; font-family: ${FONT_BODY}; font-size: 13px; line-height: 1.9; color: ${C.ink}; }
+        .recommend-copy { margin: 9px 0 16px; font-family: ${FONT_BODY}; font-size: 14.5px; line-height: 1.9; color: ${C.ink}; }
         .daily-quote-card { position: relative; overflow: hidden; border-radius: 27px; padding: 23px 21px 20px; background: linear-gradient(150deg, rgba(255,250,245,.96), rgba(248,228,231,.80) 60%, rgba(231,221,242,.78)); border: 1px solid rgba(255,255,255,.88); box-shadow: 0 20px 50px -28px rgba(113,76,98,.38); }
         .quote-watermark { position: absolute; right: -15px; bottom: -16px; opacity: .12; }
-        .quote-kicker { display: flex; align-items: center; gap: 7px; font-family: ${FONT_BODY}; font-size: 11px; letter-spacing: .09em; color: ${C.goldDeep}; margin-bottom: 10px; }
-        .daily-quote { margin: 0; position: relative; z-index: 1; font-family: ${FONT_DISPLAY}; font-size: 18px; font-weight: 500; line-height: 2.08; letter-spacing: .035em; color: ${C.ink}; }
+        .quote-kicker { display: flex; align-items: center; gap: 7px; font-family: ${FONT_BODY}; font-size: 12.5px; letter-spacing: .09em; color: ${C.goldDeep}; margin-bottom: 10px; }
+        .daily-quote { margin: 0; position: relative; z-index: 1; font-family: ${FONT_DISPLAY}; font-size: 20px; font-weight: 500; line-height: 2.08; letter-spacing: .035em; color: ${C.ink}; }
         .quote-actions { display: flex; align-items: center; gap: 7px; margin-top: 17px; padding-top: 13px; border-top: 1px solid ${C.line}; position: relative; z-index: 1; }
 
-        .field { width: 100%; border: 1px solid rgba(134,102,90,.13); border-radius: 18px; background: rgba(255,255,255,.66); padding: 14px 15px; resize: none; outline: none; font-family: ${FONT_BODY}; font-size: 15px; line-height: 1.9; color: ${C.ink}; box-shadow: inset 0 1px 0 rgba(255,255,255,.68); transition: border-color .3s ease, box-shadow .3s ease, background .3s ease; }
+        .field { width: 100%; border: 1px solid rgba(134,102,90,.13); border-radius: 18px; background: rgba(255,255,255,.66); padding: 14px 15px; resize: none; outline: none; font-family: ${FONT_BODY}; font-size: 16.5px; line-height: 1.9; color: ${C.ink}; box-shadow: inset 0 1px 0 rgba(255,255,255,.68); transition: border-color .3s ease, box-shadow .3s ease, background .3s ease; }
         .field::placeholder { color: ${C.inkFaint}; }
         .field:focus { border-color: rgba(200,156,78,.58); background: rgba(255,255,255,.84); box-shadow: 0 0 0 3px rgba(222,191,126,.10); }
         .field-night { color: ${NIGHT_TEXT}; border-color: rgba(255,245,232,.14); background: rgba(255,255,255,.055); }
@@ -3367,15 +3365,15 @@ export default function App() {
         .field-night:focus { border-color: rgba(221,193,235,.45); background: rgba(255,255,255,.07); }
 
         .seg { display: flex; gap: 6px; padding: 5px; border: 1px solid rgba(255,255,255,.78); background: rgba(255,255,255,.50); border-radius: 999px; box-shadow: 0 10px 28px -22px rgba(80,56,74,.45); }
-        .seg-item { flex: 1; min-width: 0; border: none; background: transparent; cursor: pointer; padding: 10px 6px; border-radius: 999px; font-family: ${FONT_BODY}; font-size: 12.5px; white-space: nowrap; letter-spacing: .02em; color: ${C.inkSoft}; transition: all .3s ease; }
+        .seg-item { flex: 1; min-width: 0; border: none; background: transparent; cursor: pointer; padding: 10px 6px; border-radius: 999px; font-family: ${FONT_BODY}; font-size: 14px; white-space: nowrap; letter-spacing: .02em; color: ${C.inkSoft}; transition: all .3s ease; }
         .seg-on { color: #FFFDF8; background: linear-gradient(135deg, #4B3429, #6B4939); box-shadow: 0 8px 20px -13px rgba(78,50,38,.58); }
 
         .deck-heading-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin: 23px 0 10px; }
-        .deck-selected { margin-top: 4px; font-family: ${FONT_BODY}; font-size: 12px; color: ${C.inkSoft}; }
-        .deck-scroll-hint { font-family: ${FONT_BODY}; font-size: 9.5px; color: ${C.inkFaint}; white-space: nowrap; }
+        .deck-selected { margin-top: 4px; font-family: ${FONT_BODY}; font-size: 13.5px; color: ${C.inkSoft}; }
+        .deck-scroll-hint { font-family: ${FONT_BODY}; font-size: 11px; color: ${C.inkFaint}; white-space: nowrap; }
         .deck-rail { display: grid; grid-auto-flow: column; grid-template-rows: repeat(2, 38px); grid-auto-columns: max-content; gap: 7px 8px; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: none; padding: 2px 20px 8px 1px; margin-right: -18px; scroll-snap-type: x proximity; }
         .deck-rail::-webkit-scrollbar { display: none; }
-        .deck-chip { scroll-snap-align: start; height: 38px; display: inline-flex; align-items: center; gap: 7px; border: 1px solid rgba(140,108,95,.12); background: rgba(255,255,255,.64); border-radius: 999px; padding: 0 13px; cursor: pointer; font-family: ${FONT_BODY}; font-size: 11.5px; white-space: nowrap; color: ${C.inkSoft}; box-shadow: 0 8px 20px -18px rgba(85,61,72,.42); }
+        .deck-chip { scroll-snap-align: start; height: 38px; display: inline-flex; align-items: center; gap: 7px; border: 1px solid rgba(140,108,95,.12); background: rgba(255,255,255,.64); border-radius: 999px; padding: 0 13px; cursor: pointer; font-family: ${FONT_BODY}; font-size: 13px; white-space: nowrap; color: ${C.inkSoft}; box-shadow: 0 8px 20px -18px rgba(85,61,72,.42); }
         .deck-chip-on { border-color: rgba(204,158,75,.58); background: rgba(255,249,236,.92); color: ${C.ink}; box-shadow: 0 10px 22px -16px rgba(186,136,57,.48); }
         .deck-chip-swatch { width: 11px; height: 11px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(91,68,60,.08), 0 2px 5px rgba(91,68,60,.07); }
         .ritual-paper { overflow: visible !important; background: radial-gradient(circle at 50% 28%, rgba(219,203,239,.23), transparent 42%), linear-gradient(160deg, rgba(255,255,255,.82), rgba(255,248,241,.68)) !important; }
@@ -3392,10 +3390,10 @@ export default function App() {
         .card-back-orbit::before, .card-back-orbit::after { content: ""; position: absolute; inset: 12%; border-radius: 50%; border: 1px solid rgba(203,170,123,.26); }
         .card-back-orbit::after { inset: 30%; background: radial-gradient(circle, rgba(255,255,255,.48), rgba(255,255,255,0) 70%); }
         .card-back-topstar { position: absolute; top: 20%; left: 50%; transform: translateX(-50%); opacity: .9; }
-        .card-side-title { position: absolute; left: 50%; transform: translateX(-50%); font-family: ${FONT_EN}; font-size: 8px; letter-spacing: .28em; color: rgba(125,96,81,.52); text-shadow: 0 1px 0 rgba(255,255,255,.65); white-space: nowrap; }
+        .card-side-title { position: absolute; left: 50%; transform: translateX(-50%); font-family: ${FONT_EN}; font-size: 9.5px; letter-spacing: .28em; color: rgba(125,96,81,.52); text-shadow: 0 1px 0 rgba(255,255,255,.65); white-space: nowrap; }
         .card-side-title.top { top: 16px; }
-        .card-side-title.bottom { bottom: 48px; font-size: 7.2px; letter-spacing: .22em; color: rgba(125,96,81,.42); }
-        .card-brand-stamp { position: absolute; left: 50%; transform: translateX(-50%); bottom: 18px; text-align: center; font-family: ${FONT_DISPLAY}; font-size: 10px; letter-spacing: .22em; color: rgba(111,83,68,.82); text-shadow: 0 1px 0 rgba(255,255,255,.94); background: rgba(255,255,255,.42); border: 1px solid rgba(255,255,255,.62); border-radius: 999px; padding: 7px 11px 7px 13px; box-shadow: 0 8px 18px -14px rgba(111,88,120,.35); backdrop-filter: blur(6px); }
+        .card-side-title.bottom { bottom: 48px; font-size: 8px; letter-spacing: .22em; color: rgba(125,96,81,.42); }
+        .card-brand-stamp { position: absolute; left: 50%; transform: translateX(-50%); bottom: 18px; text-align: center; font-family: ${FONT_DISPLAY}; font-size: 11.5px; letter-spacing: .22em; color: rgba(111,83,68,.82); text-shadow: 0 1px 0 rgba(255,255,255,.94); background: rgba(255,255,255,.42); border: 1px solid rgba(255,255,255,.62); border-radius: 999px; padding: 7px 11px 7px 13px; box-shadow: 0 8px 18px -14px rgba(111,88,120,.35); backdrop-filter: blur(6px); }
         .card-face-wash { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.02) 28%, rgba(255,248,241,.76) 100%); }
         .card-face-corners { position: absolute; inset: 17px; pointer-events: none; }
         .card-face-corners span { position: absolute; width: 16px; height: 16px; border-color: rgba(187,145,84,.42); }
@@ -3405,31 +3403,31 @@ export default function App() {
         .card-face-corners span:nth-child(4) { right: 0; bottom: 0; border-right: 1px solid; border-bottom: 1px solid; border-bottom-right-radius: 8px; }
         .card-face-content { position: relative; z-index: 2; width: 100%; height: 100%; display: flex; flex-direction: column; }
         .card-face-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-        .card-face-chip { display: inline-flex; align-items: center; gap: 7px; align-self: center; padding: 7px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.74); box-shadow: 0 10px 20px -18px rgba(98,74,72,.35); font-family: ${FONT_BODY}; font-size: 10px; color: ${C.inkSoft}; background: rgba(255,255,255,.74); }
+        .card-face-chip { display: inline-flex; align-items: center; gap: 7px; align-self: center; padding: 7px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.74); box-shadow: 0 10px 20px -18px rgba(98,74,72,.35); font-family: ${FONT_BODY}; font-size: 11.5px; color: ${C.inkSoft}; background: rgba(255,255,255,.74); }
         .card-face-chip-dot { width: 8px; height: 8px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); }
         .card-face-mini-mark { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; color: rgba(180,142,82,.74); background: rgba(255,255,255,.42); border: 1px solid rgba(255,255,255,.58); }
         .card-face-plaque { margin-top: auto; padding: 18px 16px 15px; border-radius: 20px; background: linear-gradient(180deg, rgba(255,255,255,.84), rgba(255,250,245,.70)); border: 1px solid rgba(255,255,255,.82); box-shadow: 0 20px 34px -28px rgba(102,76,83,.36), inset 0 1px 0 rgba(255,255,255,.52); backdrop-filter: blur(8px); }
         .card-frame.compact .card-face-plaque { padding: 10px 7px 8px; border-radius: 12px; }
-        .card-face-title { font-family: ${FONT_DISPLAY}; font-size: 28px; font-weight: 500; line-height: 1.45; letter-spacing: .09em; text-align: center; color: ${C.ink}; text-shadow: 0 1px 0 rgba(255,255,255,.58); }
-        .card-frame.compact .card-face-title { font-size: 14px; line-height: 1.45; letter-spacing: .05em; }
+        .card-face-title { font-family: ${FONT_DISPLAY}; font-size: 30px; font-weight: 500; line-height: 1.45; letter-spacing: .09em; text-align: center; color: ${C.ink}; text-shadow: 0 1px 0 rgba(255,255,255,.58); }
+        .card-frame.compact .card-face-title { font-size: 15.5px; line-height: 1.45; letter-spacing: .05em; }
         .card-face-rule { display: flex; align-items: center; justify-content: center; gap: 7px; }
         .card-face-rule span { width: 25px; height: 1px; background: rgba(181,139,74,.30); }
-        .card-face-keywords { font-family: ${FONT_BODY}; font-size: 10.5px; letter-spacing: .08em; font-weight: 400; color: rgba(94,70,62,0.70); text-align: center; line-height: 1.8; }
-        .card-frame.compact .card-face-keywords { font-size: 6.8px; letter-spacing: .03em; line-height: 1.55; }
-        .card-face-message { margin-top: 11px; font-family: ${FONT_BODY}; font-size: 11.2px; line-height: 1.75; color: ${C.inkSoft}; text-align: center; }
+        .card-face-keywords { font-family: ${FONT_BODY}; font-size: 12px; letter-spacing: .08em; font-weight: 400; color: rgba(94,70,62,0.70); text-align: center; line-height: 1.8; }
+        .card-frame.compact .card-face-keywords { font-size: 7.5px; letter-spacing: .03em; line-height: 1.55; }
+        .card-face-message { margin-top: 11px; font-family: ${FONT_BODY}; font-size: 12.5px; line-height: 1.75; color: ${C.inkSoft}; text-align: center; }
         .triple-card-preview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; align-items: start; justify-items: center; }
         .triple-card-slot { min-width: 0; text-align: center; }
-        .triple-card-label { display: inline-block; margin-bottom: 9px; padding: 5px 9px; border-radius: 999px; background: rgba(255,255,255,.62); border: 1px solid rgba(255,255,255,.76); font-family: ${FONT_BODY}; font-size: 10px; color: ${C.inkSoft}; }
+        .triple-card-label { display: inline-block; margin-bottom: 9px; padding: 5px 9px; border-radius: 999px; background: rgba(255,255,255,.62); border: 1px solid rgba(255,255,255,.76); font-family: ${FONT_BODY}; font-size: 11.5px; color: ${C.inkSoft}; }
         .triple-result-visuals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
         .triple-result-card { text-align: center; min-width: 0; }
-        .triple-result-card > span { display: inline-block; margin-bottom: 8px; font-family: ${FONT_BODY}; font-size: 10px; color: ${C.inkSoft}; }
+        .triple-result-card > span { display: inline-block; margin-bottom: 8px; font-family: ${FONT_BODY}; font-size: 11.5px; color: ${C.inkSoft}; }
         .triple-guidance-kicker { display: flex; align-items: baseline; gap: 8px; color: ${C.goldDeep}; }
-        .triple-guidance-kicker span { font-family: ${FONT_BODY}; font-size: 10.5px; text-transform: none; letter-spacing: .03em; color: ${C.inkFaint}; }
-        .triple-guidance-title { margin-top: 8px; font-family: ${FONT_DISPLAY}; font-size: 17px; color: ${C.ink}; }
-        .triple-guidance-copy { margin-top: 6px; font-family: ${FONT_BODY}; font-size: 12.5px; line-height: 1.9; color: ${C.inkSoft}; }
+        .triple-guidance-kicker span { font-family: ${FONT_BODY}; font-size: 12px; text-transform: none; letter-spacing: .03em; color: ${C.inkFaint}; }
+        .triple-guidance-title { margin-top: 8px; font-family: ${FONT_DISPLAY}; font-size: 19px; color: ${C.ink}; }
+        .triple-guidance-copy { margin-top: 6px; font-family: ${FONT_BODY}; font-size: 14px; line-height: 1.9; color: ${C.inkSoft}; }
         .for-you-card { position: relative; border-radius: 22px; padding: 20px; background: linear-gradient(145deg, rgba(225,210,241,.58), rgba(246,222,221,.58)); border: 1px solid rgba(255,255,255,.70); }
         .for-you-star { position: absolute; right: 16px; top: 15px; }
-        .for-you-copy { margin-top: 8px; font-family: ${FONT_DISPLAY}; font-size: 15px; line-height: 2; color: ${C.ink}; }
+        .for-you-copy { margin-top: 8px; font-family: ${FONT_DISPLAY}; font-size: 16.5px; line-height: 2; color: ${C.ink}; }
         .restart-row { text-align: center; margin-top: 23px; }
 
         .card-detail-paper { padding: 0 !important; overflow: hidden !important; }
@@ -3439,49 +3437,49 @@ export default function App() {
         .card-detail-banner-glow { position: absolute; inset: 10% 15% auto; height: 100px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.52), rgba(255,255,255,0) 72%); filter: blur(8px); }
         .card-detail-banner-frame { position: absolute; inset: 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.58); box-shadow: inset 0 0 0 1px rgba(181,139,74,.12); }
         .card-detail-banner-copy { position: relative; z-index: 1; min-height: 204px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 26px 20px 22px; text-align: center; }
-        .deck-ribbon { display: inline-flex; align-items: center; gap: 7px; padding: 7px 11px; border-radius: 999px; background: rgba(255,255,255,.76); border: 1px solid rgba(255,255,255,.82); font-family: ${FONT_BODY}; font-size: 10px; color: ${C.inkSoft}; box-shadow: 0 10px 22px -18px rgba(92,72,81,.36); }
+        .deck-ribbon { display: inline-flex; align-items: center; gap: 7px; padding: 7px 11px; border-radius: 999px; background: rgba(255,255,255,.76); border: 1px solid rgba(255,255,255,.82); font-family: ${FONT_BODY}; font-size: 11.5px; color: ${C.inkSoft}; box-shadow: 0 10px 22px -18px rgba(92,72,81,.36); }
         .deck-ribbon-dot { width: 8px; height: 8px; border-radius: 50%; }
-        .card-detail-name { margin-top: 13px; font-family: ${FONT_DISPLAY}; font-size: 29px; font-weight: 500; letter-spacing: .09em; color: ${C.ink}; text-shadow: 0 1px 0 rgba(255,255,255,.58); }
-        .card-detail-keywords { margin-top: 7px; font-family: ${FONT_BODY}; font-size: 10.5px; letter-spacing: .08em; color: ${C.inkSoft}; }
+        .card-detail-name { margin-top: 13px; font-family: ${FONT_DISPLAY}; font-size: 31px; font-weight: 500; letter-spacing: .09em; color: ${C.ink}; text-shadow: 0 1px 0 rgba(255,255,255,.58); }
+        .card-detail-keywords { margin-top: 7px; font-family: ${FONT_BODY}; font-size: 12px; letter-spacing: .08em; color: ${C.inkSoft}; }
         .card-detail-body { padding: 19px; }
-        .card-detail-message { margin: 0 0 14px; font-family: ${FONT_DISPLAY}; font-size: 17px; font-weight: 500; line-height: 2.05; letter-spacing: .025em; color: ${C.ink}; }
-        .card-detail-deep { font-family: ${FONT_BODY}; font-size: 12.8px; line-height: 1.95; color: ${C.inkSoft}; }
+        .card-detail-message { margin: 0 0 14px; font-family: ${FONT_DISPLAY}; font-size: 19px; font-weight: 500; line-height: 2.05; letter-spacing: .025em; color: ${C.ink}; }
+        .card-detail-deep { font-family: ${FONT_BODY}; font-size: 14.5px; line-height: 1.95; color: ${C.inkSoft}; }
         .guidance-grid { display: grid; gap: 10px; margin-top: 18px; }
         .guidance-card { position: relative; padding: 14px 14px 14px 17px; border-radius: 17px; background: rgba(255,255,255,.58); border: 1px solid rgba(255,255,255,.72); overflow: hidden; }
         .guidance-card::before { content: ""; position: absolute; left: 0; top: 12px; bottom: 12px; width: 3px; border-radius: 999px; background: var(--guide-tone); }
-        .guidance-label { margin-top: 3px; font-family: ${FONT_DISPLAY}; font-size: 13px; color: ${C.ink}; }
-        .guidance-text { margin-top: 6px; font-family: ${FONT_BODY}; font-size: 12.5px; line-height: 1.85; color: ${C.inkSoft}; }
+        .guidance-label { margin-top: 3px; font-family: ${FONT_DISPLAY}; font-size: 14.5px; color: ${C.ink}; }
+        .guidance-text { margin-top: 6px; font-family: ${FONT_BODY}; font-size: 14px; line-height: 1.85; color: ${C.inkSoft}; }
         .card-detail-actions { margin-top: 16px; padding-top: 12px; border-top: 1px solid ${C.line}; }
 
         .compose-kicker { margin-bottom: 11px; }
         .journal-mood-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 16px; }
         .journal-mood { min-width: 0; min-height: 73px; border: 1px solid rgba(145,111,98,.11); background: rgba(255,255,255,.50); border-radius: 18px; padding: 8px 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer; color: ${C.inkSoft}; }
-        .journal-mood > span { max-width: 100%; font-family: ${FONT_BODY}; font-size: 10.5px; white-space: nowrap; color: inherit; }
+        .journal-mood > span { max-width: 100%; font-family: ${FONT_BODY}; font-size: 12px; white-space: nowrap; color: inherit; }
         .journal-mood-on { border-color: rgba(208,160,81,.50); background: rgba(255,249,237,.88); color: ${C.ink}; box-shadow: 0 10px 22px -17px rgba(186,136,57,.46); }
         .latest-card-note { display: flex; align-items: center; gap: 10px; margin: 2px 0 13px; padding: 10px 11px; border-radius: 15px; background: rgba(243,235,247,.55); }
         .latest-card-swatch { width: 22px; height: 22px; flex: 0 0 auto; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(96,72,63,.07); }
         .latest-card-note div { display: flex; flex-direction: column; gap: 1px; }
-        .latest-card-note small { font-family: ${FONT_BODY}; font-size: 9px; color: ${C.inkFaint}; }
-        .latest-card-note strong { font-family: ${FONT_DISPLAY}; font-size: 12px; color: ${C.ink}; }
+        .latest-card-note small { font-family: ${FONT_BODY}; font-size: 10.5px; color: ${C.inkFaint}; }
+        .latest-card-note strong { font-family: ${FONT_DISPLAY}; font-size: 13.5px; color: ${C.ink}; }
         .journal-writing-shell { position: relative; }
         .journal-writing-ornament { position: absolute; right: 12px; top: 11px; z-index: 2; }
         .journal-field { min-height: 132px; padding-right: 34px; }
         .journal-save-row { display: flex; justify-content: flex-end; margin-top: 13px; }
         .list-heading-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
-        .list-heading { margin-top: 4px; font-family: ${FONT_DISPLAY}; font-size: 17px; color: ${C.ink}; }
-        .list-count { font-family: ${FONT_BODY}; font-size: 10.5px; color: ${C.inkFaint}; white-space: nowrap; }
+        .list-heading { margin-top: 4px; font-family: ${FONT_DISPLAY}; font-size: 19px; color: ${C.ink}; }
+        .list-count { font-family: ${FONT_BODY}; font-size: 12px; color: ${C.inkFaint}; white-space: nowrap; }
         .empty-state { padding: 25px 16px; border-radius: 22px; background: rgba(255,255,255,.48); border: 1px dashed rgba(143,110,97,.16); text-align: center; font-family: ${FONT_BODY}; color: ${C.inkSoft}; }
-        .empty-state div { font-size: 12.5px; }
-        .empty-state small { display: block; margin-top: 5px; font-size: 10.5px; line-height: 1.7; color: ${C.inkFaint}; }
+        .empty-state div { font-size: 14px; }
+        .empty-state small { display: block; margin-top: 5px; font-size: 12px; line-height: 1.7; color: ${C.inkFaint}; }
         .compact-empty { display: grid; place-items: center; gap: 7px; }
         .journal-history { display: grid; gap: 9px; }
         .journal-entry { padding: 15px 15px 14px; border-radius: 20px; background: rgba(255,255,255,.56); border: 1px solid rgba(255,255,255,.72); box-shadow: 0 10px 28px -24px rgba(91,66,76,.36); }
         .journal-entry-top { display: flex; justify-content: space-between; gap: 9px; align-items: center; }
-        .journal-entry-meta { display: flex; align-items: center; gap: 8px; min-width: 0; font-family: ${FONT_BODY}; font-size: 10.5px; color: ${C.inkFaint}; }
+        .journal-entry-meta { display: flex; align-items: center; gap: 8px; min-width: 0; font-family: ${FONT_BODY}; font-size: 12px; color: ${C.inkFaint}; }
         .journal-entry-mood { display: inline-flex; align-items: center; gap: 3px; white-space: nowrap; color: ${C.inkSoft}; }
         .delete-entry { border: 0; background: transparent; color: ${C.inkFaint}; padding: 5px; cursor: pointer; }
-        .journal-entry-card { margin-top: 8px; font-family: ${FONT_BODY}; font-size: 10px; color: ${C.goldDeep}; }
-        .journal-entry-copy { margin-top: 7px; font-family: ${FONT_BODY}; font-size: 12.8px; line-height: 1.85; color: ${C.ink}; overflow-wrap: anywhere; }
+        .journal-entry-card { margin-top: 8px; font-family: ${FONT_BODY}; font-size: 11.5px; color: ${C.goldDeep}; }
+        .journal-entry-copy { margin-top: 7px; font-family: ${FONT_BODY}; font-size: 14.5px; line-height: 1.85; color: ${C.ink}; overflow-wrap: anywhere; }
 
         .stats-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
         .stat-card { min-height: 137px; }
@@ -3492,22 +3490,22 @@ export default function App() {
         .stat-sage::after { background: radial-gradient(circle, #D7E2CE, transparent 70%); }
         .stat-topline { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
         .stat-icon-shell { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; color: ${C.goldDeep}; background: radial-gradient(circle at 36% 32%, rgba(255,255,255,.92), rgba(246,235,226,.66)); border: 1px solid rgba(255,255,255,.85); box-shadow: 0 7px 18px -13px rgba(92,67,78,.50); }
-        .stat-en { font-family: ${FONT_EN}; font-size: 8.5px; letter-spacing: .18em; text-transform: uppercase; color: ${C.inkFaint}; }
-        .stat-label { margin-top: 12px; font-family: ${FONT_BODY}; font-size: 10.5px; color: ${C.inkSoft}; }
-        .stat-value { margin-top: 5px; font-family: ${FONT_DISPLAY}; font-size: 24px; line-height: 1.35; color: ${C.ink}; overflow-wrap: anywhere; }
+        .stat-en { font-family: ${FONT_EN}; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: ${C.inkFaint}; }
+        .stat-label { margin-top: 12px; font-family: ${FONT_BODY}; font-size: 12px; color: ${C.inkSoft}; }
+        .stat-value { margin-top: 5px; font-family: ${FONT_DISPLAY}; font-size: 26px; line-height: 1.35; color: ${C.ink}; overflow-wrap: anywhere; }
         .recurring-card { position: relative; overflow: hidden; margin-top: 13px; min-height: 148px; border-radius: 24px; background: linear-gradient(150deg, rgba(244,233,248,.88), rgba(250,239,230,.84)); border: 1px solid rgba(255,255,255,.78); box-shadow: 0 18px 42px -29px rgba(91,66,86,.40); display: grid; grid-template-columns: 112px 1fr; }
         .recurring-art { background-size: cover; background-position: center; opacity: .75; position: relative; }
         .recurring-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(249,241,239,.80)); }
         .recurring-copy { padding: 19px 15px 17px 4px; position: relative; z-index: 1; }
         .recurring-kicker { display: flex; align-items: center; gap: 6px; }
-        .recurring-title { margin-top: 7px; font-family: ${FONT_DISPLAY}; font-size: 15px; color: ${C.ink}; }
-        .recurring-copy p { margin: 7px 0 0; font-family: ${FONT_BODY}; font-size: 11.5px; line-height: 1.8; color: ${C.inkSoft}; }
+        .recurring-title { margin-top: 7px; font-family: ${FONT_DISPLAY}; font-size: 16.5px; color: ${C.ink}; }
+        .recurring-copy p { margin: 7px 0 0; font-family: ${FONT_BODY}; font-size: 13px; line-height: 1.8; color: ${C.inkSoft}; }
         .dashboard-recent-list { display: grid; gap: 9px; }
         .dashboard-recent-item { border-radius: 19px; padding: 14px 15px; background: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.72); }
-        .dashboard-recent-meta { display: flex; justify-content: space-between; gap: 8px; font-family: ${FONT_BODY}; font-size: 9.5px; color: ${C.inkFaint}; }
-        .dashboard-recent-title { margin-top: 5px; font-family: ${FONT_DISPLAY}; font-size: 13px; color: ${C.ink}; }
-        .dashboard-recent-item p { margin: 5px 0 0; font-family: ${FONT_BODY}; font-size: 11.5px; line-height: 1.75; color: ${C.inkSoft}; overflow-wrap: anywhere; }
-        .saved-word-copy { font-family: ${FONT_DISPLAY}; font-size: 15.5px; font-weight: 500; line-height: 2.05; letter-spacing: .02em; color: ${C.ink}; }
+        .dashboard-recent-meta { display: flex; justify-content: space-between; gap: 8px; font-family: ${FONT_BODY}; font-size: 11px; color: ${C.inkFaint}; }
+        .dashboard-recent-title { margin-top: 5px; font-family: ${FONT_DISPLAY}; font-size: 14.5px; color: ${C.ink}; }
+        .dashboard-recent-item p { margin: 5px 0 0; font-family: ${FONT_BODY}; font-size: 13px; line-height: 1.75; color: ${C.inkSoft}; overflow-wrap: anywhere; }
+        .saved-word-copy { font-family: ${FONT_DISPLAY}; font-size: 17px; font-weight: 500; line-height: 2.05; letter-spacing: .02em; color: ${C.ink}; }
         .saved-word-actions { display: flex; gap: 8px; margin-top: 12px; padding-top: 11px; border-top: 1px solid ${C.line}; flex-wrap: wrap; }
 
         .bedtime-screen { color: ${NIGHT_TEXT}; }
@@ -3515,44 +3513,43 @@ export default function App() {
         .night-intro-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 18% 18%, rgba(255,255,255,.62) 0 1px, transparent 1.4px), radial-gradient(circle at 72% 12%, rgba(255,231,170,.52) 0 1px, transparent 1.5px), radial-gradient(circle at 84% 42%, rgba(255,255,255,.45) 0 1px, transparent 1.4px), radial-gradient(circle at 26% 58%, rgba(255,255,255,.38) 0 1px, transparent 1.4px); background-size: 82px 92px, 123px 107px, 98px 118px, 140px 133px; opacity: .48; }
         .night-star-field { position: absolute; inset: 23px 27px auto; display: flex; justify-content: space-between; }
         .night-crescent { display: grid; place-items: center; margin: 35px auto 19px; filter: drop-shadow(0 10px 25px rgba(230,193,103,.16)); }
-        .night-intro-title { font-family: ${FONT_DISPLAY}; font-size: 19px; font-weight: 500; letter-spacing: .055em; color: ${NIGHT_TEXT}; }
-        .night-intro-copy { margin: 9px 0 23px; font-family: ${FONT_BODY}; font-size: 12.5px; line-height: 1.95; color: ${NIGHT_SOFT}; }
+        .night-intro-title { font-family: ${FONT_DISPLAY}; font-size: 21px; font-weight: 500; letter-spacing: .055em; color: ${NIGHT_TEXT}; }
+        .night-intro-copy { margin: 9px 0 23px; font-family: ${FONT_BODY}; font-size: 14px; line-height: 1.95; color: ${NIGHT_SOFT}; }
         .night-card-step { padding-top: 5px; }
         .night-image-card-halo { position: relative; padding: 6px 0 10px; }
         .night-image-card-halo::before { content: ""; position: absolute; width: 310px; height: 380px; left: 50%; top: 48%; transform: translate(-50%,-50%); border-radius: 42%; background: radial-gradient(circle, rgba(171,145,224,.25), rgba(229,196,119,.06) 48%, transparent 72%); filter: blur(7px); pointer-events: none; }
         .night-image-card-shell { position: relative; z-index: 1; width: min(100%, 352px); margin: 0 auto; padding: 4px; border-radius: 28px; background: linear-gradient(155deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); border: 1px solid rgba(255,245,232,.08); box-shadow: 0 28px 70px -35px rgba(0,0,0,.62), 0 0 22px rgba(164,137,216,.06); }
         .night-image-card { display: block; width: 100%; height: auto; border-radius: 24px; box-shadow: 0 18px 44px -28px rgba(0,0,0,.74); }
-        .night-card-deck-note { max-width: 310px; margin: 13px auto 0; text-align: center; font-family: ${FONT_BODY}; font-size: 11.5px; line-height: 1.85; color: ${NIGHT_SOFT}; }
         .night-card-actions { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; }
         .night-card-halo { position: relative; padding: 12px 0; }
         .night-card-halo::before { content: ""; position: absolute; width: 250px; height: 250px; border-radius: 50%; left: 50%; top: 50%; transform: translate(-50%,-50%); background: radial-gradient(circle, rgba(170,146,220,.21), transparent 68%); }
-        .night-healing-copy { margin: 20px auto 0; max-width: 330px; text-align: center; font-family: ${FONT_DISPLAY}; font-size: 15.5px; line-height: 2.1; color: ${NIGHT_TEXT}; }
+        .night-healing-copy { margin: 20px auto 0; max-width: 330px; text-align: center; font-family: ${FONT_DISPLAY}; font-size: 17px; line-height: 2.1; color: ${NIGHT_TEXT}; }
         .night-action-row { text-align: center; margin-top: 24px; }
         .compact-row { margin-top: 17px; }
         .breathing-orbit::before { content: ""; position: absolute; inset: 5px; border: 1px solid rgba(236,208,134,.16); border-radius: 50%; }
-        .night-text-button { margin-top: 22px; border: none; border-bottom: 1px solid rgba(239,234,227,.24); background: none; color: ${NIGHT_SOFT}; font-size: 11.5px; cursor: pointer; padding: 3px 1px; }
+        .night-text-button { margin-top: 22px; border: none; border-bottom: 1px solid rgba(239,234,227,.24); background: none; color: ${NIGHT_SOFT}; font-size: 13px; cursor: pointer; padding: 3px 1px; }
         .release-step { margin-top: 12px; padding: 22px 18px 25px; border-radius: 26px; background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.07); }
-        .release-title { text-align: center; font-family: ${FONT_DISPLAY}; font-size: 16px; line-height: 1.8; color: ${NIGHT_TEXT}; }
+        .release-title { text-align: center; font-family: ${FONT_DISPLAY}; font-size: 18px; line-height: 1.8; color: ${NIGHT_TEXT}; }
         .release-field-wrap { margin-top: 15px; }
-        .release-note { margin-top: 9px; text-align: center; font-family: ${FONT_BODY}; font-size: 10.5px; line-height: 1.7; color: ${NIGHT_SOFT}; }
-        .goodnight-message { position: relative; overflow: hidden; padding: 30px 22px; border-radius: 25px; text-align: center; background: linear-gradient(145deg, rgba(135,111,184,.27), rgba(255,255,255,.045)); border: 1px solid rgba(255,245,232,.10); font-family: ${FONT_DISPLAY}; font-size: 16px; font-weight: 500; line-height: 2.12; letter-spacing: .025em; color: ${NIGHT_TEXT}; }
-        .goodnight-rest-note { margin: 16px auto 0; max-width: 290px; text-align: center; font-family: ${FONT_BODY}; font-size: 12px; line-height: 1.9; color: ${NIGHT_SOFT}; }
+        .release-note { margin-top: 9px; text-align: center; font-family: ${FONT_BODY}; font-size: 12px; line-height: 1.7; color: ${NIGHT_SOFT}; }
+        .goodnight-message { position: relative; overflow: hidden; padding: 30px 22px; border-radius: 25px; text-align: center; background: linear-gradient(145deg, rgba(135,111,184,.27), rgba(255,255,255,.045)); border: 1px solid rgba(255,245,232,.10); font-family: ${FONT_DISPLAY}; font-size: 18px; font-weight: 500; line-height: 2.12; letter-spacing: .025em; color: ${NIGHT_TEXT}; }
+        .goodnight-rest-note { margin: 16px auto 0; max-width: 290px; text-align: center; font-family: ${FONT_BODY}; font-size: 13.5px; line-height: 1.9; color: ${NIGHT_SOFT}; }
         .goodnight-mark { position: absolute; right: -3px; bottom: -4px; opacity: .16; }
 
 
         .favorites-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 24px; }
         .favorite-summary-item { display: flex; align-items: center; gap: 11px; padding: 14px; border-radius: 21px; background: linear-gradient(145deg, rgba(255,255,255,.72), rgba(248,235,244,.62)); border: 1px solid rgba(255,255,255,.80); box-shadow: 0 14px 34px -27px rgba(90,66,82,.34); }
         .favorite-summary-icon { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: ${C.goldDeep}; background: rgba(255,250,241,.76); border: 1px solid rgba(255,255,255,.84); }
-        .favorite-summary-item strong { display: block; font-family: ${FONT_DISPLAY}; font-size: 22px; color: ${C.ink}; line-height: 1.1; }
-        .favorite-summary-item small { display: block; margin-top: 4px; font-family: ${FONT_BODY}; font-size: 10.5px; color: ${C.inkSoft}; }
+        .favorite-summary-item strong { display: block; font-family: ${FONT_DISPLAY}; font-size: 24px; color: ${C.ink}; line-height: 1.1; }
+        .favorite-summary-item small { display: block; margin-top: 4px; font-family: ${FONT_BODY}; font-size: 12px; color: ${C.inkSoft}; }
         .favorites-heading { margin-top: 4px; }
         .favorite-card-list { display: grid; gap: 11px; }
         .favorite-card-item { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 13px; align-items: center; overflow: hidden; }
         .favorite-card-visual { min-width: 0; align-self: center; }
         .favorite-card-copy { min-width: 0; }
-        .favorite-card-deck { font-family: ${FONT_BODY}; font-size: 9.5px; letter-spacing: .08em; color: ${C.goldDeep}; }
-        .favorite-card-name { margin-top: 4px; font-family: ${FONT_DISPLAY}; font-size: 19px; font-weight: 600; color: ${C.ink}; }
-        .favorite-card-copy p { margin: 7px 0 0; font-family: ${FONT_BODY}; font-size: 12px; line-height: 1.75; color: ${C.inkSoft}; }
+        .favorite-card-deck { font-family: ${FONT_BODY}; font-size: 11px; letter-spacing: .08em; color: ${C.goldDeep}; }
+        .favorite-card-name { margin-top: 4px; font-family: ${FONT_DISPLAY}; font-size: 21px; font-weight: 600; color: ${C.ink}; }
+        .favorite-card-copy p { margin: 7px 0 0; font-family: ${FONT_BODY}; font-size: 13.5px; line-height: 1.75; color: ${C.inkSoft}; }
         .favorite-card-actions { display: flex; flex-wrap: wrap; gap: 2px 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid ${C.line}; }
         .favorite-quote-card { background: linear-gradient(150deg, rgba(255,255,255,.82), rgba(250,235,239,.65)) !important; }
         .favorite-empty { margin-bottom: 6px; }
@@ -3572,8 +3569,8 @@ export default function App() {
         .bottom-nav-night .nav-button-active { color: #EAC86F; }
         .nav-button-active .nav-icon-shell { background: linear-gradient(145deg, rgba(252,236,208,.72), rgba(238,218,244,.66)); box-shadow: 0 8px 17px -13px rgba(153,105,55,.48); }
         .bottom-nav-night .nav-button-active .nav-icon-shell { background: rgba(234,200,111,.10); box-shadow: 0 0 20px rgba(234,200,111,.07); }
-        .nav-button-label { font-family: ${FONT_BODY}; font-size: 9.5px; font-weight: 500; letter-spacing: .035em; white-space: nowrap; }
-        .toast { position: absolute; left: 50%; transform: translateX(-50%); bottom: calc(91px + env(safe-area-inset-bottom)); z-index: 60; padding: 11px 18px; border-radius: 999px; max-width: 84%; text-align: center; font-family: ${FONT_BODY}; font-size: 11.5px; line-height: 1.5; letter-spacing: .03em; color: #FFF9F1; animation: riseIn .3s ease; box-shadow: 0 14px 30px -14px rgba(29,27,37,.55); }
+        .nav-button-label { font-family: ${FONT_BODY}; font-size: 11px; font-weight: 500; letter-spacing: .035em; white-space: nowrap; }
+        .toast { position: absolute; left: 50%; transform: translateX(-50%); bottom: calc(91px + env(safe-area-inset-bottom)); z-index: 60; padding: 11px 18px; border-radius: 999px; max-width: 84%; text-align: center; font-family: ${FONT_BODY}; font-size: 13px; line-height: 1.5; letter-spacing: .03em; color: #FFF9F1; animation: riseIn .3s ease; box-shadow: 0 14px 30px -14px rgba(29,27,37,.55); }
         .toast-day { background: rgba(91,67,59,.93); }
         .toast-night { background: rgba(10,8,26,.94); }
 
@@ -3593,36 +3590,36 @@ export default function App() {
 
         /* 手機可讀性：原版大量 9–10px 輔助字在真機上偏小，統一提高一級。 */
         @media (max-width: 430px) {
-          .brand-en { font-size: 9.5px; }
-          .brand-tagline { font-size: 10.5px; letter-spacing: .12em; }
-          .section-title-kicker { font-size: 10.5px; }
-          .section-title-note { font-size: 13px; }
+          .brand-en { font-size: 11px; }
+          .brand-tagline { font-size: 12px; letter-spacing: .12em; }
+          .section-title-kicker { font-size: 12px; }
+          .section-title-note { font-size: 14.5px; }
           .panel-eyebrow, .compose-kicker, .list-kicker, .deck-label, .recommend-kicker,
-          .guidance-kicker, .for-you-kicker, .recurring-kicker { font-size: 10px; }
-          .panel-heading { font-size: 16px; }
-          .panel-helper { font-size: 11.5px; line-height: 1.6; }
-          .mood-label { font-size: 12px; }
-          .quote-kicker { font-size: 12px; }
-          .deck-scroll-hint { font-size: 10.5px; }
-          .deck-chip { font-size: 12px; }
-          .triple-card-label, .triple-result-card > span { font-size: 11px; }
-          .triple-guidance-kicker span { font-size: 11.5px; }
-          .deck-ribbon, .card-detail-keywords { font-size: 11px; }
-          .journal-mood > span { font-size: 11.5px; }
-          .latest-card-note small { font-size: 10.5px; }
-          .list-count { font-size: 11.5px; }
-          .empty-state small { font-size: 11.5px; }
-          .journal-entry-meta { font-size: 11.5px; }
-          .journal-entry-card { font-size: 11px; }
-          .stat-label { font-size: 11.5px; }
-          .recurring-copy p, .dashboard-recent-item p { font-size: 12.5px; }
-          .dashboard-recent-meta { font-size: 10.5px; }
-          .night-text-button { font-size: 12.5px; }
-          .release-note { font-size: 11.5px; }
-          .nav-button-label { font-size: 10px; }
-          .toast { font-size: 12.5px; }
-          .favorite-card-copy p { font-size: 12.5px; }
-          .favorite-card-deck { font-size: 10px; }
+          .guidance-kicker, .for-you-kicker, .recurring-kicker { font-size: 11.5px; }
+          .panel-heading { font-size: 18px; }
+          .panel-helper { font-size: 13px; line-height: 1.6; }
+          .mood-label { font-size: 13.5px; }
+          .quote-kicker { font-size: 13.5px; }
+          .deck-scroll-hint { font-size: 12px; }
+          .deck-chip { font-size: 13.5px; }
+          .triple-card-label, .triple-result-card > span { font-size: 12.5px; }
+          .triple-guidance-kicker span { font-size: 13px; }
+          .deck-ribbon, .card-detail-keywords { font-size: 12.5px; }
+          .journal-mood > span { font-size: 13px; }
+          .latest-card-note small { font-size: 12px; }
+          .list-count { font-size: 13px; }
+          .empty-state small { font-size: 13px; }
+          .journal-entry-meta { font-size: 13px; }
+          .journal-entry-card { font-size: 12.5px; }
+          .stat-label { font-size: 13px; }
+          .recurring-copy p, .dashboard-recent-item p { font-size: 14px; }
+          .dashboard-recent-meta { font-size: 12px; }
+          .night-text-button { font-size: 14px; }
+          .release-note { font-size: 13px; }
+          .nav-button-label { font-size: 11.5px; }
+          .toast { font-size: 14px; }
+          .favorite-card-copy p { font-size: 14px; }
+          .favorite-card-deck { font-size: 11.5px; }
         }
 
         @media (min-width: 700px) {
@@ -3631,15 +3628,15 @@ export default function App() {
         @media (max-width: 390px) {
           .phone-scroll { padding-left: 14px; padding-right: 14px; }
           .dream-hero { padding: 23px 14px 4px; }
-          .hero-heading { font-size: 28px; }
+          .hero-heading { font-size: 30px; }
           .hero-art-wrap { width: 272px; max-width: 92%; min-height: 224px; margin-top: 3px; }
           .hero-copy-wrap { top: 45%; padding: 12px 16px; max-width: calc(100% - 22px); }
-          .hero-copy { font-size: 14.2px; line-height: 1.86; }
+          .hero-copy { font-size: 15.5px; line-height: 1.86; }
           .mood-grid, .journal-mood-grid { gap: 6px; }
           .mood-card { min-height: 80px; padding-left: 2px; padding-right: 2px; }
-          .mood-label, .journal-mood > span { font-size: 11.5px; }
+          .mood-label, .journal-mood > span { font-size: 13px; }
           .deck-rail { margin-right: -14px; }
-          .section-title-main { font-size: 23px; }
+          .section-title-main { font-size: 25px; }
           .favorite-card-item { grid-template-columns: 94px minmax(0, 1fr); gap: 10px; }
           .favorite-card-visual .card-frame.compact { transform: scale(.9); transform-origin: left center; margin-right: -10px !important; }
           .favorite-card-actions .press { padding-left: 5px !important; padding-right: 5px !important; }
@@ -3647,11 +3644,11 @@ export default function App() {
         @media (max-width: 360px) {
           .hero-art-wrap { width: 252px; min-height: 210px; }
           .hero-copy-wrap { top: 44%; padding: 11px 14px; }
-          .hero-copy { font-size: 13.6px; line-height: 1.82; white-space: normal; min-width: 190px; }
+          .hero-copy { font-size: 15px; line-height: 1.82; white-space: normal; min-width: 190px; }
         }
         @media (max-width: 340px) {
           .mood-grid, .journal-mood-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-          .seg-item { font-size: 11.5px; padding-inline: 3px; }
+          .seg-item { font-size: 13px; padding-inline: 3px; }
           .stats-grid { grid-template-columns: 1fr; }
           .triple-card-preview, .triple-result-visuals { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
           .card-frame.compact { transform: scale(.88); transform-origin: top center; margin-bottom: -18px !important; }
