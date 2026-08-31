@@ -54,6 +54,13 @@ const ASSETS = {
   cardFaceCream: "./assets/card-face-cream.png",
   cardFaceNight: "./assets/card-face-night.png",
   cardFacePink: "./assets/card-face-pink.png",
+  goodnight: {
+    lake: "./assets/goodnight-bg-lake.png",
+    wisteria: "./assets/goodnight-bg-wisteria.png",
+    lantern: "./assets/goodnight-bg-lantern.png",
+    flowers: "./assets/goodnight-bg-flowers.png",
+    dream: "./assets/goodnight-bg-dream.png",
+  },
   mood: {
     happy: "./assets/mood-happy.png",
     calm: "./assets/mood-calm.png",
@@ -1718,12 +1725,45 @@ const DAILY_QUOTES = [
   "願今天的你，不必很厲害，也能在自己的生活裡感到安心。"
 ];
 
-const GOODNIGHT_LINES = [
-  "今天辛苦了，把還沒放下的，先交給夜晚保管。",
-  "晚安，願你今夜的夢，比白天更溫柔。",
-  "你已經很努力地過完這一天了，好好休息。",
-  "不用想明天的事，此刻只需要安心睡去。",
-  "願你被溫柔包圍，帶著輕一點的心入睡。",
+const GOODNIGHT_CARDS = [
+  { id: "night-01", bg: "lake", title: "今晚先停一下", lines: ["不用把每件事都做完。", "能走到現在，已經很不容易。", "把自己安穩地放回夜裡。"] },
+  { id: "night-02", bg: "lake", title: "把自己放回心上", lines: ["別總是先照顧所有人。", "今晚，也記得回頭看看自己。", "你也值得被好好放在心上。"] },
+  { id: "night-03", bg: "lake", title: "明天再想", lines: ["有些答案不需要今晚得到。", "把思緒輕輕收好，", "先讓自己睡進安穩裡。"] },
+  { id: "night-04", bg: "lake", title: "月光會陪你", lines: ["不必急著讓心情變好。", "安靜地待一會兒，也是一種照顧。", "今晚，讓月光陪你慢慢沉澱。"] },
+  { id: "night-05", bg: "lake", title: "今天已經足夠", lines: ["今天沒有完成的，不代表你不夠努力。", "你已經走過了屬於今天的路。", "現在可以休息了。"] },
+  { id: "night-06", bg: "lake", title: "把心放輕", lines: ["有些重量不必帶進夢裡。", "把今天暫時放在門外，", "讓心輕一點，再去睡。"] },
+  { id: "night-07", bg: "wisteria", title: "今晚先照顧自己", lines: ["不用等誰理解你，才可以溫柔地對待自己。", "今晚，先把自己的感受接回來。"] },
+  { id: "night-08", bg: "wisteria", title: "不用一直堅強", lines: ["你不需要每一刻都撐得很好。", "偶爾脆弱、安靜、沒有答案，", "都沒有關係。"] },
+  { id: "night-09", bg: "wisteria", title: "讓疲憊落地", lines: ["累不是需要克服的弱點。", "把疲憊放下來，", "讓身體知道今天已經結束了。"] },
+  { id: "night-10", bg: "wisteria", title: "慢慢與自己和好", lines: ["今天做得不夠好的地方，", "不用再反覆責怪。", "你也正在學著更溫柔地成為自己。"] },
+  { id: "night-11", bg: "wisteria", title: "把責怪留在今天", lines: ["不必帶著自責進入明天。", "今天的你已經盡力了，", "剩下的，交給明天醒來的自己。"] },
+  { id: "night-12", bg: "wisteria", title: "允許自己不知道", lines: ["有些事情現在還沒有答案，", "也沒有關係。", "不是所有迷惘，都需要今晚被解決。"] },
+  { id: "night-13", bg: "lantern", title: "把煩惱留在門外", lines: ["進入夜晚以前，把太重的事先放下。", "不是逃避，", "只是讓自己有一個可以休息的地方。"] },
+  { id: "night-14", bg: "lantern", title: "安靜也是一種照顧", lines: ["不是非得做些什麼，才叫努力。", "讓自己安靜下來，", "也是在替明天補回力氣。"] },
+  { id: "night-15", bg: "lantern", title: "今晚不必回應所有人", lines: ["訊息可以晚一點回，事情也可以明天處理。", "你的休息，", "不需要向任何人道歉。"] },
+  { id: "night-16", bg: "lantern", title: "把外面的聲音關小", lines: ["今天聽了太多別人的期待。", "今晚，把音量轉小一點，", "重新聽見自己的心。"] },
+  { id: "night-17", bg: "lantern", title: "暫時離開角色", lines: ["先不用當懂事的人、可靠的人、努力的人。", "今晚，", "你只需要做一個正在休息的人。"] },
+  { id: "night-18", bg: "lantern", title: "留一盞燈給自己", lines: ["即使今天不容易，也別急著否定自己。", "心裡留一點光，", "等明天醒來再慢慢走。"] },
+  { id: "night-19", bg: "flowers", title: "溫柔結束今天", lines: ["不是每件事都要想通，才能安心睡覺。", "能平安走到夜晚，", "就已經很好。"] },
+  { id: "night-20", bg: "flowers", title: "睡前抱抱自己", lines: ["今天辛苦了。", "謝謝你一直走到現在。", "今晚，別再要求自己什麼，只要好好陪自己。"] },
+  { id: "night-21", bg: "flowers", title: "停止比較", lines: ["別人的進度留給別人。", "今晚不必檢查自己是不是走得夠快，", "你有自己的時間。"] },
+  { id: "night-22", bg: "flowers", title: "今天沒有白費", lines: ["即使今天沒有完成什麼大事，", "你依然經歷、感受、努力過。", "這一天仍然有它的重量。"] },
+  { id: "night-23", bg: "flowers", title: "允許小小的快樂", lines: ["不必等所有問題消失，才可以覺得幸福。", "今晚，記住一件讓你微笑的小事就好。"] },
+  { id: "night-24", bg: "flowers", title: "謝謝今天的自己", lines: ["謝謝你撐過不容易的時刻，", "也謝謝你沒有忘記回來照顧自己。", "今天辛苦了。"] },
+  { id: "night-25", bg: "dream", title: "讓夢輕輕接住你", lines: ["白天的事情先慢慢放下。", "今晚，不必再向前走，", "讓夢替你保留一段安靜。"] },
+  { id: "night-26", bg: "dream", title: "孤單也可以被陪伴", lines: ["即使此刻只有你自己，", "也不代表你被世界遺忘。", "今晚，先好好陪自己待一會兒。"] },
+  { id: "night-27", bg: "dream", title: "明天會有新的空氣", lines: ["今天的沉重不會永遠停在這裡。", "先睡一覺，", "明天醒來，世界會有一點不同。"] },
+  { id: "night-28", bg: "dream", title: "放下工作的自己", lines: ["今天的待辦已經結束。", "你的價值不只來自完成多少事情，", "今晚先把工作留在工作裡。"] },
+  { id: "night-29", bg: "dream", title: "不帶遺憾入睡", lines: ["今天說錯的話、錯過的事，", "不必一遍遍重播。", "你可以記得，也可以選擇先休息。"] },
+  { id: "night-30", bg: "dream", title: "晚安，今天的你", lines: ["不論今天過得怎麼樣，它都已經走到這裡。", "把最後一點溫柔留給自己，", "然後安心睡吧。"] }
+];
+
+const GOODNIGHT_CLOSINGS = [
+  "今晚就到這裡。剩下的事，明天再慢慢處理。",
+  "晚安。你不需要帶著今天所有的重量入睡。",
+  "把燈關小一點，也把對自己的要求放低一點。",
+  "今天已經完成了。現在，輪到你休息。",
+  "願今晚的安靜，把你慢慢帶回自己。",
 ];
 
 
@@ -2909,19 +2949,54 @@ function FavoritesScreen({ favoriteCardIds, toggleFavoriteCard, favorites, toggl
 /* ============================================================
    睡前療癒
    ============================================================ */
-function BedtimeScreen({ recentIds = [], onDrawn }) {
+function GoodnightOracleCard({ card }) {
+  if (!card) return null;
+  const bg = ASSETS.goodnight[card.bg] || ASSETS.goodnight.lake;
+  return (
+    <article className="goodnight-oracle-card">
+      <div className="goodnight-oracle-art" style={{ backgroundImage: `url(${bg})` }}>
+        <div className="goodnight-oracle-art-shade" />
+      </div>
+      <div className="goodnight-oracle-paper">
+        <div className="goodnight-oracle-kicker">晚安療癒</div>
+        <div className="goodnight-oracle-title">{card.title}</div>
+        <div className="goodnight-oracle-star" aria-hidden="true"><DreamStar size={9} color="#C59A4D" opacity={0.78} /></div>
+        <div className="goodnight-oracle-lines">
+          {card.lines.map((line, index) => <p key={`${card.id}-${index}`}>{line}</p>)}
+        </div>
+        <div className="goodnight-oracle-sign">— 心之語 —</div>
+      </div>
+    </article>
+  );
+}
+
+function BedtimeScreen() {
   const [step, setStep] = useState(0); // 0 intro, 1 card, 2 release, 3 goodnight
   const [card, setCard] = useState(null);
   const [releaseText, setReleaseText] = useState("");
+  const [recentNightIds, setRecentNightIds] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const saved = await storageGet("recent-night-card-ids");
+      if (Array.isArray(saved)) setRecentNightIds(saved.filter((id) => GOODNIGHT_CARDS.some((c) => c.id === id)).slice(0, GOODNIGHT_CARDS.length));
+    })();
+  }, []);
 
   const drawNightCard = () => {
-    const drawn = drawUnique(CARDS, 1, recentIds)[0] || pickRandom(CARDS);
+    const fresh = GOODNIGHT_CARDS.filter((c) => !recentNightIds.includes(c.id));
+    const pool = fresh.length ? fresh : GOODNIGHT_CARDS.filter((c) => c.id !== card?.id);
+    const drawn = pickRandom(pool.length ? pool : GOODNIGHT_CARDS);
     setCard(drawn);
-    if (drawn) onDrawn && onDrawn([drawn.id]);
+    const nextRecent = fresh.length
+      ? [drawn.id, ...recentNightIds].slice(0, GOODNIGHT_CARDS.length)
+      : [drawn.id];
+    setRecentNightIds(nextRecent);
+    storageSet("recent-night-card-ids", nextRecent);
     setStep(1);
   };
 
-  const goodnight = GOODNIGHT_LINES[dailyIndex(GOODNIGHT_LINES.length)];
+  const closing = GOODNIGHT_CLOSINGS[dailyIndex(GOODNIGHT_CLOSINGS.length)];
 
   return (
     <div className="screen-block bedtime-screen">
@@ -2936,17 +3011,20 @@ function BedtimeScreen({ recentIds = [], onDrawn }) {
           </div>
           <div className="night-crescent"><CrescentMark size={66} night /></div>
           <div className="night-intro-title">今天辛苦了。</div>
-          <div className="night-intro-copy">要不要花幾分鐘，<br />把今天輕輕放下？</div>
+          <div className="night-intro-copy">抽一張屬於今晚的療癒卡，<br />把最後一點溫柔留給自己。</div>
           <PrimaryButton onClick={drawNightCard} style={{ background: "linear-gradient(135deg, #C59A4D, #E8CB7D)", boxShadow: "0 14px 34px -14px rgba(224,184,94,0.48)" }}>
             抽今日晚安卡
           </PrimaryButton>
+          <div className="night-deck-note">30 張晚安卡 · 抽完一輪前盡量不重複</div>
         </section>
       )}
 
       {step === 1 && card && (
         <div className="night-card-step" style={{ animation: "riseIn 0.7s ease" }}>
-          <div className="night-card-halo"><CardFace card={card} flipped stage="revealed" /></div>
-          <div className="night-healing-copy">{card.healing}</div>
+          <GoodnightOracleCard card={card} />
+          <div className="night-card-subactions">
+            <GhostButton night onClick={drawNightCard}>換一張</GhostButton>
+          </div>
           <div className="night-action-row">
             <PrimaryButton onClick={() => setStep(2)} style={{ background: "linear-gradient(135deg, #C59A4D, #E8CB7D)", boxShadow: "0 12px 30px -16px rgba(224,184,94,0.46)" }}>
               寫下想放下的事
@@ -2981,12 +3059,12 @@ function BedtimeScreen({ recentIds = [], onDrawn }) {
         <div className="goodnight-step">
           <section className="goodnight-message">
             <div className="goodnight-mark"><CrescentMark size={36} night /></div>
-            <div>{goodnight}</div>
+            <div>{closing}</div>
           </section>
-          <div className="goodnight-rest-note">今晚就到這裡。剩下的事，明天再慢慢處理。</div>
+          <div className="goodnight-rest-note">今晚就到這裡。把剩下的力氣留給休息。</div>
           <div className="night-action-row compact-row">
             <GhostButton night onClick={() => { setStep(0); setCard(null); setReleaseText(""); }}>
-              重新開始
+              回到晚安療癒
             </GhostButton>
           </div>
         </div>
@@ -3438,6 +3516,20 @@ export default function App() {
         .saved-word-actions { display: flex; gap: 8px; margin-top: 12px; padding-top: 11px; border-top: 1px solid ${C.line}; flex-wrap: wrap; }
 
         .bedtime-screen { color: ${NIGHT_TEXT}; }
+        .goodnight-oracle-card { width: min(100%, 314px); margin: 0 auto; position: relative; overflow: hidden; border-radius: 28px; background: #FFF9EF; border: 1px solid rgba(246,222,166,.58); box-shadow: 0 26px 60px -24px rgba(8,5,26,.62), 0 0 0 1px rgba(255,255,255,.05); }
+        .goodnight-oracle-card::before { content: ""; position: absolute; inset: 7px; z-index: 4; pointer-events: none; border-radius: 22px; border: 1px solid rgba(205,160,82,.34); box-shadow: inset 0 0 0 1px rgba(255,255,255,.44); }
+        .goodnight-oracle-art { position: relative; height: 206px; background-repeat: no-repeat; background-position: center top; background-size: 100% auto; overflow: hidden; }
+        .goodnight-oracle-art-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,14,51,.04), rgba(20,14,51,.04) 68%, rgba(255,249,239,.96) 100%); }
+        .goodnight-oracle-paper { position: relative; min-height: 288px; margin-top: -2px; padding: 20px 25px 24px; color: #655249; text-align: center; background: radial-gradient(circle at 50% 0%, rgba(255,255,255,.96), transparent 23%), linear-gradient(180deg, #FFF9EF, #FBF1E4); }
+        .goodnight-oracle-paper::after { content: ""; position: absolute; left: 50%; top: 0; transform: translate(-50%,-50%) rotate(45deg); width: 20px; height: 20px; border: 1px solid rgba(190,143,66,.42); background: #FFF8ED; box-shadow: inset 0 0 0 3px #FFF8ED; }
+        .goodnight-oracle-kicker { display: inline-flex; align-items: center; min-height: 28px; padding: 5px 16px; border-radius: 999px; border: 1px solid rgba(190,143,66,.34); font-family: ${FONT_DISPLAY}; font-size: 13px; letter-spacing: .16em; color: #7E66A0; background: rgba(255,253,248,.78); }
+        .goodnight-oracle-title { margin-top: 20px; font-family: ${FONT_DISPLAY}; font-size: 27px; line-height: 1.5; font-weight: 500; letter-spacing: .055em; color: #625046; text-wrap: balance; }
+        .goodnight-oracle-star { display: flex; justify-content: center; margin: 9px 0 8px; }
+        .goodnight-oracle-lines { display: grid; gap: 5px; }
+        .goodnight-oracle-lines p { margin: 0; font-family: ${FONT_DISPLAY}; font-size: 14.5px; line-height: 1.82; letter-spacing: .025em; color: #766159; text-wrap: balance; }
+        .goodnight-oracle-sign { margin-top: 14px; font-family: ${FONT_DISPLAY}; font-size: 12px; letter-spacing: .24em; color: #8164A1; }
+        .night-card-subactions { display: flex; justify-content: center; margin-top: 14px; }
+        .night-deck-note { margin-top: 14px; font-family: ${FONT_BODY}; font-size: 10.5px; letter-spacing: .04em; color: rgba(240,232,246,.52); }
         .night-intro-card { position: relative; overflow: hidden; min-height: 400px; padding: 44px 22px 34px; border-radius: 30px; text-align: center; background: radial-gradient(circle at 50% 28%, rgba(111,91,169,.38), transparent 32%), linear-gradient(165deg, rgba(255,255,255,.055), rgba(255,255,255,.025)); border: 1px solid rgba(255,245,232,.08); box-shadow: 0 24px 64px -34px rgba(3,2,14,.65); }
         .night-intro-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 18% 18%, rgba(255,255,255,.62) 0 1px, transparent 1.4px), radial-gradient(circle at 72% 12%, rgba(255,231,170,.52) 0 1px, transparent 1.5px), radial-gradient(circle at 84% 42%, rgba(255,255,255,.45) 0 1px, transparent 1.4px), radial-gradient(circle at 26% 58%, rgba(255,255,255,.38) 0 1px, transparent 1.4px); background-size: 82px 92px, 123px 107px, 98px 118px, 140px 133px; opacity: .48; }
         .night-star-field { position: absolute; inset: 23px 27px auto; display: flex; justify-content: space-between; }
@@ -3629,7 +3721,7 @@ export default function App() {
                 notify={notify}
               />
             )}
-            {screen === "bedtime" && <BedtimeScreen recentIds={recentIds} onDrawn={rememberDrawn} />}
+            {screen === "bedtime" && <BedtimeScreen />}
           </div>
 
           {/* 底部導覽貼在手機框內，不是瀏覽器視窗 */}
