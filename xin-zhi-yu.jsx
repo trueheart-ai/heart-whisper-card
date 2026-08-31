@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef, useId } from "react";
 import {
   Sun, Layers, PenLine, BookOpen, Moon,
-  Heart, Download, Trash2, Volume2, VolumeX, ChevronRight
+  Heart, Download, Trash2, ChevronRight
 } from "lucide-react";
-import * as Tone from "tone";
 
 /* ============================================================
    GPT 視覺層：夢幻水彩、奶油紙張、淡紫與粉金。
@@ -1727,12 +1726,6 @@ const GOODNIGHT_LINES = [
   "願你被溫柔包圍，帶著輕一點的心入睡。",
 ];
 
-const SOUND_OPTIONS = [
-  { key: "rain", label: "雨聲", en: "Rain", icon: "rain" },
-  { key: "waves", label: "海浪", en: "Waves", icon: "water" },
-  { key: "forest", label: "森林", en: "Forest", icon: "pine" },
-  { key: "insects", label: "夜晚蟲鳴", en: "Crickets", icon: "chirp" },
-];
 
 /* ============================================================
    線條圖示
@@ -2917,25 +2910,9 @@ function FavoritesScreen({ favoriteCardIds, toggleFavoriteCard, favorites, toggl
    睡前療癒
    ============================================================ */
 function BedtimeScreen({ recentIds = [], onDrawn }) {
-  const [step, setStep] = useState(0); // 0 intro, 1 card, 2 breathing, 3 release, 4 goodnight
+  const [step, setStep] = useState(0); // 0 intro, 1 card, 2 release, 3 goodnight
   const [card, setCard] = useState(null);
-  const [breathSeconds, setBreathSeconds] = useState(30);
   const [releaseText, setReleaseText] = useState("");
-  const [playing, setPlaying] = useState(null);
-  const nodesRef = useRef({});
-
-  useEffect(() => {
-    let timer;
-    if (step === 2 && breathSeconds > 0) {
-      timer = setTimeout(() => setBreathSeconds((s) => s - 1), 1000);
-    } else if (step === 2 && breathSeconds === 0) {
-      setStep(3);
-    }
-    return () => clearTimeout(timer);
-  }, [step, breathSeconds]);
-
-  const stopRef = useRef(null);
-  useEffect(() => () => stopRef.current && stopRef.current(false), []);
 
   const drawNightCard = () => {
     const drawn = drawUnique(CARDS, 1, recentIds)[0] || pickRandom(CARDS);
@@ -2944,70 +2921,7 @@ function BedtimeScreen({ recentIds = [], onDrawn }) {
     setStep(1);
   };
 
-  const stopSound = (fade = true) => {
-    const n = nodesRef.current;
-    nodesRef.current = {};
-    setPlaying(null);
-    if (!n.vol) return;
-
-    const dispose = () => {
-      try { n.lfo?.stop(); n.lfo?.dispose(); } catch (e) {}
-      try { n.noise?.stop(); n.noise?.dispose(); } catch (e) {}
-      try { n.filter?.dispose(); } catch (e) {}
-      try { n.vol?.dispose(); } catch (e) {}
-    };
-
-    if (!fade) { dispose(); return; }
-    try {
-      n.lfo?.disconnect();
-      n.vol.volume.rampTo(-60, 0.6);
-      setTimeout(dispose, 800);
-    } catch (e) { dispose(); }
-  };
-
-  const playSound = async (key) => {
-    const wasPlaying = playing;
-    stopSound();
-    if (wasPlaying === key) return;
-
-    await Tone.start();
-
-    const target = key === "insects" ? -26 : -20;
-    const vol = new Tone.Volume(-60).toDestination();
-    let filter, noiseType = "white", lfo = null;
-
-    if (key === "rain") { noiseType = "white"; filter = new Tone.Filter(1800, "lowpass"); }
-    else if (key === "waves") { noiseType = "brown"; filter = new Tone.Filter(500, "lowpass"); }
-    else if (key === "forest") { noiseType = "pink"; filter = new Tone.Filter(900, "bandpass"); }
-    else if (key === "insects") { noiseType = "pink"; filter = new Tone.Filter(3200, "highpass"); }
-    else { filter = new Tone.Filter(1800, "lowpass"); }
-
-    const noise = new Tone.Noise(noiseType);
-    noise.connect(filter);
-    filter.connect(vol);
-    noise.start();
-    vol.volume.rampTo(target, 1.5);
-
-    if (key === "waves") {
-      setTimeout(() => {
-        if (nodesRef.current.vol !== vol) return;
-        try {
-          lfo = new Tone.LFO(0.12, -28, -14).start();
-          lfo.connect(vol.volume);
-          nodesRef.current.lfo = lfo;
-        } catch (e) {}
-      }, 1600);
-    }
-
-    nodesRef.current = { noise, filter, vol, lfo };
-    setPlaying(key);
-  };
-
-  stopRef.current = stopSound;
-
   const goodnight = GOODNIGHT_LINES[dailyIndex(GOODNIGHT_LINES.length)];
-  const elapsed = 30 - breathSeconds;
-  const breathPhase = elapsed % 4 < 2 ? "吸氣" : "吐氣";
 
   return (
     <div className="screen-block bedtime-screen">
@@ -3035,25 +2949,13 @@ function BedtimeScreen({ recentIds = [], onDrawn }) {
           <div className="night-healing-copy">{card.healing}</div>
           <div className="night-action-row">
             <PrimaryButton onClick={() => setStep(2)} style={{ background: "linear-gradient(135deg, #C59A4D, #E8CB7D)", boxShadow: "0 12px 30px -16px rgba(224,184,94,0.46)" }}>
-              深呼吸
+              寫下想放下的事
             </PrimaryButton>
           </div>
         </div>
       )}
 
       {step === 2 && (
-        <div className="breathing-step">
-          <div className="breathing-orbit">
-            <div className="breathe-circle" />
-            <div className="breath-star"><DreamStar size={10} color="#E8C66A" opacity={0.58} /></div>
-          </div>
-          <div className="breath-phase">{breathPhase}</div>
-          <div className="breath-count">{breathSeconds}s</div>
-          <button type="button" onClick={() => setStep(3)} className="night-text-button">先跳過</button>
-        </div>
-      )}
-
-      {step === 3 && (
         <div className="release-step">
           <div className="release-title">今天，你想放下的一件事是？</div>
           <div className="release-field-wrap">
@@ -3068,48 +2970,22 @@ function BedtimeScreen({ recentIds = [], onDrawn }) {
           </div>
           <div className="release-note">這段文字不會被保存，寫完就讓它散掉。</div>
           <div className="night-action-row">
-            <PrimaryButton onClick={() => setStep(4)} style={{ background: "linear-gradient(135deg, #C59A4D, #E8CB7D)", boxShadow: "0 12px 30px -16px rgba(224,184,94,0.46)" }}>
+            <PrimaryButton onClick={() => setStep(3)} style={{ background: "linear-gradient(135deg, #C59A4D, #E8CB7D)", boxShadow: "0 12px 30px -16px rgba(224,184,94,0.46)" }}>
               放下它
             </PrimaryButton>
           </div>
         </div>
       )}
 
-      {step === 4 && (
+      {step === 3 && (
         <div className="goodnight-step">
           <section className="goodnight-message">
             <div className="goodnight-mark"><CrescentMark size={36} night /></div>
             <div>{goodnight}</div>
           </section>
-
-          <div className="ambient-heading">Ambient sound</div>
-          <div className="sound-grid">
-            {SOUND_OPTIONS.map((s, i) => {
-              const on = playing === s.key;
-              return (
-                <button key={s.key} type="button" onClick={() => playSound(s.key)}
-                  className={on ? "press sound-option sound-option-on" : "press sound-option"}
-                  aria-pressed={on} aria-label={`播放${s.label}`}>
-                  <span className={`sound-dot sound-dot-${i + 1}`} />
-                  <span>{s.label}</span>
-                  {on && <Volume2 size={14} strokeWidth={1.4} />}
-                </button>
-              );
-            })}
-          </div>
-
-          {playing && (
-            <div className="night-action-row compact-row">
-              <GhostButton night onClick={() => stopSound()}>
-                <span style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                  <VolumeX size={14} strokeWidth={1.4} /> 停止聲音
-                </span>
-              </GhostButton>
-            </div>
-          )}
-
+          <div className="goodnight-rest-note">今晚就到這裡。剩下的事，明天再慢慢處理。</div>
           <div className="night-action-row compact-row">
-            <GhostButton night onClick={() => { stopSound(); setStep(0); setCard(null); setBreathSeconds(30); setReleaseText(""); }}>
+            <GhostButton night onClick={() => { setStep(0); setCard(null); setReleaseText(""); }}>
               重新開始
             </GhostButton>
           </div>
@@ -3391,7 +3267,7 @@ export default function App() {
         .hero-copy { margin: 0; font-family: ${FONT_DISPLAY}; font-size: 15px; line-height: 1.92; color: ${C.ink}; font-weight: 500; letter-spacing: .035em; text-shadow: 0 1px 0 rgba(255,255,255,.82), 0 0 10px rgba(255,255,255,.28); white-space: nowrap; }
 
         .panel-heading-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 13px; }
-        .panel-eyebrow, .compose-kicker, .list-kicker, .deck-label, .recommend-kicker, .guidance-kicker, .for-you-kicker, .ambient-heading, .recurring-kicker { font-family: ${FONT_EN}; font-size: 10.5px; font-weight: 500; letter-spacing: .17em; text-transform: uppercase; color: ${C.goldDeep}; }
+        .panel-eyebrow, .compose-kicker, .list-kicker, .deck-label, .recommend-kicker, .guidance-kicker, .for-you-kicker, .recurring-kicker { font-family: ${FONT_EN}; font-size: 10.5px; font-weight: 500; letter-spacing: .17em; text-transform: uppercase; color: ${C.goldDeep}; }
         .panel-heading { margin-top: 4px; font-family: ${FONT_DISPLAY}; font-size: 15.5px; font-weight: 500; letter-spacing: .045em; color: ${C.ink}; }
         .panel-helper { max-width: 122px; text-align: right; font-family: ${FONT_BODY}; font-size: 10px; line-height: 1.55; color: ${C.inkFaint}; }
         .mood-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
@@ -3574,30 +3450,15 @@ export default function App() {
         .night-healing-copy { margin: 20px auto 0; max-width: 330px; text-align: center; font-family: ${FONT_DISPLAY}; font-size: 15.5px; line-height: 2.1; color: ${NIGHT_TEXT}; }
         .night-action-row { text-align: center; margin-top: 24px; }
         .compact-row { margin-top: 17px; }
-        .breathing-step { text-align: center; padding: 32px 0; }
-        .breathing-orbit { width: 176px; height: 176px; position: relative; margin: 0 auto 25px; display: grid; place-items: center; }
         .breathing-orbit::before { content: ""; position: absolute; inset: 5px; border: 1px solid rgba(236,208,134,.16); border-radius: 50%; }
-        .breathe-circle { width: 145px; height: 145px; border-radius: 50%; background: radial-gradient(circle at 44% 38%, rgba(231,217,245,.78), rgba(140,119,190,.25) 62%, rgba(255,255,255,.02) 72%); animation: breathe 4s ease-in-out infinite; }
-        .breath-star { position: absolute; top: 8px; right: 29px; }
-        .breath-phase { font-family: ${FONT_DISPLAY}; font-size: 20px; letter-spacing: .42em; padding-left: .42em; color: ${NIGHT_TEXT}; }
-        .breath-count { margin-top: 8px; font-family: ${FONT_EN}; font-size: 10.5px; letter-spacing: .18em; color: ${NIGHT_SOFT}; }
         .night-text-button { margin-top: 22px; border: none; border-bottom: 1px solid rgba(239,234,227,.24); background: none; color: ${NIGHT_SOFT}; font-size: 11.5px; cursor: pointer; padding: 3px 1px; }
         .release-step { margin-top: 12px; padding: 22px 18px 25px; border-radius: 26px; background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.07); }
         .release-title { text-align: center; font-family: ${FONT_DISPLAY}; font-size: 16px; line-height: 1.8; color: ${NIGHT_TEXT}; }
         .release-field-wrap { margin-top: 15px; }
         .release-note { margin-top: 9px; text-align: center; font-family: ${FONT_BODY}; font-size: 10.5px; line-height: 1.7; color: ${NIGHT_SOFT}; }
         .goodnight-message { position: relative; overflow: hidden; padding: 30px 22px; border-radius: 25px; text-align: center; background: linear-gradient(145deg, rgba(135,111,184,.27), rgba(255,255,255,.045)); border: 1px solid rgba(255,245,232,.10); font-family: ${FONT_DISPLAY}; font-size: 16px; font-weight: 500; line-height: 2.12; letter-spacing: .025em; color: ${NIGHT_TEXT}; }
+        .goodnight-rest-note { margin: 16px auto 0; max-width: 290px; text-align: center; font-family: ${FONT_BODY}; font-size: 12px; line-height: 1.9; color: ${NIGHT_SOFT}; }
         .goodnight-mark { position: absolute; right: -3px; bottom: -4px; opacity: .16; }
-        .ambient-heading { margin: 27px 0 12px; text-align: center; color: rgba(255,245,232,.50); }
-        .sound-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
-        .sound-option { min-width: 0; border: 1px solid rgba(255,245,232,.12); background: rgba(255,255,255,.045); border-radius: 18px; padding: 13px; display: flex; align-items: center; gap: 9px; cursor: pointer; color: ${NIGHT_SOFT}; }
-        .sound-option > span:nth-child(2) { flex: 1; min-width: 0; text-align: left; font-family: ${FONT_BODY}; font-size: 11.5px; white-space: nowrap; }
-        .sound-option-on { border-color: rgba(229,202,133,.34); background: rgba(228,198,124,.08); color: ${NIGHT_TEXT}; }
-        .sound-dot { width: 18px; height: 18px; flex: 0 0 auto; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16); }
-        .sound-dot-1 { background: radial-gradient(circle at 35% 30%, #DCEBFA, #7887B2); }
-        .sound-dot-2 { background: radial-gradient(circle at 35% 30%, #D8E9E6, #6F9D99); }
-        .sound-dot-3 { background: radial-gradient(circle at 35% 30%, #DCE6D2, #70876A); }
-        .sound-dot-4 { background: radial-gradient(circle at 35% 30%, #F0DCC5, #A6816A); }
 
 
         .favorites-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 24px; }
@@ -3645,7 +3506,6 @@ export default function App() {
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes riseIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes floatCard { 0%,100% { transform: translateY(0) rotate(-.3deg); } 50% { transform: translateY(-10px) rotate(.3deg); } }
-        @keyframes breathe { 0%,100% { transform: scale(.76); opacity: .60; box-shadow: 0 0 20px rgba(220,195,233,.10); } 50% { transform: scale(1.04); opacity: 1; box-shadow: 0 0 55px rgba(220,195,233,.28); } }
         @keyframes heartBeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.20); } }
         .heart-beat { animation: heartBeat .5s ease; }
         .press { transition: transform .18s ease, opacity .18s ease, filter .18s ease; }
@@ -3659,7 +3519,7 @@ export default function App() {
           .section-title-kicker { font-size: 10.5px; }
           .section-title-note { font-size: 13px; }
           .panel-eyebrow, .compose-kicker, .list-kicker, .deck-label, .recommend-kicker,
-          .guidance-kicker, .for-you-kicker, .ambient-heading, .recurring-kicker { font-size: 10px; }
+          .guidance-kicker, .for-you-kicker, .recurring-kicker { font-size: 10px; }
           .panel-heading { font-size: 16px; }
           .panel-helper { font-size: 11.5px; line-height: 1.6; }
           .mood-label { font-size: 12px; }
@@ -3678,10 +3538,8 @@ export default function App() {
           .stat-label { font-size: 11.5px; }
           .recurring-copy p, .dashboard-recent-item p { font-size: 12.5px; }
           .dashboard-recent-meta { font-size: 10.5px; }
-          .breath-count { font-size: 11.5px; }
           .night-text-button { font-size: 12.5px; }
           .release-note { font-size: 11.5px; }
-          .sound-option > span:nth-child(2) { font-size: 12.5px; }
           .nav-button-label { font-size: 10px; }
           .toast { font-size: 12.5px; }
           .favorite-card-copy p { font-size: 12.5px; }
@@ -3721,7 +3579,6 @@ export default function App() {
         }
         @media (prefers-reduced-motion: reduce) {
           *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-          .breathe-circle { animation: breathe 4s ease-in-out infinite !important; animation-duration: 4s !important; animation-iteration-count: infinite !important; }
         }
       `}</style>
 
