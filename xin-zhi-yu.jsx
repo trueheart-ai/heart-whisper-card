@@ -39,9 +39,9 @@ const C = {
 const NIGHT_TEXT = "#FFF5E8";
 const NIGHT_SOFT = "rgba(241,232,246,0.68)";
 
-const FONT_DISPLAY = "'Noto Serif TC', serif";
-const FONT_BODY = "'Noto Sans TC', system-ui, sans-serif";
-const FONT_EN = "'Jost', 'Noto Sans TC', sans-serif";
+const FONT_DISPLAY = "'Noto Serif TC', 'Songti TC', 'PMingLiU', serif";
+const FONT_BODY = "'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui, sans-serif";
+const FONT_EN = "'Cormorant Garamond', 'Jost', serif";
 
 const ASSETS = {
   logo: "./assets/logo.png",
@@ -3286,7 +3286,7 @@ export default function App() {
   return (
     <div className={night ? "stage stage-night" : "stage"}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500&family=Jost:wght@300;400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;500;600&display=swap');
 
         * { box-sizing: border-box; }
         html, body, #root { min-height: 100%; }
@@ -3344,16 +3344,16 @@ export default function App() {
         }
         .brand-mark { grid-row: 1 / 3; align-self: center; opacity: .86; }
         .brand-words { display: flex; align-items: baseline; gap: 8px; white-space: nowrap; }
-        .brand-cn { font-family: ${FONT_DISPLAY}; font-size: 18px; font-weight: 600; letter-spacing: .18em; }
-        .brand-en { font-family: ${FONT_EN}; font-size: 8.5px; font-style: italic; color: ${C.inkFaint}; letter-spacing: .06em; }
+        .brand-cn { font-family: ${FONT_DISPLAY}; font-size: 18px; font-weight: 500; letter-spacing: .16em; line-height: 1.45; }
+        .brand-en { font-family: ${FONT_EN}; font-size: 10px; font-style: italic; font-weight: 500; color: ${C.inkFaint}; letter-spacing: .10em; }
         .brand-tagline { font-family: ${FONT_BODY}; font-size: 9px; color: ${C.inkFaint}; letter-spacing: .16em; margin-top: 1px; }
         .brand-lockup-night { color: ${NIGHT_TEXT}; }
         .brand-lockup-night .brand-en, .brand-lockup-night .brand-tagline { color: rgba(255,245,232,.44); }
 
         .section-title { margin-bottom: 22px; position: relative; }
-        .section-title-kicker { display: flex; align-items: center; gap: 6px; font-family: ${FONT_EN}; font-size: 9.5px; letter-spacing: .23em; text-transform: uppercase; color: ${C.goldDeep}; margin-bottom: 7px; }
+        .section-title-kicker { display: flex; align-items: center; gap: 6px; font-family: ${FONT_EN}; font-size: 11px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: ${C.goldDeep}; margin-bottom: 7px; }
         .section-title-star { display: inline-flex; }
-        .section-title-main { font-family: ${FONT_DISPLAY}; font-size: 25px; font-weight: 600; letter-spacing: .04em; line-height: 1.48; color: ${C.ink}; }
+        .section-title-main { font-family: ${FONT_DISPLAY}; font-size: 25px; font-weight: 500; letter-spacing: .055em; line-height: 1.55; color: ${C.ink}; }
         .section-title-note { margin-top: 8px; max-width: 92%; font-family: ${FONT_BODY}; font-size: 12px; line-height: 1.85; color: ${C.inkSoft}; }
         .section-title-rule { display: flex; align-items: center; margin-top: 11px; width: 62px; }
         .section-title-rule::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: ${C.gold}; box-shadow: 0 0 0 4px rgba(215,177,100,.08); }
@@ -3380,19 +3380,19 @@ export default function App() {
         .hero-stars { position: absolute; display: flex; gap: 8px; align-items: center; }
         .hero-stars-left { left: 23px; top: 22px; }
         .hero-moon-mark { position: absolute; right: 19px; top: 14px; opacity: .62; }
-        .hero-date { position: relative; z-index: 2; font-family: ${FONT_EN}; font-size: 10.5px; letter-spacing: .20em; text-transform: uppercase; color: ${C.goldDeep}; margin-bottom: 9px; }
-        .hero-heading { position: relative; z-index: 2; margin: 0; font-family: ${FONT_DISPLAY}; font-size: 29px; line-height: 1.5; font-weight: 600; letter-spacing: .045em; color: ${C.ink}; }
+        .hero-date { position: relative; z-index: 2; font-family: ${FONT_EN}; font-size: 11.5px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: ${C.goldDeep}; margin-bottom: 9px; }
+        .hero-heading { position: relative; z-index: 2; margin: 0; font-family: ${FONT_DISPLAY}; font-size: 30px; line-height: 1.52; font-weight: 500; letter-spacing: .06em; color: ${C.ink}; }
         .hero-rule { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; gap: 8px; margin: 9px 0 5px; }
         .hero-rule span { width: 35px; height: 1px; background: rgba(191,144,71,.28); }
         .hero-art-wrap { position: relative; width: 286px; max-width: 90%; margin: 6px auto 0; min-height: 238px; display: flex; align-items: flex-end; justify-content: center; }
         .hero-art-wrap img { width: 100%; height: auto; position: relative; z-index: 1; opacity: .82; filter: drop-shadow(0 12px 17px rgba(89,67,94,.12)); }
         .hero-art-glow { position: absolute; inset: 12% 7% 2%; z-index: 0; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.68), transparent 73%); filter: blur(8px); pointer-events: none; }
-        .hero-copy-wrap { position: absolute; z-index: 5; left: 50%; top: 47%; transform: translate(-50%, -50%); display: inline-flex; width: max-content; max-width: calc(100% - 34px); padding: 12px 21px; border-radius: 20px; background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,251,247,.90)); border: 1px solid rgba(255,255,255,.98); box-shadow: 0 16px 34px -22px rgba(109,87,97,.38); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-        .hero-copy { margin: 0; font-family: ${FONT_BODY}; font-size: 13.5px; line-height: 1.9; color: ${C.ink}; font-weight: 400; text-shadow: 0 1px 0 rgba(255,255,255,.75); white-space: nowrap; }
+        .hero-copy-wrap { position: absolute; z-index: 5; left: 50%; top: 47%; transform: translate(-50%, -50%); display: inline-flex; width: max-content; max-width: calc(100% - 34px); padding: 13px 22px; border-radius: 22px; background: linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,250,245,.62)); border: 1px solid rgba(255,255,255,.72); box-shadow: 0 18px 36px -22px rgba(109,87,97,.26), inset 0 1px 0 rgba(255,255,255,.34); backdrop-filter: blur(12px) saturate(108%); -webkit-backdrop-filter: blur(12px) saturate(108%); }
+        .hero-copy { margin: 0; font-family: ${FONT_DISPLAY}; font-size: 15px; line-height: 1.92; color: ${C.ink}; font-weight: 500; letter-spacing: .035em; text-shadow: 0 1px 0 rgba(255,255,255,.82), 0 0 10px rgba(255,255,255,.28); white-space: nowrap; }
 
         .panel-heading-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 13px; }
-        .panel-eyebrow, .compose-kicker, .list-kicker, .deck-label, .recommend-kicker, .guidance-kicker, .for-you-kicker, .ambient-heading, .recurring-kicker { font-family: ${FONT_EN}; font-size: 9px; letter-spacing: .21em; text-transform: uppercase; color: ${C.goldDeep}; }
-        .panel-heading { margin-top: 4px; font-family: ${FONT_DISPLAY}; font-size: 15px; font-weight: 600; letter-spacing: .03em; color: ${C.ink}; }
+        .panel-eyebrow, .compose-kicker, .list-kicker, .deck-label, .recommend-kicker, .guidance-kicker, .for-you-kicker, .ambient-heading, .recurring-kicker { font-family: ${FONT_EN}; font-size: 10.5px; font-weight: 500; letter-spacing: .17em; text-transform: uppercase; color: ${C.goldDeep}; }
+        .panel-heading { margin-top: 4px; font-family: ${FONT_DISPLAY}; font-size: 15.5px; font-weight: 500; letter-spacing: .045em; color: ${C.ink}; }
         .panel-helper { max-width: 122px; text-align: right; font-family: ${FONT_BODY}; font-size: 10px; line-height: 1.55; color: ${C.inkFaint}; }
         .mood-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
         .mood-card { border: 1px solid rgba(255,255,255,.88); border-radius: 19px; min-height: 84px; padding: 10px 4px 9px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; background: linear-gradient(160deg, rgba(255,255,255,.84), rgba(255,250,246,.66)); box-shadow: 0 10px 24px -20px rgba(92,68,80,.44); color: ${C.inkSoft}; }
@@ -3407,7 +3407,7 @@ export default function App() {
         .daily-quote-card { position: relative; overflow: hidden; border-radius: 27px; padding: 23px 21px 20px; background: linear-gradient(150deg, rgba(255,250,245,.96), rgba(248,228,231,.80) 60%, rgba(231,221,242,.78)); border: 1px solid rgba(255,255,255,.88); box-shadow: 0 20px 50px -28px rgba(113,76,98,.38); }
         .quote-watermark { position: absolute; right: -15px; bottom: -16px; opacity: .12; }
         .quote-kicker { display: flex; align-items: center; gap: 7px; font-family: ${FONT_BODY}; font-size: 11px; letter-spacing: .09em; color: ${C.goldDeep}; margin-bottom: 10px; }
-        .daily-quote { margin: 0; position: relative; z-index: 1; font-family: ${FONT_DISPLAY}; font-size: 17px; line-height: 2.1; letter-spacing: .025em; color: ${C.ink}; }
+        .daily-quote { margin: 0; position: relative; z-index: 1; font-family: ${FONT_DISPLAY}; font-size: 18px; font-weight: 500; line-height: 2.08; letter-spacing: .035em; color: ${C.ink}; }
         .quote-actions { display: flex; align-items: center; gap: 7px; margin-top: 17px; padding-top: 13px; border-top: 1px solid ${C.line}; position: relative; z-index: 1; }
 
         .field { width: 100%; border: 1px solid rgba(134,102,90,.13); border-radius: 18px; background: rgba(255,255,255,.66); padding: 14px 15px; resize: none; outline: none; font-family: ${FONT_BODY}; font-size: 15px; line-height: 1.9; color: ${C.ink}; box-shadow: inset 0 1px 0 rgba(255,255,255,.68); transition: border-color .3s ease, box-shadow .3s ease, background .3s ease; }
@@ -3461,7 +3461,7 @@ export default function App() {
         .card-face-mini-mark { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; color: rgba(180,142,82,.74); background: rgba(255,255,255,.42); border: 1px solid rgba(255,255,255,.58); }
         .card-face-plaque { margin-top: auto; padding: 18px 16px 15px; border-radius: 20px; background: linear-gradient(180deg, rgba(255,255,255,.84), rgba(255,250,245,.70)); border: 1px solid rgba(255,255,255,.82); box-shadow: 0 20px 34px -28px rgba(102,76,83,.36), inset 0 1px 0 rgba(255,255,255,.52); backdrop-filter: blur(8px); }
         .card-frame.compact .card-face-plaque { padding: 10px 7px 8px; border-radius: 12px; }
-        .card-face-title { font-family: ${FONT_DISPLAY}; font-size: 28px; font-weight: 600; line-height: 1.4; letter-spacing: .08em; text-align: center; color: ${C.ink}; text-shadow: 0 1px 0 rgba(255,255,255,.58); }
+        .card-face-title { font-family: ${FONT_DISPLAY}; font-size: 28px; font-weight: 500; line-height: 1.45; letter-spacing: .09em; text-align: center; color: ${C.ink}; text-shadow: 0 1px 0 rgba(255,255,255,.58); }
         .card-frame.compact .card-face-title { font-size: 14px; line-height: 1.45; letter-spacing: .05em; }
         .card-face-rule { display: flex; align-items: center; justify-content: center; gap: 7px; }
         .card-face-rule span { width: 25px; height: 1px; background: rgba(181,139,74,.30); }
@@ -3492,10 +3492,10 @@ export default function App() {
         .card-detail-banner-copy { position: relative; z-index: 1; min-height: 204px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 26px 20px 22px; text-align: center; }
         .deck-ribbon { display: inline-flex; align-items: center; gap: 7px; padding: 7px 11px; border-radius: 999px; background: rgba(255,255,255,.76); border: 1px solid rgba(255,255,255,.82); font-family: ${FONT_BODY}; font-size: 10px; color: ${C.inkSoft}; box-shadow: 0 10px 22px -18px rgba(92,72,81,.36); }
         .deck-ribbon-dot { width: 8px; height: 8px; border-radius: 50%; }
-        .card-detail-name { margin-top: 13px; font-family: ${FONT_DISPLAY}; font-size: 29px; font-weight: 600; letter-spacing: .08em; color: ${C.ink}; text-shadow: 0 1px 0 rgba(255,255,255,.58); }
+        .card-detail-name { margin-top: 13px; font-family: ${FONT_DISPLAY}; font-size: 29px; font-weight: 500; letter-spacing: .09em; color: ${C.ink}; text-shadow: 0 1px 0 rgba(255,255,255,.58); }
         .card-detail-keywords { margin-top: 7px; font-family: ${FONT_BODY}; font-size: 10.5px; letter-spacing: .08em; color: ${C.inkSoft}; }
         .card-detail-body { padding: 19px; }
-        .card-detail-message { margin: 0 0 14px; font-family: ${FONT_DISPLAY}; font-size: 16px; line-height: 2; color: ${C.ink}; }
+        .card-detail-message { margin: 0 0 14px; font-family: ${FONT_DISPLAY}; font-size: 17px; font-weight: 500; line-height: 2.05; letter-spacing: .025em; color: ${C.ink}; }
         .card-detail-deep { font-family: ${FONT_BODY}; font-size: 12.8px; line-height: 1.95; color: ${C.inkSoft}; }
         .guidance-grid { display: grid; gap: 10px; margin-top: 18px; }
         .guidance-card { position: relative; padding: 14px 14px 14px 17px; border-radius: 17px; background: rgba(255,255,255,.58); border: 1px solid rgba(255,255,255,.72); overflow: hidden; }
@@ -3558,7 +3558,7 @@ export default function App() {
         .dashboard-recent-meta { display: flex; justify-content: space-between; gap: 8px; font-family: ${FONT_BODY}; font-size: 9.5px; color: ${C.inkFaint}; }
         .dashboard-recent-title { margin-top: 5px; font-family: ${FONT_DISPLAY}; font-size: 13px; color: ${C.ink}; }
         .dashboard-recent-item p { margin: 5px 0 0; font-family: ${FONT_BODY}; font-size: 11.5px; line-height: 1.75; color: ${C.inkSoft}; overflow-wrap: anywhere; }
-        .saved-word-copy { font-family: ${FONT_DISPLAY}; font-size: 14.5px; line-height: 2; color: ${C.ink}; }
+        .saved-word-copy { font-family: ${FONT_DISPLAY}; font-size: 15.5px; font-weight: 500; line-height: 2.05; letter-spacing: .02em; color: ${C.ink}; }
         .saved-word-actions { display: flex; gap: 8px; margin-top: 12px; padding-top: 11px; border-top: 1px solid ${C.line}; flex-wrap: wrap; }
 
         .bedtime-screen { color: ${NIGHT_TEXT}; }
@@ -3566,7 +3566,7 @@ export default function App() {
         .night-intro-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 18% 18%, rgba(255,255,255,.62) 0 1px, transparent 1.4px), radial-gradient(circle at 72% 12%, rgba(255,231,170,.52) 0 1px, transparent 1.5px), radial-gradient(circle at 84% 42%, rgba(255,255,255,.45) 0 1px, transparent 1.4px), radial-gradient(circle at 26% 58%, rgba(255,255,255,.38) 0 1px, transparent 1.4px); background-size: 82px 92px, 123px 107px, 98px 118px, 140px 133px; opacity: .48; }
         .night-star-field { position: absolute; inset: 23px 27px auto; display: flex; justify-content: space-between; }
         .night-crescent { display: grid; place-items: center; margin: 35px auto 19px; filter: drop-shadow(0 10px 25px rgba(230,193,103,.16)); }
-        .night-intro-title { font-family: ${FONT_DISPLAY}; font-size: 19px; font-weight: 600; letter-spacing: .04em; color: ${NIGHT_TEXT}; }
+        .night-intro-title { font-family: ${FONT_DISPLAY}; font-size: 19px; font-weight: 500; letter-spacing: .055em; color: ${NIGHT_TEXT}; }
         .night-intro-copy { margin: 9px 0 23px; font-family: ${FONT_BODY}; font-size: 12.5px; line-height: 1.95; color: ${NIGHT_SOFT}; }
         .night-card-step { padding-top: 5px; }
         .night-card-halo { position: relative; padding: 12px 0; }
@@ -3586,7 +3586,7 @@ export default function App() {
         .release-title { text-align: center; font-family: ${FONT_DISPLAY}; font-size: 16px; line-height: 1.8; color: ${NIGHT_TEXT}; }
         .release-field-wrap { margin-top: 15px; }
         .release-note { margin-top: 9px; text-align: center; font-family: ${FONT_BODY}; font-size: 10.5px; line-height: 1.7; color: ${NIGHT_SOFT}; }
-        .goodnight-message { position: relative; overflow: hidden; padding: 30px 22px; border-radius: 25px; text-align: center; background: linear-gradient(145deg, rgba(135,111,184,.27), rgba(255,255,255,.045)); border: 1px solid rgba(255,245,232,.10); font-family: ${FONT_DISPLAY}; font-size: 15px; line-height: 2.05; color: ${NIGHT_TEXT}; }
+        .goodnight-message { position: relative; overflow: hidden; padding: 30px 22px; border-radius: 25px; text-align: center; background: linear-gradient(145deg, rgba(135,111,184,.27), rgba(255,255,255,.045)); border: 1px solid rgba(255,245,232,.10); font-family: ${FONT_DISPLAY}; font-size: 16px; font-weight: 500; line-height: 2.12; letter-spacing: .025em; color: ${NIGHT_TEXT}; }
         .goodnight-mark { position: absolute; right: -3px; bottom: -4px; opacity: .16; }
         .ambient-heading { margin: 27px 0 12px; text-align: center; color: rgba(255,245,232,.50); }
         .sound-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
@@ -3632,7 +3632,7 @@ export default function App() {
         .bottom-nav-night .nav-button-active { color: #EAC86F; }
         .nav-button-active .nav-icon-shell { background: linear-gradient(145deg, rgba(252,236,208,.72), rgba(238,218,244,.66)); box-shadow: 0 8px 17px -13px rgba(153,105,55,.48); }
         .bottom-nav-night .nav-button-active .nav-icon-shell { background: rgba(234,200,111,.10); box-shadow: 0 0 20px rgba(234,200,111,.07); }
-        .nav-button-label { font-family: ${FONT_BODY}; font-size: 9px; letter-spacing: .04em; white-space: nowrap; }
+        .nav-button-label { font-family: ${FONT_BODY}; font-size: 9.5px; font-weight: 500; letter-spacing: .035em; white-space: nowrap; }
         .toast { position: absolute; left: 50%; transform: translateX(-50%); bottom: calc(91px + env(safe-area-inset-bottom)); z-index: 60; padding: 11px 18px; border-radius: 999px; max-width: 84%; text-align: center; font-family: ${FONT_BODY}; font-size: 11.5px; line-height: 1.5; letter-spacing: .03em; color: #FFF9F1; animation: riseIn .3s ease; box-shadow: 0 14px 30px -14px rgba(29,27,37,.55); }
         .toast-day { background: rgba(91,67,59,.93); }
         .toast-night { background: rgba(10,8,26,.94); }
@@ -3696,8 +3696,8 @@ export default function App() {
           .dream-hero { padding: 23px 14px 4px; }
           .hero-heading { font-size: 28px; }
           .hero-art-wrap { width: 272px; max-width: 92%; min-height: 224px; margin-top: 3px; }
-          .hero-copy-wrap { top: 45%; padding: 11px 16px; max-width: calc(100% - 22px); }
-          .hero-copy { font-size: 13px; line-height: 1.85; }
+          .hero-copy-wrap { top: 45%; padding: 12px 16px; max-width: calc(100% - 22px); }
+          .hero-copy { font-size: 14.2px; line-height: 1.86; }
           .mood-grid, .journal-mood-grid { gap: 6px; }
           .mood-card { min-height: 80px; padding-left: 2px; padding-right: 2px; }
           .mood-label, .journal-mood > span { font-size: 11.5px; }
@@ -3709,8 +3709,8 @@ export default function App() {
         }
         @media (max-width: 360px) {
           .hero-art-wrap { width: 252px; min-height: 210px; }
-          .hero-copy-wrap { top: 44%; padding: 10px 13px; }
-          .hero-copy { font-size: 12.5px; white-space: normal; min-width: 190px; }
+          .hero-copy-wrap { top: 44%; padding: 11px 14px; }
+          .hero-copy { font-size: 13.6px; line-height: 1.82; white-space: normal; min-width: 190px; }
         }
         @media (max-width: 340px) {
           .mood-grid, .journal-mood-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
