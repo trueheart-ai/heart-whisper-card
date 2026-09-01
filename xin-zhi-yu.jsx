@@ -48,7 +48,7 @@ const ASSETS = {
   cozy: "./assets/cozy-illustration.png",
   cardBackCream: "./assets/card-back-cream.png",
   cardBackPurple: "./assets/card-back-purple.png",
-  cardBackDream: "./assets/card-back-dream-hq.png",
+  cardBackDream: "./assets/card-back-dream-edge.png",
   cardBackGreen: "./assets/card-back-green.png",
   cardBackPink: "./assets/card-back-pink.png",
   cardFaceCream: "./assets/card-face-cream.png",
@@ -2156,9 +2156,9 @@ function CardFace({ card, flipped, stage, compact = false }) {
   const deck = card ? deckByKey(card.deck) : DECKS[0];
   const focusing = stage === "breathe" || stage === "focus";
   const faceArt = card ? deckFaceArt(card.deck) : ASSETS.cardFaceCream;
-  const width = compact ? 104 : 222;
-  const height = compact ? 164 : 342;
-  const radius = compact ? 15 : 24;
+  const width = compact ? 98 : 214;
+  const height = compact ? 164 : 356;
+  const radius = compact ? 15 : 23;
 
   const faceBase = {
     position: "absolute", inset: 0, borderRadius: radius, backfaceVisibility: "hidden",
@@ -2184,26 +2184,17 @@ function CardFace({ card, flipped, stage, compact = false }) {
       >
         <div className="grain card-back-dream" style={{
           ...faceBase,
-          background: "linear-gradient(180deg, rgba(255,255,255,.92), rgba(248,243,255,.95) 32%, rgba(234,224,248,.98) 100%)",
+          background: "linear-gradient(165deg, #EEE6FA 0%, #D8C9ED 48%, #CDBCE7 100%)",
           boxShadow: focusing
-            ? "0 34px 68px -20px rgba(154,132,196,0.42), 0 0 48px rgba(231,204,146,0.18)"
-            : "0 26px 56px -22px rgba(122,101,156,0.34)",
+            ? "0 34px 68px -18px rgba(126,97,173,0.46), 0 0 42px rgba(230,196,116,0.18)"
+            : "0 28px 58px -22px rgba(92,66,133,0.42)",
           transition: "box-shadow 0.7s ease",
-          border: "1px solid rgba(255,255,255,0.94)",
+          border: "1px solid rgba(218,184,111,0.42)",
         }}>
-          <img src={ASSETS.cardBackDream} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.985 }} />
+          <img src={ASSETS.cardBackDream} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", transform: "scale(1.018)", opacity: 1 }} />
           <div className="card-back-overlay" />
-          <div className="card-inner-frame" style={{ inset: compact ? 6 : 10, borderRadius: compact ? 12 : 20 }} />
-          <div className="card-inner-frame second" style={{ inset: compact ? 11 : 18, borderRadius: compact ? 9 : 16 }} />
-          <div className="card-back-orbit" style={{ width: compact ? 54 : 116, height: compact ? 54 : 116 }} />
-          <div className="card-back-topstar" aria-hidden="true"><DreamStar size={compact ? 7 : 12} opacity={0.72} color={C.goldDeep} /></div>
-          {!compact && (
-            <>
-              <div className="card-side-title top">H E A R T &nbsp; W H I S P E R</div>
-              <div className="card-side-title bottom">A QUIET CARD FOR YOUR HEART</div>
-              <div className="card-brand-stamp">心之語</div>
-            </>
-          )}
+          <div className="card-inner-frame" style={{ inset: compact ? 5 : 8, borderRadius: compact ? 11 : 18 }} />
+          <div className="card-inner-frame second" style={{ inset: compact ? 9 : 14, borderRadius: compact ? 9 : 15 }} />
         </div>
 
         <div className="grain" style={{
@@ -2534,7 +2525,7 @@ function DrawScreen({ presetMode, presetDeck, clearPreset, addJournalDraft, rece
               <div className="deck-label">Choose a deck</div>
               <div className="deck-selected">現在選擇：{activeDeck.name}</div>
             </div>
-            <span className="deck-scroll-hint">左右滑動</span>
+            
           </div>
 
           <div className="deck-rail" role="group" aria-label="牌組">
@@ -3334,8 +3325,8 @@ export default function App() {
         .hero-art-wrap { position: relative; width: 286px; max-width: 90%; margin: 6px auto 0; min-height: 238px; display: flex; align-items: flex-end; justify-content: center; }
         .hero-art-wrap img { width: 100%; height: auto; position: relative; z-index: 1; opacity: .82; filter: drop-shadow(0 12px 17px rgba(89,67,94,.12)); }
         .hero-art-glow { position: absolute; inset: 12% 7% 2%; z-index: 0; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.68), transparent 73%); filter: blur(8px); pointer-events: none; }
-        .hero-copy-wrap { position: absolute; z-index: 5; left: 50%; top: 47%; transform: translate(-50%, -50%); display: inline-flex; width: max-content; max-width: calc(100% - 34px); padding: 13px 22px; border-radius: 22px; background: linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,250,245,.62)); border: 1px solid rgba(255,255,255,.72); box-shadow: 0 18px 36px -22px rgba(109,87,97,.26), inset 0 1px 0 rgba(255,255,255,.34); backdrop-filter: blur(12px) saturate(108%); -webkit-backdrop-filter: blur(12px) saturate(108%); }
-        .hero-copy { margin: 0; font-family: ${FONT_DISPLAY}; font-size: 16.5px; line-height: 1.92; color: ${C.ink}; font-weight: 500; letter-spacing: .035em; text-shadow: 0 1px 0 rgba(255,255,255,.82), 0 0 10px rgba(255,255,255,.28); white-space: nowrap; }
+        .hero-copy-wrap { position: absolute; z-index: 5; left: 50%; top: 47%; transform: translate(-50%, -50%); display: inline-flex; width: max-content; max-width: calc(100% - 34px); padding: 2px 4px; border-radius: 0; background: transparent; border: 0; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+        .hero-copy { margin: 0; font-family: ${FONT_DISPLAY}; font-size: 15px; line-height: 1.9; color: ${C.ink}; font-weight: 600; letter-spacing: .035em; text-shadow: 0 1px 0 rgba(255,255,255,.96), 0 2px 12px rgba(255,255,255,.92), 0 0 22px rgba(255,250,244,.92); white-space: nowrap; }
 
         .panel-heading-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 13px; }
         .panel-eyebrow, .compose-kicker, .list-kicker, .deck-label, .recommend-kicker, .guidance-kicker, .for-you-kicker, .recurring-kicker { font-family: ${FONT_EN}; font-size: 12px; font-weight: 500; letter-spacing: .17em; text-transform: uppercase; color: ${C.goldDeep}; }
@@ -3371,9 +3362,9 @@ export default function App() {
         .deck-heading-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin: 23px 0 10px; }
         .deck-selected { margin-top: 4px; font-family: ${FONT_BODY}; font-size: 13.5px; color: ${C.inkSoft}; }
         .deck-scroll-hint { font-family: ${FONT_BODY}; font-size: 11px; color: ${C.inkFaint}; white-space: nowrap; }
-        .deck-rail { display: grid; grid-auto-flow: column; grid-template-rows: repeat(2, 38px); grid-auto-columns: max-content; gap: 7px 8px; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: none; padding: 2px 20px 8px 1px; margin-right: -18px; scroll-snap-type: x proximity; }
+        .deck-rail { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; overflow: visible; padding: 2px 0 4px; margin: 0; }
         .deck-rail::-webkit-scrollbar { display: none; }
-        .deck-chip { scroll-snap-align: start; height: 38px; display: inline-flex; align-items: center; gap: 7px; border: 1px solid rgba(140,108,95,.12); background: rgba(255,255,255,.64); border-radius: 999px; padding: 0 13px; cursor: pointer; font-family: ${FONT_BODY}; font-size: 13px; white-space: nowrap; color: ${C.inkSoft}; box-shadow: 0 8px 20px -18px rgba(85,61,72,.42); }
+        .deck-chip { min-width: 0; min-height: 42px; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 7px; border: 1px solid rgba(140,108,95,.12); background: rgba(255,255,255,.64); border-radius: 15px; padding: 8px 9px; cursor: pointer; font-family: ${FONT_BODY}; font-size: 13px; line-height: 1.35; white-space: normal; text-align: center; color: ${C.inkSoft}; box-shadow: 0 8px 20px -18px rgba(85,61,72,.42); }
         .deck-chip-on { border-color: rgba(204,158,75,.58); background: rgba(255,249,236,.92); color: ${C.ink}; box-shadow: 0 10px 22px -16px rgba(186,136,57,.48); }
         .deck-chip-swatch { width: 11px; height: 11px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(91,68,60,.08), 0 2px 5px rgba(91,68,60,.07); }
         .ritual-paper { overflow: visible !important; background: radial-gradient(circle at 50% 28%, rgba(219,203,239,.23), transparent 42%), linear-gradient(160deg, rgba(255,255,255,.82), rgba(255,248,241,.68)) !important; }
@@ -3381,9 +3372,9 @@ export default function App() {
         .card-frame { position: relative; }
         .card-frame-aura { position: absolute; inset: -16px; border-radius: 34px; filter: blur(18px); opacity: .85; pointer-events: none; z-index: 0; }
         .card-frame-aura.compact { inset: -8px; border-radius: 20px; filter: blur(10px); }
-        .card-back-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.04) 24%, rgba(130,98,155,.08) 100%); }
-        .card-inner-frame { position: absolute; border: 1px solid rgba(255,255,255,.78); box-shadow: inset 0 0 0 1px rgba(173,142,109,.10); pointer-events: none; }
-        .card-inner-frame.second { border-color: rgba(168,138,116,.20); }
+        .card-back-overlay { position: absolute; inset: 0; background: linear-gradient(145deg, rgba(255,255,255,.22), transparent 24%, transparent 68%, rgba(91,61,125,.10)); box-shadow: inset 0 0 28px rgba(83,57,112,.06); }
+        .card-inner-frame { position: absolute; border: 1px solid rgba(232,205,143,.72); box-shadow: inset 0 0 0 1px rgba(255,255,255,.34); pointer-events: none; }
+        .card-inner-frame.second { border-color: rgba(183,145,78,.32); }
         .card-inner-frame.light { border-color: rgba(255,255,255,.78); box-shadow: inset 0 0 0 1px rgba(206,176,129,.10); }
         .card-inner-frame.soft { border-color: rgba(158,131,111,.16); }
         .card-back-orbit { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -53%); border-radius: 50%; border: 1px solid rgba(203,170,123,.40); box-shadow: 0 0 0 10px rgba(255,255,255,.11), inset 0 0 0 1px rgba(255,255,255,.42); }
@@ -3513,7 +3504,7 @@ export default function App() {
         .night-intro-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 18% 18%, rgba(255,255,255,.62) 0 1px, transparent 1.4px), radial-gradient(circle at 72% 12%, rgba(255,231,170,.52) 0 1px, transparent 1.5px), radial-gradient(circle at 84% 42%, rgba(255,255,255,.45) 0 1px, transparent 1.4px), radial-gradient(circle at 26% 58%, rgba(255,255,255,.38) 0 1px, transparent 1.4px); background-size: 82px 92px, 123px 107px, 98px 118px, 140px 133px; opacity: .48; }
         .night-star-field { position: absolute; inset: 23px 27px auto; display: flex; justify-content: space-between; }
         .night-crescent { display: grid; place-items: center; margin: 35px auto 19px; filter: drop-shadow(0 10px 25px rgba(230,193,103,.16)); }
-        .night-intro-title { font-family: ${FONT_DISPLAY}; font-size: 21px; font-weight: 500; letter-spacing: .055em; color: ${NIGHT_TEXT}; }
+        .night-intro-title { font-family: ${FONT_DISPLAY}; font-size: 17.5px; font-weight: 500; letter-spacing: .045em; color: ${NIGHT_TEXT}; }
         .night-intro-copy { margin: 9px 0 23px; font-family: ${FONT_BODY}; font-size: 14px; line-height: 1.95; color: ${NIGHT_SOFT}; }
         .night-card-step { padding-top: 5px; }
         .night-image-card-halo { position: relative; padding: 6px 0 10px; }
@@ -3569,7 +3560,7 @@ export default function App() {
         .bottom-nav-night .nav-button-active { color: #EAC86F; }
         .nav-button-active .nav-icon-shell { background: linear-gradient(145deg, rgba(252,236,208,.72), rgba(238,218,244,.66)); box-shadow: 0 8px 17px -13px rgba(153,105,55,.48); }
         .bottom-nav-night .nav-button-active .nav-icon-shell { background: rgba(234,200,111,.10); box-shadow: 0 0 20px rgba(234,200,111,.07); }
-        .nav-button-label { font-family: ${FONT_BODY}; font-size: 11px; font-weight: 500; letter-spacing: .035em; white-space: nowrap; }
+        .nav-button-label { font-family: ${FONT_BODY}; font-size: 12.5px; font-weight: 600; letter-spacing: .025em; white-space: nowrap; }
         .toast { position: absolute; left: 50%; transform: translateX(-50%); bottom: calc(91px + env(safe-area-inset-bottom)); z-index: 60; padding: 11px 18px; border-radius: 999px; max-width: 84%; text-align: center; font-family: ${FONT_BODY}; font-size: 13px; line-height: 1.5; letter-spacing: .03em; color: #FFF9F1; animation: riseIn .3s ease; box-shadow: 0 14px 30px -14px rgba(29,27,37,.55); }
         .toast-day { background: rgba(91,67,59,.93); }
         .toast-night { background: rgba(10,8,26,.94); }
@@ -3616,7 +3607,7 @@ export default function App() {
           .dashboard-recent-meta { font-size: 12px; }
           .night-text-button { font-size: 14px; }
           .release-note { font-size: 13px; }
-          .nav-button-label { font-size: 11.5px; }
+          .nav-button-label { font-size: 13px; }
           .toast { font-size: 14px; }
           .favorite-card-copy p { font-size: 14px; }
           .favorite-card-deck { font-size: 11.5px; }
@@ -3630,12 +3621,12 @@ export default function App() {
           .dream-hero { padding: 23px 14px 4px; }
           .hero-heading { font-size: 30px; }
           .hero-art-wrap { width: 272px; max-width: 92%; min-height: 224px; margin-top: 3px; }
-          .hero-copy-wrap { top: 45%; padding: 12px 16px; max-width: calc(100% - 22px); }
+          .hero-copy-wrap { top: 45%; padding: 2px 4px; max-width: calc(100% - 22px); }
           .hero-copy { font-size: 15.5px; line-height: 1.86; }
           .mood-grid, .journal-mood-grid { gap: 6px; }
           .mood-card { min-height: 80px; padding-left: 2px; padding-right: 2px; }
           .mood-label, .journal-mood > span { font-size: 13px; }
-          .deck-rail { margin-right: -14px; }
+          .deck-rail { margin: 0; }
           .section-title-main { font-size: 25px; }
           .favorite-card-item { grid-template-columns: 94px minmax(0, 1fr); gap: 10px; }
           .favorite-card-visual .card-frame.compact { transform: scale(.9); transform-origin: left center; margin-right: -10px !important; }
@@ -3643,7 +3634,7 @@ export default function App() {
         }
         @media (max-width: 360px) {
           .hero-art-wrap { width: 252px; min-height: 210px; }
-          .hero-copy-wrap { top: 44%; padding: 11px 14px; }
+          .hero-copy-wrap { top: 44%; padding: 2px 4px; }
           .hero-copy { font-size: 15px; line-height: 1.82; white-space: normal; min-width: 190px; }
         }
         @media (max-width: 340px) {
