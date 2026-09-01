@@ -2191,7 +2191,7 @@ function CardFace({ card, flipped, stage, compact = false }) {
           transition: "box-shadow 0.7s ease",
           border: "1px solid rgba(218,184,111,0.42)",
         }}>
-          <img src={ASSETS.cardBackDream} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", transform: "scale(1.018)", opacity: 1 }} />
+          <img src={ASSETS.cardBackDream} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", transform: "scale(1.025)", opacity: 1, filter: "saturate(1.28) contrast(1.08) brightness(.88)" }} />
           <div className="card-back-overlay" />
           <div className="card-inner-frame" style={{ inset: compact ? 5 : 8, borderRadius: compact ? 11 : 18 }} />
           <div className="card-inner-frame second" style={{ inset: compact ? 9 : 14, borderRadius: compact ? 9 : 15 }} />
@@ -2403,33 +2403,36 @@ function TodayScreen({ mood, setMood, onGoDraw, favorites, toggleFavorite, onSha
   const isFav = favorites.includes(quote);
 
   return (
-    <div className="screen-block today-screen">
-      <section className="dream-hero grain">
-        <div className="hero-stars hero-stars-left" aria-hidden="true">
-          <DreamStar size={10} opacity={0.62} />
-          <DreamStar size={6} color={C.lilacDeep} opacity={0.5} />
-          <DreamStar size={8} opacity={0.42} />
+    <div className="screen-block today-screen boutique-today-screen">
+      <section className="boutique-home-hero grain">
+        <div className="boutique-hero-sparkle boutique-hero-sparkle-a" aria-hidden="true"><DreamStar size={12} opacity={0.58} /></div>
+        <div className="boutique-hero-sparkle boutique-hero-sparkle-b" aria-hidden="true"><DreamStar size={7} color={C.lilacDeep} opacity={0.48} /></div>
+        <div className="boutique-brand-lockup">
+          <CrescentMark size={28} />
+          <div>
+            <div className="boutique-brand-cn">心之語</div>
+            <div className="boutique-brand-en">Heart Whisper</div>
+          </div>
         </div>
-        <div className="hero-moon-mark" aria-hidden="true"><CrescentMark size={36} /></div>
-        <div className="hero-date">{todayLabel()}</div>
-        <h1 className="hero-heading">今天的你，還好嗎？</h1>
-        <div className="hero-rule" aria-hidden="true"><span /><DreamStar size={8} opacity={0.62} /><span /></div>
-        <div className="hero-art-wrap">
-          <div className="hero-art-glow" aria-hidden="true" />
-          <img src={ASSETS.cozy} alt="月亮、花朵、茶杯、書與貓咪的療癒插畫" />
-          <div className="hero-copy-wrap"><p className="hero-copy">不用急著解決所有事，<br />先給自己三分鐘。</p></div>
+        <div className="boutique-home-date">{todayLabel()}</div>
+        <h1 className="boutique-home-title">今天的你，<br />還好嗎？</h1>
+        <div className="boutique-home-rule" aria-hidden="true"><span /><DreamStar size={8} opacity={0.68} /><span /></div>
+        <p className="boutique-home-copy">不用急著解決所有事，<br />先給自己三分鐘。</p>
+        <div className="boutique-home-art" aria-hidden="true">
+          <div className="boutique-home-glow" />
+          <img src={ASSETS.cozy} alt="" />
         </div>
       </section>
 
-      <Paper className="mood-panel" style={{ padding: 16, marginBottom: 18 }}>
-        <div className="panel-heading-row">
+      <Paper className="mood-panel boutique-mood-panel" style={{ padding: 16, marginBottom: 18 }}>
+        <div className="panel-heading-row boutique-panel-heading-row">
           <div>
-            <div className="panel-eyebrow">How you feel</div>
-            <div className="panel-heading">選擇你今天的心情</div>
+            <div className="panel-eyebrow">Today · Feelings</div>
+            <div className="panel-heading">今天的心情</div>
           </div>
-          <div className="panel-helper">選最靠近現在的感受</div>
+          <div className="panel-helper">選一個最靠近現在的感受</div>
         </div>
-        <div className="mood-grid">
+        <div className="mood-grid boutique-mood-grid">
           {MOODS.map((m) => (
             <MoodCard key={m.key} mood={m} selected={mood === m.key} onSelect={setMood} />
           ))}
@@ -2437,7 +2440,7 @@ function TodayScreen({ mood, setMood, onGoDraw, favorites, toggleFavorite, onSha
       </Paper>
 
       {rec && (
-        <Paper tone={C.gold} className="recommend-card" style={{ padding: 20, marginBottom: 18, animation: "riseIn 0.55s ease" }}>
+        <Paper tone={C.gold} className="recommend-card boutique-recommend-card" style={{ padding: 20, marginBottom: 18, animation: "riseIn 0.55s ease" }}>
           <div className="recommend-ornament" aria-hidden="true"><DreamStar size={9} opacity={0.55} /></div>
           <div className="recommend-kicker">For this moment</div>
           <div className="recommend-copy">{rec.text}</div>
@@ -2449,7 +2452,7 @@ function TodayScreen({ mood, setMood, onGoDraw, favorites, toggleFavorite, onSha
         </Paper>
       )}
 
-      <section className="grain daily-quote-card">
+      <section className="grain daily-quote-card boutique-quote-card">
         <div className="quote-watermark" aria-hidden="true"><CrescentMark size={68} /></div>
         <div className="quote-kicker"><DreamStar size={9} opacity={0.58} /> 今日給自己的話</div>
         <blockquote className="daily-quote">「{quote}」</blockquote>
@@ -2505,12 +2508,22 @@ function DrawScreen({ presetMode, presetDeck, clearPreset, addJournalDraft, rece
   const activeDeck = deckByKey(deckKey);
 
   return (
-    <div className="screen-block draw-screen">
-      <SectionTitle en="Draw a card" title="給自己抽一張牌" note={result ? "把抽到的話慢慢讀完，不需要立刻得到答案。" : "選一種方式，讓今天的心安靜一下。"} />
+    <div className="screen-block draw-screen boutique-draw-screen">
+      <div className="boutique-draw-brand">
+        <CrescentMark size={24} />
+        <span>心之語</span>
+        <small>Heart Whisper</small>
+      </div>
+
+      <header className="boutique-draw-head">
+        <div className="boutique-draw-kicker"><DreamStar size={9} opacity={0.66} /> 今日抽卡 <DreamStar size={7} opacity={0.46} /></div>
+        <h1>給自己抽一張牌</h1>
+        <p>{result ? "把抽到的話慢慢讀完，不需要立刻得到答案。" : "選擇今天想要的指引方式，讓心安靜一下。"}</p>
+      </header>
 
       {!result && (
         <>
-          <div className="seg" role="group" aria-label="抽卡方式">
+          <div className="seg boutique-seg" role="group" aria-label="抽卡方式">
             {modes.map((m) => (
               <button key={m.key} type="button" onClick={() => { setMode(m.key); setResult(null); }}
                 aria-pressed={mode === m.key}
@@ -2520,52 +2533,56 @@ function DrawScreen({ presetMode, presetDeck, clearPreset, addJournalDraft, rece
             ))}
           </div>
 
-          <div className="deck-heading-row">
+          <div className="boutique-deck-heading">
             <div>
               <div className="deck-label">Choose a deck</div>
-              <div className="deck-selected">現在選擇：{activeDeck.name}</div>
+              <div className="boutique-deck-title">選擇牌卡系列</div>
             </div>
-            
+            <span>{activeDeck.name}</span>
           </div>
 
-          <div className="deck-rail" role="group" aria-label="牌組">
+          <div className="deck-rail boutique-deck-grid" role="group" aria-label="牌組">
             {DECKS.map((d) => {
               const on = deckKey === d.key;
               return (
                 <button key={d.key} type="button" onClick={() => setDeckKey(d.key)}
                   className={on ? "press deck-chip deck-chip-on" : "press deck-chip"}
                   aria-pressed={on}>
-                  <span className="deck-chip-swatch" style={{ background: `linear-gradient(140deg, ${d.from}, ${d.to})` }} />
+                  <span className="boutique-deck-orb" style={{ background: `linear-gradient(140deg, ${d.from}, ${d.to})` }}>
+                    <DreamStar size={7} opacity={on ? 0.82 : 0.42} color={on ? C.goldDeep : C.lilacDeep} />
+                  </span>
                   <span>{d.name}</span>
                 </button>
               );
             })}
           </div>
+
+          <Paper className="ritual-paper boutique-ritual-paper" style={{ padding: "24px 18px 20px", marginTop: 20 }}>
+            <div className="boutique-ritual-aura" aria-hidden="true" />
+            <RitualStage
+              key={runKey}
+              mode={mode} deckKey={deckKey}
+              onComplete={handleComplete} recentIds={recentIds}
+            />
+            <div className="boutique-ritual-note">專注呼吸，想著此刻最想被提醒的一件事。</div>
+          </Paper>
         </>
       )}
 
-      {!result && (
-        <Paper className="ritual-paper" style={{ padding: "24px 18px 20px", marginTop: 20 }}>
-          <RitualStage
-            key={runKey}
-            mode={mode} deckKey={deckKey}
-            onComplete={handleComplete} recentIds={recentIds}
-          />
-        </Paper>
-      )}
-
       {result && mode === "single" && (
-        <CardDetail
-          card={result}
-          isFavorite={favoriteCardIds.includes(result.id)}
-          onToggleFavorite={toggleFavoriteCard}
-          onShare={(c) => saveShareImage(c, `心之語-${c.name}.png`, notify)}
-        />
+        <div className="boutique-result-wrap">
+          <CardDetail
+            card={result}
+            isFavorite={favoriteCardIds.includes(result.id)}
+            onToggleFavorite={toggleFavoriteCard}
+            onShare={(c) => saveShareImage(c, `心之語-${c.name}.png`, notify)}
+          />
+          <div className="restart-row"><GhostButton onClick={restart}>重新抽一張</GhostButton></div>
+        </div>
       )}
-
 
       {result && mode === "triple" && Array.isArray(result) && (
-        <div className="triple-result" style={{ animation: "riseIn 0.7s ease" }}>
+        <div className="triple-result boutique-triple-result" style={{ animation: "riseIn 0.7s ease" }}>
           <div className="triple-result-visuals">
             {result.map((card, i) => (
               <div key={card.id} className="triple-result-card">
@@ -2579,7 +2596,7 @@ function DrawScreen({ presetMode, presetDeck, clearPreset, addJournalDraft, rece
             { en: "Let go", label: "我需要放下什麼", card: result[1], text: (c) => c.reminder },
             { en: "Next", label: "接下來可以往哪裡走", card: result[2], text: (c) => c.action },
           ].map((row) => (
-            <Paper key={row.en} className="triple-guidance" style={{ padding: 18, marginBottom: 11 }}>
+            <Paper key={row.en} className="triple-guidance boutique-triple-guidance" style={{ padding: 18, marginBottom: 11 }}>
               <div className="triple-guidance-kicker">{row.en}<span>{row.label}</span></div>
               <div className="triple-guidance-title">{row.card.name}</div>
               <div className="triple-guidance-copy">{row.text(row.card)}</div>
@@ -2593,18 +2610,7 @@ function DrawScreen({ presetMode, presetDeck, clearPreset, addJournalDraft, rece
               </div>
             </Paper>
           ))}
-
-          <div className="for-you-card">
-            <div className="for-you-star"><DreamStar size={10} opacity={0.6} /></div>
-            <div className="for-you-kicker">For you</div>
-            <div className="for-you-copy">{result[2].healing}</div>
-          </div>
-        </div>
-      )}
-
-      {result && (
-        <div className="restart-row">
-          <GhostButton onClick={restart}>再抽一次</GhostButton>
+          <div className="restart-row"><GhostButton onClick={restart}>重新抽卡</GhostButton></div>
         </div>
       )}
     </div>
@@ -3616,6 +3622,71 @@ export default function App() {
         @media (min-width: 700px) {
           .phone { height: calc(100dvh - 28px); margin: 14px 0; border-radius: 32px; }
         }
+
+        /* ===== v2.20 Boutique Home + Draw ===== */
+        .boutique-today-screen { margin-top: -4px; }
+        .boutique-home-hero {
+          position: relative; overflow: hidden; min-height: 500px; margin: -8px -18px 16px; padding: 28px 24px 18px;
+          text-align: center; border-radius: 0 0 34px 34px;
+          background:
+            radial-gradient(circle at 18% 15%, rgba(255,232,238,.76), transparent 29%),
+            radial-gradient(circle at 78% 20%, rgba(220,206,244,.76), transparent 28%),
+            radial-gradient(circle at 50% 74%, rgba(255,244,220,.82), transparent 32%),
+            linear-gradient(180deg, #FFF6F0 0%, #F6E6F1 47%, #E5EAF7 100%);
+          border-bottom: 1px solid rgba(255,255,255,.94); box-shadow: 0 28px 70px -42px rgba(89,62,100,.45);
+        }
+        .boutique-home-hero::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.28; background-image: radial-gradient(circle at 16% 16%, #fff 0 1px, transparent 1.3px), radial-gradient(circle at 74% 22%, #E4B961 0 1px, transparent 1.4px), radial-gradient(circle at 88% 54%, #fff 0 1px, transparent 1.4px); background-size: 78px 92px, 116px 108px, 91px 102px; }
+        .boutique-brand-lockup { position: relative; z-index: 4; display: inline-flex; align-items: center; gap: 9px; margin-bottom: 15px; color: #6A4D83; }
+        .boutique-brand-lockup > div { text-align:left; }
+        .boutique-brand-cn { font-family:${FONT_DISPLAY}; font-size:23px; line-height:1.15; letter-spacing:.20em; font-weight:600; }
+        .boutique-brand-en { margin-top:3px; font-family:${FONT_EN}; font-size:11px; letter-spacing:.19em; color:rgba(105,76,128,.64); }
+        .boutique-home-date { position:relative; z-index:4; margin-top:4px; font-family:${FONT_BODY}; font-size:12px; letter-spacing:.12em; color:${C.goldDeep}; }
+        .boutique-home-title { position:relative; z-index:4; margin:8px 0 0; font-family:${FONT_DISPLAY}; font-size:38px; line-height:1.42; font-weight:600; letter-spacing:.055em; color:#58415F; text-shadow:0 2px 0 rgba(255,255,255,.72); }
+        .boutique-home-rule { position:relative; z-index:4; display:flex; align-items:center; justify-content:center; gap:8px; margin:10px 0 7px; }
+        .boutique-home-rule span { width:38px; height:1px; background:linear-gradient(90deg, transparent, rgba(189,142,70,.48)); }
+        .boutique-home-rule span:last-child { transform:scaleX(-1); }
+        .boutique-home-copy { position:relative; z-index:5; margin:0; font-family:${FONT_DISPLAY}; font-size:15.5px; line-height:1.9; letter-spacing:.035em; font-weight:600; color:#664C4D; text-shadow:0 1px 0 #fff,0 2px 12px rgba(255,255,255,.96); }
+        .boutique-home-art { position:absolute; z-index:2; left:50%; bottom:-8px; transform:translateX(-50%); width:340px; max-width:93%; height:230px; display:flex; align-items:flex-end; justify-content:center; opacity:.94; }
+        .boutique-home-art img { position:relative; z-index:2; width:100%; height:auto; transform:translateY(28px) scale(1.05); filter:drop-shadow(0 18px 24px rgba(88,64,96,.18)); }
+        .boutique-home-glow { position:absolute; inset:18% 7% 0; border-radius:50%; background:radial-gradient(circle,rgba(255,255,255,.78),transparent 72%); filter:blur(10px); }
+        .boutique-hero-sparkle { position:absolute; z-index:4; }
+        .boutique-hero-sparkle-a { left:24px; top:58px; }
+        .boutique-hero-sparkle-b { right:28px; top:86px; }
+        .boutique-mood-panel { border-color:rgba(229,187,119,.32)!important; background:linear-gradient(150deg,rgba(255,253,250,.94),rgba(252,243,238,.82))!important; box-shadow:0 20px 48px -30px rgba(107,73,93,.34)!important; }
+        .boutique-panel-heading-row { align-items:center; }
+        .boutique-mood-grid .mood-card { min-height:88px; border-color:rgba(220,176,104,.24); background:linear-gradient(160deg,rgba(255,255,255,.96),rgba(255,248,242,.84)); }
+        .boutique-mood-grid .mood-card-on { border-color:rgba(180,125,76,.56); box-shadow:0 14px 30px -18px rgba(143,86,99,.46), inset 0 0 0 1px rgba(255,255,255,.72); }
+        .boutique-recommend-card { border-color:rgba(213,171,98,.38)!important; }
+        .boutique-quote-card { border:1px solid rgba(214,166,96,.32); background:linear-gradient(145deg,rgba(255,251,246,.98),rgba(248,232,236,.86) 55%,rgba(233,224,246,.84)); }
+
+        .boutique-draw-screen { padding-top:2px; }
+        .boutique-draw-brand { display:flex; align-items:center; justify-content:center; gap:8px; margin:2px 0 16px; color:#73518F; }
+        .boutique-draw-brand span { font-family:${FONT_DISPLAY}; font-size:19px; font-weight:600; letter-spacing:.17em; }
+        .boutique-draw-brand small { font-family:${FONT_EN}; font-size:10px; letter-spacing:.13em; color:rgba(112,83,129,.56); }
+        .boutique-draw-head { text-align:center; margin-bottom:16px; }
+        .boutique-draw-kicker { display:flex; align-items:center; justify-content:center; gap:7px; font-family:${FONT_BODY}; font-size:12px; letter-spacing:.14em; color:${C.goldDeep}; }
+        .boutique-draw-head h1 { margin:5px 0 5px; font-family:${FONT_DISPLAY}; font-size:31px; line-height:1.45; letter-spacing:.055em; color:#5D4567; }
+        .boutique-draw-head p { margin:0 auto; max-width:315px; font-family:${FONT_BODY}; font-size:13px; line-height:1.8; color:${C.inkSoft}; }
+        .boutique-seg { margin:0 auto 18px; max-width:330px; padding:4px; background:rgba(255,255,255,.68); border-color:rgba(189,143,80,.16); }
+        .boutique-seg .seg-on { background:linear-gradient(135deg,#6E4A87,#9B69A7); box-shadow:0 10px 24px -14px rgba(91,55,118,.52); }
+        .boutique-deck-heading { display:flex; justify-content:space-between; align-items:flex-end; gap:12px; margin:20px 0 10px; }
+        .boutique-deck-title { margin-top:4px; font-family:${FONT_DISPLAY}; font-size:17px; color:${C.ink}; }
+        .boutique-deck-heading > span { padding:6px 10px; border-radius:999px; background:rgba(244,233,249,.82); border:1px solid rgba(157,117,180,.18); font-family:${FONT_BODY}; font-size:11px; color:#7B5F8C; white-space:nowrap; }
+        .boutique-deck-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+        .boutique-deck-grid .deck-chip { min-height:45px; border-radius:16px; justify-content:flex-start; padding:8px 10px; background:linear-gradient(160deg,rgba(255,255,255,.94),rgba(255,247,241,.76)); border-color:rgba(211,174,118,.20); }
+        .boutique-deck-grid .deck-chip-on { background:linear-gradient(150deg,rgba(249,240,255,.98),rgba(255,247,236,.94)); border-color:rgba(129,84,158,.48); box-shadow:0 13px 28px -18px rgba(91,55,118,.52), inset 0 0 0 1px rgba(255,255,255,.82); color:#664879; }
+        .boutique-deck-orb { width:27px; height:27px; flex:0 0 27px; border-radius:50%; display:grid; place-items:center; border:1px solid rgba(255,255,255,.82); box-shadow:0 5px 12px rgba(98,71,105,.08); }
+        .boutique-ritual-paper { position:relative; overflow:hidden!important; border:1px solid rgba(210,170,102,.28)!important; background:linear-gradient(180deg,rgba(255,253,249,.95),rgba(245,233,246,.90))!important; box-shadow:0 24px 60px -34px rgba(88,57,112,.46)!important; }
+        .boutique-ritual-paper::before { content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(circle at 50% 39%,rgba(96,61,141,.17),transparent 31%),radial-gradient(circle at 50% 55%,rgba(226,186,101,.10),transparent 45%); }
+        .boutique-ritual-aura { position:absolute; width:260px; height:330px; left:50%; top:46%; transform:translate(-50%,-50%); border-radius:45%; background:radial-gradient(circle,rgba(121,84,164,.18),rgba(221,190,113,.04) 50%,transparent 72%); filter:blur(12px); pointer-events:none; }
+        .boutique-ritual-note { position:relative; z-index:2; margin-top:10px; text-align:center; font-family:${FONT_BODY}; font-size:11.5px; color:${C.inkFaint}; }
+        .boutique-draw-screen .card-back-dream { background:linear-gradient(160deg,#31214F,#4D2F6F 56%,#2B1D49)!important; border-color:rgba(226,190,108,.58)!important; box-shadow:0 30px 64px -24px rgba(48,29,82,.62),0 0 0 1px rgba(255,255,255,.08)!important; }
+        .boutique-draw-screen .card-back-dream img { filter:saturate(1.38) contrast(1.15) brightness(.78) hue-rotate(8deg)!important; }
+        .boutique-draw-screen .card-back-overlay { background:linear-gradient(145deg,rgba(42,23,71,.20),rgba(76,42,105,.26) 48%,rgba(23,14,49,.36)); mix-blend-mode:multiply; }
+        .boutique-draw-screen .card-inner-frame { border-color:rgba(236,204,127,.70); box-shadow:inset 0 0 0 1px rgba(255,255,255,.13); }
+        .boutique-result-wrap .card-detail-paper { border:1px solid rgba(210,168,96,.32)!important; box-shadow:0 24px 60px -34px rgba(83,54,103,.44)!important; }
+        .boutique-triple-guidance { border-color:rgba(209,168,98,.26)!important; }
+
         @media (max-width: 390px) {
           .phone-scroll { padding-left: 14px; padding-right: 14px; }
           .dream-hero { padding: 23px 14px 4px; }
@@ -3647,13 +3718,31 @@ export default function App() {
         @media (prefers-reduced-motion: reduce) {
           *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
         }
+
+        @media (max-width: 390px) {
+          .boutique-home-hero { min-height:480px; padding-left:18px; padding-right:18px; }
+          .boutique-home-title { font-size:34px; }
+          .boutique-home-copy { font-size:14.5px; }
+          .boutique-home-art { width:315px; height:215px; }
+          .boutique-brand-cn { font-size:21px; }
+          .boutique-deck-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+          .boutique-deck-grid .deck-chip { font-size:12px; padding:7px 8px; }
+          .boutique-deck-orb { width:24px; height:24px; flex-basis:24px; }
+        }
+        @media (max-width: 340px) {
+          .boutique-home-hero { min-height:458px; }
+          .boutique-home-title { font-size:31px; }
+          .boutique-home-art { width:292px; }
+          .boutique-deck-grid { gap:6px; }
+          .boutique-deck-grid .deck-chip { font-size:11.3px; }
+        }
       `}</style>
 
       <div className="phone">
         <div className="phone-screen">
           <div className="phone-scroll" ref={scrollRef}>
 
-            <BrandHeader night={night} />
+            {!["today", "draw"].includes(screen) && <BrandHeader night={night} />}
 
             {screen === "today" && (
               <TodayScreen
