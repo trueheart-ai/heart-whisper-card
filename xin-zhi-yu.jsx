@@ -2642,10 +2642,15 @@ function JournalScreen({ entries, addEntry, removeEntry, latestCard, clearLatest
   const canSave = note.trim() || pickedMood;
 
   return (
-    <div className="screen-block journal-screen">
-      <SectionTitle en="Today's note" title="今天想記錄點什麼？" note="不用整理成完整的句子，真實就很好。" />
+    <div className="screen-block journal-screen boutique-journal-screen">
+      <section className="boutique-subpage-hero boutique-journal-hero">
+        <div className="boutique-subpage-orbit" aria-hidden="true"><DreamStar size={10} opacity={0.7} /></div>
+        <div className="boutique-subpage-mark"><PenLine size={19} strokeWidth={1.35} /></div>
+        <SectionTitle en="Today's note" title="今天想記錄點什麼？" note="不用整理成完整的句子，真實就很好。" />
+        <div className="boutique-subpage-whisper">把此刻留給自己，就已經是一種照顧。</div>
+      </section>
 
-      <Paper className="journal-compose" style={{ padding: 18, marginBottom: 30 }}>
+      <Paper className="journal-compose boutique-journal-paper" style={{ padding: 18, marginBottom: 30 }}>
         <div className="compose-kicker">此刻的心情</div>
         <div className="journal-mood-grid">
           {MOODS.map((m) => {
@@ -2763,10 +2768,15 @@ function DashboardScreen({ entries, favoriteCount = 0 }) {
   const recentEntries = entries.slice().reverse().slice(0, 4);
 
   return (
-    <div className="screen-block dashboard-screen">
-      <SectionTitle en="Your journey" title="這段時間的你" note="每一次抽卡與書寫，都會慢慢留下屬於你的軌跡。" />
+    <div className="screen-block dashboard-screen boutique-dashboard-screen">
+      <section className="boutique-subpage-hero boutique-dashboard-hero">
+        <div className="boutique-subpage-orbit" aria-hidden="true"><DreamStar size={10} opacity={0.7} /></div>
+        <div className="boutique-subpage-mark"><BookOpen size={19} strokeWidth={1.35} /></div>
+        <SectionTitle en="Your journey" title="這段時間的你" note="每一次抽卡與書寫，都會慢慢留下屬於你的軌跡。" />
+        <div className="boutique-subpage-whisper">不用急著成為更好的你，先看見一路走來的自己。</div>
+      </section>
 
-      <div className="stats-grid">
+      <div className="stats-grid boutique-stats-grid">
         {stats.map((s) => {
           const Icon = s.Icon;
           return (
@@ -2843,10 +2853,15 @@ function FavoritesScreen({ favoriteCardIds, toggleFavoriteCard, favorites, toggl
   const savedCards = favoriteCardIds.map((id) => cardById(Number(id))).filter(Boolean);
 
   return (
-    <div className="screen-block favorites-screen">
-      <SectionTitle en="Saved for you" title="收藏" note="把想再回來看的牌與句子，留在這裡慢慢讀。" />
+    <div className="screen-block favorites-screen boutique-favorites-screen">
+      <section className="boutique-subpage-hero boutique-favorites-hero">
+        <div className="boutique-subpage-orbit" aria-hidden="true"><DreamStar size={10} opacity={0.7} /></div>
+        <div className="boutique-subpage-mark"><Heart size={19} strokeWidth={1.35} /></div>
+        <SectionTitle en="Saved for you" title="收藏" note="把想再回來看的牌與句子，留在這裡慢慢讀。" />
+        <div className="boutique-subpage-whisper">有些話值得被留下，也值得在需要的時候再遇見。</div>
+      </section>
 
-      <section className="favorites-summary">
+      <section className="favorites-summary boutique-favorites-summary">
         <div className="favorite-summary-item">
           <span className="favorite-summary-icon"><Layers size={18} strokeWidth={1.4} /></span>
           <div><strong>{savedCards.length}</strong><small>收藏牌卡</small></div>
@@ -2876,7 +2891,7 @@ function FavoritesScreen({ favoriteCardIds, toggleFavoriteCard, favorites, toggl
           {savedCards.slice().reverse().map((card) => {
             const deck = deckByKey(card.deck);
             return (
-              <Paper key={card.id} className="favorite-card-item" style={{ padding: 13 }}>
+              <Paper key={card.id} className="favorite-card-item boutique-favorite-card-item" style={{ padding: 13 }}>
                 <div className="favorite-card-visual"><CardFace card={card} flipped stage="revealed" compact /></div>
                 <div className="favorite-card-copy">
                   <div className="favorite-card-deck">{deck.name}</div>
@@ -2922,7 +2937,7 @@ function FavoritesScreen({ favoriteCardIds, toggleFavoriteCard, favorites, toggl
       ) : (
         <div className="saved-words-list">
           {favorites.slice().reverse().map((q) => (
-            <Paper key={q} className="saved-word favorite-quote-card" style={{ padding: 18, marginBottom: 10 }}>
+            <Paper key={q} className="saved-word favorite-quote-card boutique-favorite-quote-card" style={{ padding: 18, marginBottom: 10 }}>
               <div className="saved-word-copy">「{q}」</div>
               <div className="saved-word-actions">
                 <QuietAction
@@ -3715,6 +3730,80 @@ export default function App() {
           .triple-card-preview, .triple-result-visuals { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
           .card-frame.compact { transform: scale(.88); transform-origin: top center; margin-bottom: -18px !important; }
         }
+        /* ===== v2.21 Boutique Journal + Journey + Favorites ===== */
+        .boutique-journal-screen, .boutique-dashboard-screen, .boutique-favorites-screen { position: relative; }
+        .boutique-subpage-hero {
+          position: relative; overflow: hidden; margin: -2px -4px 18px; padding: 20px 18px 16px; border-radius: 28px;
+          background: linear-gradient(145deg, rgba(255,251,246,.98), rgba(247,233,244,.88) 55%, rgba(235,231,250,.86));
+          border: 1px solid rgba(255,255,255,.92); box-shadow: 0 22px 50px -34px rgba(86,58,104,.42);
+        }
+        .boutique-subpage-hero::before { content:""; position:absolute; width:170px; height:170px; right:-58px; top:-70px; border-radius:50%; background:radial-gradient(circle,rgba(219,199,241,.58),transparent 70%); }
+        .boutique-subpage-hero::after { content:""; position:absolute; width:135px; height:135px; left:-52px; bottom:-72px; border-radius:50%; background:radial-gradient(circle,rgba(248,211,211,.45),transparent 70%); }
+        .boutique-journal-hero { background: linear-gradient(145deg, rgba(255,251,245,.98), rgba(249,230,238,.86) 52%, rgba(239,232,249,.88)); }
+        .boutique-dashboard-hero { background: linear-gradient(145deg, rgba(255,252,246,.98), rgba(238,234,251,.90) 48%, rgba(232,240,246,.88)); }
+        .boutique-favorites-hero { background: linear-gradient(145deg, rgba(255,251,246,.98), rgba(250,231,239,.90) 48%, rgba(239,230,249,.88)); }
+        .boutique-subpage-hero .section-title { position:relative; z-index:2; margin:0; padding-left:46px; }
+        .boutique-subpage-hero .section-title-kicker { font-size:11px; }
+        .boutique-subpage-hero .section-title-main { font-size:27px; color:#5C4568; }
+        .boutique-subpage-hero .section-title-note { max-width:96%; font-size:13.5px; color:#806B77; }
+        .boutique-subpage-hero .section-title-rule { width:70px; }
+        .boutique-subpage-mark { position:absolute; z-index:3; left:18px; top:25px; width:38px; height:38px; border-radius:15px; display:grid; place-items:center; color:#7D5A94; background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(245,230,250,.78)); border:1px solid rgba(213,177,226,.46); box-shadow:0 12px 24px -17px rgba(87,56,109,.42); }
+        .boutique-subpage-orbit { position:absolute; z-index:2; right:20px; top:18px; width:30px; height:30px; border-radius:50%; display:grid; place-items:center; color:${C.goldDeep}; border:1px solid rgba(208,169,96,.28); background:rgba(255,250,241,.58); }
+        .boutique-subpage-whisper { position:relative; z-index:2; margin:14px 0 0 46px; padding:9px 12px; border-radius:14px; font-family:${FONT_DISPLAY}; font-size:12.8px; line-height:1.7; color:#765F72; background:rgba(255,255,255,.48); border:1px solid rgba(255,255,255,.68); }
+
+        .boutique-journal-paper { border:1px solid rgba(212,171,113,.26)!important; background:linear-gradient(160deg,rgba(255,253,249,.96),rgba(249,237,244,.88))!important; box-shadow:0 22px 48px -34px rgba(92,63,94,.38)!important; }
+        .boutique-journal-paper::after { content:""; position:absolute; width:115px; height:115px; right:-40px; bottom:-52px; border-radius:50%; background:radial-gradient(circle,rgba(218,199,240,.30),transparent 70%); pointer-events:none; }
+        .boutique-journal-screen .compose-kicker { display:flex; align-items:center; gap:7px; color:#8B659B; }
+        .boutique-journal-screen .compose-kicker::before { content:"✦"; color:${C.goldDeep}; font-size:10px; }
+        .boutique-journal-screen .journal-mood { min-height:78px; background:linear-gradient(160deg,rgba(255,255,255,.96),rgba(255,247,243,.82)); border-color:rgba(217,177,124,.20); }
+        .boutique-journal-screen .journal-mood-on { background:linear-gradient(145deg,rgba(247,235,255,.98),rgba(255,246,235,.94)); border-color:rgba(139,94,162,.46); box-shadow:0 13px 26px -18px rgba(90,57,112,.48),inset 0 0 0 1px rgba(255,255,255,.86); }
+        .boutique-journal-screen .journal-field { min-height:150px; border-radius:20px; background:rgba(255,255,255,.72); border-color:rgba(184,146,173,.18); box-shadow:inset 0 1px 0 rgba(255,255,255,.72); }
+        .boutique-journal-screen .journal-save-row button { min-width:132px; background:linear-gradient(135deg,#7B5891,#A875AC)!important; box-shadow:0 13px 28px -16px rgba(92,57,114,.52)!important; }
+        .boutique-journal-screen .journal-entry { position:relative; overflow:hidden; border:1px solid rgba(213,174,116,.17); background:linear-gradient(155deg,rgba(255,255,255,.90),rgba(249,239,244,.72)); box-shadow:0 14px 32px -27px rgba(87,61,84,.34); }
+        .boutique-journal-screen .journal-entry::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(#C69A59,#A979A9); opacity:.72; }
+        .boutique-journal-screen .journal-entry-card { display:inline-flex; padding:4px 8px; border-radius:999px; background:rgba(246,235,251,.70); color:#7E5D8D; }
+
+        .boutique-stats-grid { gap:11px; }
+        .boutique-dashboard-screen .stat-card { min-height:145px; border:1px solid rgba(255,255,255,.86); background:linear-gradient(155deg,rgba(255,255,255,.94),rgba(249,239,246,.75)); box-shadow:0 18px 40px -30px rgba(81,58,88,.40); }
+        .boutique-dashboard-screen .stat-icon-shell { width:45px; height:45px; border-radius:16px; color:#7B5B90; background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(241,229,249,.84)); border-color:rgba(214,182,225,.38); }
+        .boutique-dashboard-screen .stat-en { color:#9A7BA4; }
+        .boutique-dashboard-screen .stat-value { font-size:28px; color:#60476C; }
+        .boutique-dashboard-screen .recurring-card { min-height:162px; border:1px solid rgba(204,165,102,.28); background:linear-gradient(145deg,rgba(246,237,252,.96),rgba(255,242,233,.88)); box-shadow:0 22px 48px -34px rgba(86,56,105,.44); }
+        .boutique-dashboard-screen .recurring-art { opacity:.86; filter:saturate(.96); }
+        .boutique-dashboard-screen .recurring-title { color:#674D72; font-size:18px; }
+        .boutique-dashboard-screen .dashboard-recent-item { position:relative; overflow:hidden; padding:15px 16px; background:linear-gradient(155deg,rgba(255,255,255,.92),rgba(245,239,249,.72)); border-color:rgba(210,177,218,.22); box-shadow:0 13px 30px -27px rgba(74,55,85,.34); }
+        .boutique-dashboard-screen .dashboard-recent-item::after { content:"✦"; position:absolute; right:14px; top:12px; color:rgba(187,143,77,.32); font-size:10px; }
+        .boutique-dashboard-screen .dashboard-recent-title { color:#624A6D; font-size:15.5px; }
+
+        .boutique-favorites-summary { gap:10px; }
+        .boutique-favorites-screen .favorite-summary-item { background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(246,232,245,.76)); border-color:rgba(211,175,219,.26); box-shadow:0 17px 38px -29px rgba(84,57,98,.40); }
+        .boutique-favorites-screen .favorite-summary-icon { border-radius:14px; color:#7B5893; background:linear-gradient(145deg,#FFFDF8,#F2E6F8); border-color:rgba(211,179,222,.36); }
+        .boutique-favorites-screen .favorite-card-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+        .boutique-favorite-card-item { display:flex!important; flex-direction:column; align-items:stretch!important; min-width:0; padding:12px 9px 10px!important; border:1px solid rgba(209,170,106,.22)!important; background:linear-gradient(160deg,rgba(255,253,248,.96),rgba(244,233,249,.84))!important; box-shadow:0 18px 38px -29px rgba(77,53,90,.46)!important; }
+        .boutique-favorite-card-item .favorite-card-visual { display:flex; justify-content:center; min-height:164px; }
+        .boutique-favorite-card-item .favorite-card-copy { padding-top:9px; text-align:center; }
+        .boutique-favorite-card-item .favorite-card-deck { font-size:10.5px; color:#9970A1; }
+        .boutique-favorite-card-item .favorite-card-name { font-size:17px; color:#60466C; }
+        .boutique-favorite-card-item .favorite-card-copy p { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:42px; font-size:12px; line-height:1.7; }
+        .boutique-favorite-card-item .favorite-card-actions { display:grid; gap:5px; border-top-color:rgba(122,91,116,.10); }
+        .boutique-favorite-card-item .favorite-card-actions .press { justify-content:center; width:100%; font-size:11.5px!important; padding:7px 4px!important; }
+        .boutique-favorite-quote-card { position:relative; border:1px solid rgba(211,169,106,.24)!important; background:linear-gradient(145deg,rgba(255,253,249,.96),rgba(249,234,241,.84),rgba(240,232,249,.82))!important; box-shadow:0 17px 38px -30px rgba(83,58,91,.38)!important; }
+        .boutique-favorite-quote-card::before { content:"❝"; position:absolute; right:15px; top:7px; font-family:serif; font-size:28px; color:rgba(144,98,157,.16); }
+        .boutique-favorite-quote-card .saved-word-copy { padding-right:20px; color:#624A68; }
+
+        @media (max-width:390px) {
+          .boutique-subpage-hero { padding:18px 14px 14px; }
+          .boutique-subpage-mark { left:14px; top:22px; width:36px; height:36px; }
+          .boutique-subpage-hero .section-title, .boutique-subpage-whisper { margin-left:0; padding-left:44px; }
+          .boutique-subpage-whisper { padding-top:8px; padding-bottom:8px; }
+          .boutique-favorite-card-item .favorite-card-actions .press { font-size:11px!important; }
+        }
+        @media (max-width:340px) {
+          .boutique-favorites-screen .favorite-card-list { grid-template-columns:1fr; }
+          .boutique-favorite-card-item { display:grid!important; grid-template-columns:96px 1fr!important; gap:10px; text-align:left; }
+          .boutique-favorite-card-item .favorite-card-copy { text-align:left; padding-top:0; }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
         }
