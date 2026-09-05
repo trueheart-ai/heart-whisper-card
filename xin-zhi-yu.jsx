@@ -113,7 +113,7 @@ const DECKS = [
   { key: "abundance", name: "豐盛信念", en: "Abundance", from: "#DDCFA6", to: "#F3EDDD" },
   { key: "release", name: "放下釋懷", en: "Release", from: C.sage, to: "#EEF1EC" },
   { key: "universe", name: "宇宙訊息", en: "Cosmos", from: "#B3B0C6", to: "#E8E6EF" },
-  { key: "elder", name: "有人一直愛著你", en: "Kinship", from: "#D9C6B4", to: "#F4EDE5" },
+  { key: "elder", name: "溫柔守候", en: "Kinship", from: "#D9C6B4", to: "#F4EDE5" },
 ];
 
 // 找不到時退回第一個牌組，避免資料對不上時整頁崩潰
