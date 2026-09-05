@@ -2273,18 +2273,9 @@ function RitualStage({ mode, deckKey, onComplete, recentIds = [] }) {
   const singleCard = mode !== "triple" ? result : null;
 
   return (
-    <div className="ritual-stage" style={{ position: "relative", minHeight: 400 }}>
+    <div className="ritual-stage" style={{ position: "relative", minHeight: mode === "triple" && stage === "revealed" ? 0 : 400 }}>
 
-      {mode === "triple" && stage === "revealed" && Array.isArray(result) ? (
-        <div className="triple-card-preview">
-          {result.map((c, index) => (
-            <div key={c.id} className="triple-card-slot">
-              <span className="triple-card-label">{["此刻", "放下", "前行"][index]}</span>
-              <CardFace card={c} flipped stage="revealed" compact showcase />
-            </div>
-          ))}
-        </div>
-      ) : (
+      {!(mode === "triple" && stage === "revealed") && (
         <CardFace
           card={singleCard}
           flipped={stage === "revealed" || (mode === "triple" && stage === "flipping")}
@@ -2542,14 +2533,6 @@ function DrawScreen({ presetMode, presetDeck, clearPreset, addJournalDraft, rece
 
       {result && mode === "triple" && Array.isArray(result) && (
         <div className="triple-result" style={{ animation: "riseIn 0.7s ease" }}>
-          <div className="triple-result-visuals">
-            {result.map((card, i) => (
-              <div key={card.id} className="triple-result-card">
-                <span>{["此刻", "放下", "前行"][i]}</span>
-                <CardFace card={card} flipped stage="revealed" compact showcase />
-              </div>
-            ))}
-          </div>
           {[
             { en: "Now", label: "我正在經歷什麼", card: result[0], text: (c) => c.message },
             { en: "Let go", label: "我需要放下什麼", card: result[1], text: (c) => c.reminder },
@@ -3401,6 +3384,7 @@ export default function App() {
         .triple-result-visuals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
         .triple-result-card { text-align: center; min-width: 0; display: flex; flex-direction: column; align-items: center; }
         .triple-result-card > span { display: inline-flex; align-items: center; justify-content: center; min-width: 62px; margin-bottom: 9px; padding: 6px 12px; border-radius: 999px; background: linear-gradient(145deg, rgba(255,255,255,.96), rgba(249,240,234,.88)); border: 1px solid rgba(232,214,194,.92); box-shadow: 0 10px 22px -18px rgba(126,96,93,.34); font-family: ${FONT_BODY}; font-size: 12px; font-weight: 600; color: ${C.ink}; letter-spacing: .08em; white-space: nowrap; }
+        .triple-result { margin-top: 4px; }
         .triple-guidance-kicker { display: flex; align-items: baseline; gap: 8px; color: ${C.goldDeep}; }
         .triple-guidance-kicker span { font-family: ${FONT_BODY}; font-size: 12px; text-transform: none; letter-spacing: .03em; color: ${C.inkFaint}; }
         .triple-guidance-title { margin-top: 8px; font-family: ${FONT_DISPLAY}; font-size: 19px; color: ${C.ink}; }
