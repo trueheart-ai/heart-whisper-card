@@ -9,25 +9,17 @@
 <style>
   html, body { margin: 0; padding: 0; min-height: 100%; background: #F5EADF; }
   #root { min-height: 100vh; }
-  #boot {
+  .load-error {
     min-height: 100vh; display: grid; place-items: center; padding: 24px;
     font-family: "Noto Sans TC", system-ui, sans-serif; color: #806B62;
-    background:
-      radial-gradient(circle at 10% 8%, rgba(247,216,209,.72), transparent 28rem),
-      radial-gradient(circle at 92% 14%, rgba(218,202,240,.72), transparent 26rem),
-      linear-gradient(180deg, #FFF9F3, #F3E6D8);
   }
-  .boot-card {
-    width: min(310px, 88vw); padding: 34px 24px; text-align: center; border-radius: 28px;
-    background: rgba(255,252,248,.72); border: 1px solid rgba(255,255,255,.88);
-    box-shadow: 0 20px 60px -34px rgba(102,73,91,.42); backdrop-filter: blur(12px);
+  .load-error-card {
+    width: min(310px, 88vw); padding: 30px 22px; text-align: center; border-radius: 24px;
+    background: rgba(255,252,248,.92); border: 1px solid rgba(255,255,255,.9);
+    box-shadow: 0 20px 60px -34px rgba(102,73,91,.42);
   }
-  .boot-moon {
-    width: 42px; height: 42px; margin: 0 auto 15px; border: 2px solid #C99B50; border-right-color: transparent;
-    border-radius: 50%; transform: rotate(-16deg); opacity: .78;
-  }
-  .boot-title { font-family: "Noto Serif TC", serif; font-size: 22px; letter-spacing: .18em; margin-left: .18em; color: #634C42; }
-  .boot-copy { margin-top: 9px; font-size: 13.5px; line-height: 1.8; color: #9A8378; white-space: pre-line; }
+  .load-error-title { font-family: "Noto Serif TC", serif; font-size: 21px; color: #634C42; }
+  .load-error-copy { margin-top: 10px; font-size: 13.5px; line-height: 1.8; color: #9A8378; white-space: pre-line; }
 </style>
 
 <!-- 瀏覽器看不懂 React 這類裸模組名，import map 負責把它們對應到實際網址 -->
@@ -47,11 +39,13 @@
 <script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
 </head>
 <body>
-  <div id="root"><div id="boot"><div class="boot-card"><div class="boot-moon"></div><div class="boot-title">心之語</div><div class="boot-copy">正在替今天留一點安靜的時間……</div></div></div></div>
+  <div id="root"></div>
 
   <script type="module">
-    const boot = document.getElementById("boot");
-    const fail = (msg) => { if (boot) boot.innerHTML = `<div class="boot-card"><div class="boot-title">載入失敗</div><div class="boot-copy">${String(msg)}\n\n請重新整理頁面，或按 F12 查看主控台。</div></div>`; };
+    const rootEl = document.getElementById("root");
+    const fail = (msg) => {
+      if (rootEl) rootEl.innerHTML = `<div class="load-error"><div class="load-error-card"><div class="load-error-title">載入失敗</div><div class="load-error-copy">${String(msg)}\n\n請重新整理頁面。</div></div></div>`;
+    };
 
     try {
       /* 為什麼要自己抓檔案再轉譯，而不是用 <script type="text/babel" src="...">：
@@ -76,7 +70,7 @@
       ]);
       URL.revokeObjectURL(url);
 
-      createRoot(document.getElementById("root")).render(React.createElement(App));
+      createRoot(rootEl).render(React.createElement(App));
     } catch (e) {
       console.error(e);
       fail(e.message || String(e));
