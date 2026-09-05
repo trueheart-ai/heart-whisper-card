@@ -2154,10 +2154,10 @@ function Paper({ children, style, tone, ...rest }) {
    ============================================================ */
 function CardFace({ card, flipped, stage, compact = false }) {
   const deck = card ? deckByKey(card.deck) : DECKS[0];
-  const focusing = stage === "breathe" || stage === "focus";
+  const focusing = stage === "flipping";
   const faceArt = card ? deckFaceArt(card.deck) : ASSETS.cardFaceCream;
-  const width = compact ? 98 : 232;
-  const height = compact ? 164 : 386;
+  const width = compact ? 102 : 232;
+  const height = compact ? 170 : 386;
   const radius = compact ? 15 : 24;
 
   const faceBase = {
@@ -2191,7 +2191,7 @@ function CardFace({ card, flipped, stage, compact = false }) {
           transition: "box-shadow 0.7s ease",
           border: "1px solid rgba(218,184,111,0.42)",
         }}>
-          <img src={ASSETS.cardBackDream} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", transform: "scale(1.018)", opacity: 1 }} />
+          <img src={ASSETS.cardBackDream} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: compact ? "center center" : "center center", transform: compact ? "scale(1.08)" : "scale(1.018)", opacity: 1 }} />
           <div className="card-back-overlay" />
           <div className="card-inner-frame" style={{ inset: compact ? 5 : 8, borderRadius: compact ? 11 : 18 }} />
           <div className="card-inner-frame second" style={{ inset: compact ? 9 : 14, borderRadius: compact ? 9 : 15 }} />
@@ -2204,7 +2204,7 @@ function CardFace({ card, flipped, stage, compact = false }) {
           boxShadow: compact ? "0 14px 30px -18px rgba(89,63,88,0.38)" : "0 24px 54px -24px rgba(89,63,88,0.38)",
           border: "1px solid rgba(255,255,255,0.9)",
         }}>
-          <img src={faceArt} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.96 }} />
+          <img src={faceArt} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: compact ? "center 18%" : "center center", transform: compact ? "scale(1.1)" : "scale(1)", opacity: 0.96 }} />
           <div className="card-face-wash" />
           <div className="card-inner-frame light" style={{ inset: compact ? 6 : 10, borderRadius: compact ? 12 : 20 }} />
           <div className="card-inner-frame soft" style={{ inset: compact ? 11 : 18, borderRadius: compact ? 9 : 16 }} />
@@ -2217,7 +2217,7 @@ function CardFace({ card, flipped, stage, compact = false }) {
               <div className="card-face-head">
                 <div className="card-face-chip" style={{ background: `linear-gradient(135deg, ${deck.from}B8, rgba(255,255,255,.88))` }}>
                   <span className="card-face-chip-dot" style={{ background: `linear-gradient(135deg, ${deck.from}, ${deck.to})` }} />
-                  <span>{compact ? deck.name.slice(0, 4) : deck.name}</span>
+                  <span>{deck.name}</span>
                 </div>
                 {!compact && <div className="card-face-mini-mark"><CrescentMark size={20} /></div>}
               </div>
@@ -2244,23 +2244,19 @@ function CardFace({ card, flipped, stage, compact = false }) {
    抽卡儀式
    ============================================================ */
 function RitualStage({ mode, deckKey, onComplete, recentIds = [] }) {
-  const [stage, setStage] = useState("idle"); // idle, dimming, breathe, focus, flipping, revealed
+  const [stage, setStage] = useState("idle"); // idle, flipping, revealed
   const [result, setResult] = useState(null);
   const runningRef = useRef(false);
 
   const runRitual = async () => {
-    if (runningRef.current) return; // 防連點重複觸發整套動畫
+    if (runningRef.current) return; // 防連點重複觸發抽卡動畫
     runningRef.current = true;
     setResult(null);
 
-    setStage("dimming");
-    await sleep(500);
-    setStage("breathe");
-    await sleep(1600);
-    setStage("focus");
-    await sleep(1600);
+    // v2.19.14：移除「深呼吸／想著現在最在意的事」等待環節。
+    // 點下按鈕後直接進入翻牌，讓抽卡節奏更俐落。
     setStage("flipping");
-    await sleep(700);
+    await sleep(520);
 
     let drawn;
     const pool = poolForDeck(deckKey);
@@ -2268,18 +2264,11 @@ function RitualStage({ mode, deckKey, onComplete, recentIds = [] }) {
     else drawn = drawUnique(pool, 1, recentIds)[0];
 
     setResult(drawn);
-    await sleep(500);
+    await sleep(120);
     setStage("revealed");
     runningRef.current = false;
     onComplete && onComplete(drawn);
   };
-
-  const stageText = {
-    idle: null, dimming: null,
-    breathe: "深呼吸",
-    focus: "想著你現在最在意的事",
-    flipping: null, revealed: null,
-  }[stage];
 
   const singleCard = mode !== "triple" ? result : null;
 
@@ -2301,16 +2290,6 @@ function RitualStage({ mode, deckKey, onComplete, recentIds = [] }) {
           flipped={stage === "revealed" || (mode === "triple" && stage === "flipping")}
           stage={stage}
         />
-      )}
-
-      {stageText && (
-        <div style={{
-          textAlign: "center", marginTop: 30, fontFamily: FONT_DISPLAY,
-          color: C.inkSoft, fontSize: 16.5, letterSpacing: "0.4em", paddingLeft: "0.4em",
-          animation: "fadeIn 0.9s ease",
-        }}>
-          {stageText}
-        </div>
       )}
 
       {stage === "idle" && (
@@ -3319,10 +3298,10 @@ export default function App() {
         .hero-heading { position: relative; z-index: 2; margin: 0; font-family: ${FONT_DISPLAY}; font-size: 32px; line-height: 1.52; font-weight: 500; letter-spacing: .06em; color: ${C.ink}; }
         .hero-rule { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; gap: 8px; margin: 9px 0 5px; }
         .hero-rule span { width: 35px; height: 1px; background: rgba(191,144,71,.28); }
-        .hero-art-wrap { position: relative; width: 286px; max-width: 90%; margin: 6px auto 0; min-height: 238px; display: flex; align-items: flex-end; justify-content: center; }
-        .hero-art-wrap img { width: 100%; height: auto; position: relative; z-index: 1; opacity: .82; filter: drop-shadow(0 12px 17px rgba(89,67,94,.12)); }
+        .hero-art-wrap { position: relative; width: 286px; max-width: 90%; margin: 8px auto 0; height: 212px; min-height: 212px; overflow: hidden; display: flex; align-items: flex-end; justify-content: center; }
+        .hero-art-wrap img { position: absolute; left: 50%; bottom: -4px; transform: translateX(-50%) scale(1.08); width: 108%; max-width: none; height: 100%; object-fit: contain; object-position: center bottom; z-index: 1; opacity: .84; filter: drop-shadow(0 12px 17px rgba(89,67,94,.12)); }
         .hero-art-glow { position: absolute; inset: 12% 7% 2%; z-index: 0; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.68), transparent 73%); filter: blur(8px); pointer-events: none; }
-        .hero-copy-wrap { position: absolute; z-index: 5; left: 50%; top: 47%; transform: translate(-50%, -50%); display: inline-flex; width: max-content; max-width: calc(100% - 34px); padding: 2px 4px; border-radius: 0; background: transparent; border: 0; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+        .hero-copy-wrap { position: absolute; z-index: 5; left: 50%; top: 45%; transform: translate(-50%, -50%); display: inline-flex; width: max-content; max-width: calc(100% - 34px); padding: 2px 4px; border-radius: 0; background: transparent; border: 0; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
         .hero-copy { margin: 0; font-family: ${FONT_DISPLAY}; font-size: 15px; line-height: 1.9; color: ${C.ink}; font-weight: 600; letter-spacing: .035em; text-shadow: 0 1px 0 rgba(255,255,255,.96), 0 2px 12px rgba(255,255,255,.92), 0 0 22px rgba(255,250,244,.92); white-space: nowrap; }
 
         .panel-heading-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 13px; }
@@ -3399,16 +3378,19 @@ export default function App() {
         .card-face-mini-mark { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; color: rgba(180,142,82,.74); background: rgba(255,255,255,.42); border: 1px solid rgba(255,255,255,.58); }
         .card-face-plaque { margin-top: auto; padding: 18px 16px 15px; border-radius: 20px; background: linear-gradient(180deg, rgba(255,255,255,.84), rgba(255,250,245,.70)); border: 1px solid rgba(255,255,255,.82); box-shadow: 0 20px 34px -28px rgba(102,76,83,.36), inset 0 1px 0 rgba(255,255,255,.52); backdrop-filter: blur(8px); }
         .card-frame.compact .card-face-plaque { padding: 10px 7px 8px; border-radius: 12px; }
+        .card-frame.compact .card-face-head { justify-content: center; margin-bottom: 7px; }
+        .card-frame.compact .card-face-chip { gap: 4px; padding: 4px 6px; max-width: 100%; font-size: 9px; line-height: 1; white-space: nowrap; }
+        .card-frame.compact .card-face-chip-dot { width: 6px; height: 6px; }
         .card-face-title { font-family: ${FONT_DISPLAY}; font-size: 30px; font-weight: 500; line-height: 1.45; letter-spacing: .09em; text-align: center; color: ${C.ink}; text-shadow: 0 1px 0 rgba(255,255,255,.58); }
-        .card-frame.compact .card-face-title { font-size: 15.5px; line-height: 1.45; letter-spacing: .05em; }
+        .card-frame.compact .card-face-title { font-size: 15px; line-height: 1.42; letter-spacing: .04em; }
         .card-face-rule { display: flex; align-items: center; justify-content: center; gap: 7px; }
         .card-face-rule span { width: 25px; height: 1px; background: rgba(181,139,74,.30); }
         .card-face-keywords { font-family: ${FONT_BODY}; font-size: 12px; letter-spacing: .08em; font-weight: 400; color: rgba(94,70,62,0.70); text-align: center; line-height: 1.8; }
-        .card-frame.compact .card-face-keywords { font-size: 7.5px; letter-spacing: .03em; line-height: 1.55; }
+        .card-frame.compact .card-face-keywords { font-size: 7.1px; letter-spacing: .02em; line-height: 1.5; }
         .card-face-message { margin-top: 11px; font-family: ${FONT_BODY}; font-size: 12.5px; line-height: 1.75; color: ${C.inkSoft}; text-align: center; }
-        .triple-card-preview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; align-items: start; justify-items: center; }
+        .triple-card-preview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; align-items: start; justify-items: center; }
         .triple-card-slot { min-width: 0; text-align: center; }
-        .triple-card-label { display: inline-block; margin-bottom: 9px; padding: 5px 9px; border-radius: 999px; background: rgba(255,255,255,.62); border: 1px solid rgba(255,255,255,.76); font-family: ${FONT_BODY}; font-size: 11.5px; color: ${C.inkSoft}; }
+        .triple-card-label { display: inline-block; margin-bottom: 7px; padding: 5px 8px; border-radius: 999px; background: rgba(255,255,255,.62); border: 1px solid rgba(255,255,255,.76); font-family: ${FONT_BODY}; font-size: 11px; color: ${C.inkSoft}; white-space: nowrap; }
         .triple-result-visuals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
         .triple-result-card { text-align: center; min-width: 0; }
         .triple-result-card > span { display: inline-block; margin-bottom: 8px; font-family: ${FONT_BODY}; font-size: 11.5px; color: ${C.inkSoft}; }
@@ -3620,8 +3602,8 @@ export default function App() {
           .phone-scroll { padding-left: 14px; padding-right: 14px; }
           .dream-hero { padding: 23px 14px 4px; }
           .hero-heading { font-size: 30px; }
-          .hero-art-wrap { width: 272px; max-width: 92%; min-height: 224px; margin-top: 3px; }
-          .hero-copy-wrap { top: 45%; padding: 2px 4px; max-width: calc(100% - 22px); }
+          .hero-art-wrap { width: 272px; max-width: 92%; height: 202px; min-height: 202px; margin-top: 4px; }
+          .hero-copy-wrap { top: 44%; padding: 2px 4px; max-width: calc(100% - 22px); }
           .hero-copy { font-size: 15.5px; line-height: 1.86; }
           .mood-grid, .journal-mood-grid { gap: 6px; }
           .mood-card { min-height: 80px; padding-left: 2px; padding-right: 2px; }
@@ -3636,8 +3618,8 @@ export default function App() {
         @media (max-width: 360px) {
           .deck-grid-always { gap: 4px; }
           .deck-chip { height: 43px; font-size: 9.8px; padding-left: 2px; padding-right: 2px; }
-          .hero-art-wrap { width: 252px; min-height: 210px; }
-          .hero-copy-wrap { top: 44%; padding: 2px 4px; }
+          .hero-art-wrap { width: 252px; height: 190px; min-height: 190px; }
+          .hero-copy-wrap { top: 43%; padding: 2px 4px; }
           .hero-copy { font-size: 15px; line-height: 1.82; white-space: normal; min-width: 190px; }
         }
         @media (max-width: 340px) {
@@ -3645,8 +3627,8 @@ export default function App() {
           .seg-item { font-size: 11.5px; padding-inline: 3px; }
           .draw-control-label { display: none; }
           .stats-grid { grid-template-columns: 1fr; }
-          .triple-card-preview, .triple-result-visuals { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
-          .card-frame.compact { transform: scale(.88); transform-origin: top center; margin-bottom: -18px !important; }
+          .triple-card-preview, .triple-result-visuals { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; }
+          .card-frame.compact { transform: scale(.92); transform-origin: top center; margin-bottom: -10px !important; }
         }
         @media (prefers-reduced-motion: reduce) {
           *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
