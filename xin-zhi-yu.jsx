@@ -2156,9 +2156,9 @@ function CardFace({ card, flipped, stage, compact = false }) {
   const deck = card ? deckByKey(card.deck) : DECKS[0];
   const focusing = stage === "breathe" || stage === "focus";
   const faceArt = card ? deckFaceArt(card.deck) : ASSETS.cardFaceCream;
-  const width = compact ? 98 : 214;
-  const height = compact ? 164 : 356;
-  const radius = compact ? 15 : 23;
+  const width = compact ? 98 : 232;
+  const height = compact ? 164 : 386;
+  const radius = compact ? 15 : 24;
 
   const faceBase = {
     position: "absolute", inset: 0, borderRadius: radius, backfaceVisibility: "hidden",
@@ -2502,50 +2502,47 @@ function DrawScreen({ presetMode, presetDeck, clearPreset, addJournalDraft, rece
   };
 
   const restart = () => { setResult(null); setRunKey((k) => k + 1); };
-  const activeDeck = deckByKey(deckKey);
 
   return (
     <div className="screen-block draw-screen">
       <SectionTitle en="Draw a card" title="給自己抽一張牌" note={result ? "把抽到的話慢慢讀完，不需要立刻得到答案。" : "選一種方式，讓今天的心安靜一下。"} />
 
       {!result && (
-        <>
-          <div className="seg" role="group" aria-label="抽卡方式">
-            {modes.map((m) => (
-              <button key={m.key} type="button" onClick={() => { setMode(m.key); setResult(null); }}
-                aria-pressed={mode === m.key}
-                className={mode === m.key ? "seg-item seg-on" : "seg-item"}>
-                {m.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="deck-heading-row">
-            <div>
-              <div className="deck-label">Choose a deck</div>
-              <div className="deck-selected">現在選擇：{activeDeck.name}</div>
-            </div>
-            
-          </div>
-
-          <div className="deck-rail" role="group" aria-label="牌組">
-            {DECKS.map((d) => {
-              const on = deckKey === d.key;
-              return (
-                <button key={d.key} type="button" onClick={() => setDeckKey(d.key)}
-                  className={on ? "press deck-chip deck-chip-on" : "press deck-chip"}
-                  aria-pressed={on}>
-                  <span className="deck-chip-swatch" style={{ background: `linear-gradient(140deg, ${d.from}, ${d.to})` }} />
-                  <span>{d.name}</span>
+        <div className="draw-controls-compact">
+          <div className="draw-mode-row">
+            <span className="draw-control-label">抽卡方式</span>
+            <div className="seg compact-seg" role="group" aria-label="抽卡方式">
+              {modes.map((m) => (
+                <button key={m.key} type="button" onClick={() => { setMode(m.key); setResult(null); }}
+                  aria-pressed={mode === m.key}
+                  className={mode === m.key ? "seg-item seg-on" : "seg-item"}>
+                  {m.label}
                 </button>
-              );
-            })}
+              ))}
+            </div>
           </div>
-        </>
+
+          <div className="deck-picker-inline">
+            <div className="deck-picker-title">選擇牌組</div>
+            <div className="deck-grid-always" role="group" aria-label="牌組">
+              {DECKS.map((d) => {
+                const on = deckKey === d.key;
+                return (
+                  <button key={d.key} type="button" onClick={() => setDeckKey(d.key)}
+                    className={on ? "press deck-chip deck-chip-on" : "press deck-chip"}
+                    aria-pressed={on} title={d.name}>
+                    <span className="deck-chip-swatch" style={{ background: `linear-gradient(140deg, ${d.from}, ${d.to})` }} />
+                    <span>{d.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       )}
 
       {!result && (
-        <Paper className="ritual-paper" style={{ padding: "24px 18px 20px", marginTop: 20 }}>
+        <Paper className="ritual-paper" style={{ padding: "18px 12px 16px", marginTop: 9 }}>
           <RitualStage
             key={runKey}
             mode={mode} deckKey={deckKey}
@@ -3355,22 +3352,25 @@ export default function App() {
         .field-night::placeholder { color: rgba(239,234,227,.34); }
         .field-night:focus { border-color: rgba(221,193,235,.45); background: rgba(255,255,255,.07); }
 
-        .seg { display: flex; gap: 6px; padding: 5px; border: 1px solid rgba(255,255,255,.78); background: rgba(255,255,255,.50); border-radius: 999px; box-shadow: 0 10px 28px -22px rgba(80,56,74,.45); }
-        .seg-item { flex: 1; min-width: 0; border: none; background: transparent; cursor: pointer; padding: 10px 6px; border-radius: 999px; font-family: ${FONT_BODY}; font-size: 14px; white-space: nowrap; letter-spacing: .02em; color: ${C.inkSoft}; transition: all .3s ease; }
-        .seg-on { color: #FFFDF8; background: linear-gradient(135deg, #4B3429, #6B4939); box-shadow: 0 8px 20px -13px rgba(78,50,38,.58); }
+        .draw-controls-compact { display: grid; gap: 8px; margin-top: -2px; }
+        .draw-mode-row { display: flex; align-items: center; gap: 8px; min-width: 0; }
+        .draw-control-label { flex: 0 0 auto; font-family: ${FONT_BODY}; font-size: 11px; font-weight: 600; letter-spacing: .04em; color: ${C.inkFaint}; }
+        .seg { display: flex; gap: 3px; padding: 3px; border: 1px solid rgba(255,255,255,.82); background: rgba(255,255,255,.54); border-radius: 999px; box-shadow: 0 8px 24px -20px rgba(80,56,74,.42); }
+        .compact-seg { flex: 1; min-width: 0; }
+        .seg-item { flex: 1; min-width: 0; border: none; background: transparent; cursor: pointer; padding: 7px 5px; border-radius: 999px; font-family: ${FONT_BODY}; font-size: 12px; font-weight: 500; white-space: nowrap; letter-spacing: .01em; color: ${C.inkSoft}; transition: all .25s ease; }
+        .seg-on { color: #FFFDF8; background: linear-gradient(135deg, #5B3E31, #765343); box-shadow: 0 7px 17px -12px rgba(78,50,38,.62); }
 
-        .deck-heading-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin: 23px 0 10px; }
-        .deck-selected { margin-top: 4px; font-family: ${FONT_BODY}; font-size: 13.5px; color: ${C.inkSoft}; }
-        .deck-scroll-hint { font-family: ${FONT_BODY}; font-size: 11px; color: ${C.inkFaint}; white-space: nowrap; }
-        .deck-rail { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; overflow: visible; padding: 2px 0 4px; margin: 0; }
-        .deck-rail::-webkit-scrollbar { display: none; }
-        .deck-chip { min-width: 0; min-height: 42px; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 7px; border: 1px solid rgba(140,108,95,.12); background: rgba(255,255,255,.64); border-radius: 15px; padding: 8px 9px; cursor: pointer; font-family: ${FONT_BODY}; font-size: 13px; line-height: 1.35; white-space: normal; text-align: center; color: ${C.inkSoft}; box-shadow: 0 8px 20px -18px rgba(85,61,72,.42); }
-        .deck-chip-on { border-color: rgba(204,158,75,.58); background: rgba(255,249,236,.92); color: ${C.ink}; box-shadow: 0 10px 22px -16px rgba(186,136,57,.48); }
-        .deck-chip-swatch { width: 11px; height: 11px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(91,68,60,.08), 0 2px 5px rgba(91,68,60,.07); }
-        .ritual-paper { overflow: visible !important; background: radial-gradient(circle at 50% 28%, rgba(219,203,239,.23), transparent 42%), linear-gradient(160deg, rgba(255,255,255,.82), rgba(255,248,241,.68)) !important; }
+        .deck-picker-inline { padding: 7px 8px 8px; border-radius: 15px; background: linear-gradient(150deg, rgba(255,255,255,.68), rgba(247,241,249,.56)); border: 1px solid rgba(255,255,255,.78); box-shadow: 0 10px 24px -24px rgba(87,61,74,.42); }
+        .deck-picker-title { margin: 0 0 6px 1px; font-family: ${FONT_BODY}; font-size: 10.5px; font-weight: 600; letter-spacing: .06em; color: ${C.inkFaint}; }
+        .deck-grid-always { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px; }
+        .deck-chip { min-width: 0; height: 44px; width: 100%; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border: 1px solid rgba(140,108,95,.10); background: rgba(255,255,255,.62); border-radius: 11px; padding: 4px 3px; cursor: pointer; font-family: ${FONT_BODY}; font-size: 10.5px; line-height: 1.12; white-space: normal; text-align: center; color: ${C.inkSoft}; box-shadow: 0 6px 14px -15px rgba(85,61,72,.38); }
+        .deck-chip-on { border-color: rgba(204,158,75,.54); background: linear-gradient(155deg, rgba(255,250,239,.98), rgba(246,239,251,.92)); color: ${C.ink}; box-shadow: 0 7px 17px -14px rgba(186,136,57,.38), inset 0 0 0 1px rgba(225,191,126,.12); }
+        .deck-chip-swatch { flex: 0 0 auto; width: 8px; height: 8px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(91,68,60,.07); }
+
+        .ritual-paper { overflow: visible !important; background: radial-gradient(circle at 50% 34%, rgba(215,197,238,.28), transparent 38%), linear-gradient(160deg, rgba(255,255,255,.84), rgba(255,248,241,.70)) !important; border-color: rgba(255,255,255,.92) !important; box-shadow: 0 20px 50px -34px rgba(91,67,107,.42) !important; }
         .ritual-stage { overflow: visible; }
         .card-frame { position: relative; }
-        .card-frame-aura { position: absolute; inset: -16px; border-radius: 34px; filter: blur(18px); opacity: .85; pointer-events: none; z-index: 0; }
+        .card-frame-aura { position: absolute; inset: -22px; border-radius: 38px; filter: blur(22px); opacity: .92; pointer-events: none; z-index: 0; }
         .card-frame-aura.compact { inset: -8px; border-radius: 20px; filter: blur(10px); }
         .card-back-overlay { position: absolute; inset: 0; background: linear-gradient(145deg, rgba(255,255,255,.22), transparent 24%, transparent 68%, rgba(91,61,125,.10)); box-shadow: inset 0 0 28px rgba(83,57,112,.06); }
         .card-inner-frame { position: absolute; border: 1px solid rgba(232,205,143,.72); box-shadow: inset 0 0 0 1px rgba(255,255,255,.34); pointer-events: none; }
@@ -3504,7 +3504,7 @@ export default function App() {
         .night-intro-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 18% 18%, rgba(255,255,255,.62) 0 1px, transparent 1.4px), radial-gradient(circle at 72% 12%, rgba(255,231,170,.52) 0 1px, transparent 1.5px), radial-gradient(circle at 84% 42%, rgba(255,255,255,.45) 0 1px, transparent 1.4px), radial-gradient(circle at 26% 58%, rgba(255,255,255,.38) 0 1px, transparent 1.4px); background-size: 82px 92px, 123px 107px, 98px 118px, 140px 133px; opacity: .48; }
         .night-star-field { position: absolute; inset: 23px 27px auto; display: flex; justify-content: space-between; }
         .night-crescent { display: grid; place-items: center; margin: 35px auto 19px; filter: drop-shadow(0 10px 25px rgba(230,193,103,.16)); }
-        .night-intro-title { font-family: ${FONT_DISPLAY}; font-size: 17.5px; font-weight: 500; letter-spacing: .045em; color: ${NIGHT_TEXT}; }
+        .night-intro-title { margin: 0 0 30px; font-family: ${FONT_DISPLAY}; font-size: 17.5px; font-weight: 500; letter-spacing: .045em; color: ${NIGHT_TEXT}; }
         .night-intro-copy { margin: 9px 0 23px; font-family: ${FONT_BODY}; font-size: 14px; line-height: 1.95; color: ${NIGHT_SOFT}; }
         .night-card-step { padding-top: 5px; }
         .night-image-card-halo { position: relative; padding: 6px 0 10px; }
@@ -3592,7 +3592,7 @@ export default function App() {
           .mood-label { font-size: 13.5px; }
           .quote-kicker { font-size: 13.5px; }
           .deck-scroll-hint { font-size: 12px; }
-          .deck-chip { font-size: 13.5px; }
+          .deck-chip { font-size: 10.5px; }
           .triple-card-label, .triple-result-card > span { font-size: 12.5px; }
           .triple-guidance-kicker span { font-size: 13px; }
           .deck-ribbon, .card-detail-keywords { font-size: 12.5px; }
@@ -3626,20 +3626,24 @@ export default function App() {
           .mood-grid, .journal-mood-grid { gap: 6px; }
           .mood-card { min-height: 80px; padding-left: 2px; padding-right: 2px; }
           .mood-label, .journal-mood > span { font-size: 13px; }
-          .deck-rail { margin: 0; }
+          .draw-mode-row { gap: 8px; }
+          .draw-control-label { font-size: 11.5px; }
           .section-title-main { font-size: 25px; }
           .favorite-card-item { grid-template-columns: 94px minmax(0, 1fr); gap: 10px; }
           .favorite-card-visual .card-frame.compact { transform: scale(.9); transform-origin: left center; margin-right: -10px !important; }
           .favorite-card-actions .press { padding-left: 5px !important; padding-right: 5px !important; }
         }
         @media (max-width: 360px) {
+          .deck-grid-always { gap: 4px; }
+          .deck-chip { height: 43px; font-size: 9.8px; padding-left: 2px; padding-right: 2px; }
           .hero-art-wrap { width: 252px; min-height: 210px; }
           .hero-copy-wrap { top: 44%; padding: 2px 4px; }
           .hero-copy { font-size: 15px; line-height: 1.82; white-space: normal; min-width: 190px; }
         }
         @media (max-width: 340px) {
           .mood-grid, .journal-mood-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-          .seg-item { font-size: 13px; padding-inline: 3px; }
+          .seg-item { font-size: 11.5px; padding-inline: 3px; }
+          .draw-control-label { display: none; }
           .stats-grid { grid-template-columns: 1fr; }
           .triple-card-preview, .triple-result-visuals { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
           .card-frame.compact { transform: scale(.88); transform-origin: top center; margin-bottom: -18px !important; }
